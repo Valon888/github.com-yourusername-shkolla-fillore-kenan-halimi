@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shto Lëndët - Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .card-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+        }
+        .card h2 {
+            margin-bottom: 15px;
+        }
+        .card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .grade-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .grade-form {
+            display: inline-flex;
+            align-items: center;
+        }
+        .grade-form input[type="text"] {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .subject-list {
+            margin-top: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .subject-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .subject-list li {
+            background: #e3f2fd;
+            margin-bottom: 8px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .subject-list .remove-btn {
+            background: #e53935;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .subject-list .remove-btn:hover {
+            background: #b71c1c;
+        }
+        .card-margin-top {
+            margin-top: 32px;
+        }
+        .teacher-list {
+            text-align: left;
+            max-width: 320px;
+            margin: 0 auto 0 auto;
+            padding-left: 18px;
+        }
+        .kosovo-subjects-list {
+            text-align: left;
+            max-width: 320px;
+            margin: 0 auto 18px auto;
+            padding-left: 18px;
+        }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Shto Lëndë të Re</h1>
+            <ul class="kosovo-subjects-list">
+                <li>Matematikë</li>
+                <li>Gjuhë Shqipe</li>
+                <li>Shkencat Natyrore</li>
+                <li>Edukatë Qytetare</li>
+                <li>Gjuhë Angleze</li>
+                <li>Histori</li>
+                <li>Gjeografi
+                    <ul class="kosovo-subjects-list">
+                        <li>Edukatë Muzikore</li>
+                        <li>Edukatë Fizike</li>
+                        <li>Edukatë Figurative</li>
+                        <li>Teknologji dhe Informatikë</li>
+                        <li>Edukatë për Shoqërinë</li>
+                    </ul>
+                </li>
+            </ul>
+            <h2>Shto Lëndë të Re</h2>
+            <form id="add-subject-form" class="grade-form" autocomplete="off" onsubmit="return false;">
+                <input type="text" id="subject-name" placeholder="Emri i lëndës" required>
+                <input type="submit" value="Shto Lëndë">
+            </form>
+        </section>
+        <section class="subject-list">
+            <ul class="teacher-list">
+                <li>Arbenita Gashi – Gjuhë Shqipe</li>
+                <li>Besnik Krasniqi – Matematikë</li>
+                <li>Vjollca Berisha – Shkencat Natyrore</li>
+                <li>Shqipe Dervishi – Gjuhë Angleze</li>
+                <li>Mentor Hoxha – Edukatë Fizike</li>
+                <li>Albulena Shala – Edukatë Muzikore</li>
+                <li>Ilir Morina – Teknologji dhe Informatikë</li>
+                <li>Valbona Kelmendi – Histori</li>
+                <li>Rinor Dema – Edukatë Figurative</li>
+            </ul>
+        </section>
+    </main>
+    <script>
+        // Ruaj lëndët në localStorage
+        function getSubjects() {
+            return JSON.parse(localStorage.getItem('subjects') || '[]');
+        }
+        function saveSubjects(subjects) {
+            localStorage.setItem('subjects', JSON.stringify(subjects));
+        }
+        function renderSubjects() {
+            const ul = document.getElementById('subjects-ul');
+            ul.innerHTML = '';
+            const subjects = getSubjects();
+            if (subjects.length === 0) {
+                ul.innerHTML = '<li style="color:#888;">Asnjë lëndë e shtuar.</li>';
+                return;
+            }
+            subjects.forEach((subj, idx) => {
+                const li = document.createElement('li');
+                li.textContent = subj;
+                const btn = document.createElement('button');
+                btn.textContent = 'Fshij';
+                btn.className = 'remove-btn';
+                btn.onclick = () => {
+                    const arr = getSubjects();
+                    arr.splice(idx, 1);
+                    saveSubjects(arr);
+                    renderSubjects();
+                };
+                li.appendChild(btn);
+                ul.appendChild(li);
+            });
+        }
+        document.getElementById('add-subject-form').addEventListener('submit', function() {
+            const input = document.getElementById('subject-name');
+            const name = input.value.trim();
+            if (!name) return;
+            const subjects = getSubjects();
+            if (subjects.includes(name)) {
+                alert('Kjo lëndë ekziston!');
+                return;
+            }
+            subjects.push(name);
+            saveSubjects(subjects);
+            input.value = '';
+            renderSubjects();
+        });
+        renderSubjects();
+    </script>
+</body>
+</html>

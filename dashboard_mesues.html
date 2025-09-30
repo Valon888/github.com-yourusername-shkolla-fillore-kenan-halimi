@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mësuesi - Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%); }
+        .dashboard { max-width: 700px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 18px; box-shadow: 0 2px 12px rgba(33,150,243,0.08); }
+        h1 { font-family: 'Baloo 2', cursive; color: #1976d2; }
+        .actions { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 30px; }
+        .action-card { flex: 1 1 200px; background: #e3f2fd; border-radius: 12px; padding: 22px; text-align: center; box-shadow: 0 1px 6px rgba(33,150,243,0.07); transition: transform 0.15s; }
+        .action-card:hover { transform: scale(1.04); background: #bbdefb; }
+        .action-card .icon { font-size: 2.2rem; margin-bottom: 8px; }
+        .action-card button { background: #1976d2; color: #fff; border: none; border-radius: 8px; padding: 8px 18px; font-size: 1rem; margin-top: 10px; cursor: pointer; }
+        .action-card button:hover { background: #0d47a1; }
+    </style>
+</head>
+<body>
+    <nav class="navbar-platform">
+        <a href="index.html">Ballina</a>
+        <a href="dashboard_mesues.html" class="active">Mësues</a>
+        <a href="dashboard_nxenes.html">Nxënës</a>
+        <a href="dashboard_prinder.html">Prindër</a>
+    </nav>
+    <div class="dashboard">
+        <h1>Dashboard Mësuesi</h1>
+        <div class="actions">
+            <div class="action-card">
+                <div class="icon">📝</div>
+                <h2>Vendos Notat</h2>
+                <button onclick="location.href='vendos_notat.html'">Shko te Notat</button>
+            </div>
+            <div class="action-card">
+                <div class="icon">📚</div>
+                <h2>Menaxho Lëndët</h2>
+                <button onclick="location.href='shto_lende.html'">Shto/Fshij Lëndë</button>
+            </div>
+            <div class="action-card">
+                <div class="icon">👦👧</div>
+                <h2>Lista e Nxënësve</h2>
+                <button onclick="location.href='lista_nxenesve.html'">Shiko Nxënësit</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

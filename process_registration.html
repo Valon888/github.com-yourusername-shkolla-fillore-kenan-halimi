@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="description" content="Faqja e regjistrimit të mësuesve të rinj në platformën e Shkollës Fillore 'Kenan Halimi'">
+    <title>Regjistrimi i Mësuesve | Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* Background Elements */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+        
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -250px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-light);
+            bottom: -200px;
+            right: -100px;
+        }
+        
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+        }
+        
+        .shape-4 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary-dark);
+            bottom: 15%;
+            left: 10%;
+        }
+        
+        /* Registration Form Container */
+        .registration-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 35px;
+            animation: fadeInUp 0.8s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .registration-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark));
+        }
+        
+        /* Form Header */
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .form-subtitle {
+            color: var(--text-medium);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f9fbfd;
+            box-shadow: var(--input-shadow);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.15);
+            background-color: #fff;
+        }
+        
+        .form-icon {
+            position: absolute;
+            top: 40px;
+            left: 15px;
+            color: var(--primary);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus + .form-icon {
+            color: var(--primary-dark);
+            opacity: 1;
+        }
+        
+        /* Password Toggle */
+        .password-toggle {
+            position: absolute;
+            top: 40px;
+            right: 15px;
+            color: #757575;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+        
+        /* File Upload */
+        .file-upload {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: #f9fbfd;
+            border: 1px dashed #b0bec5;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: var(--text-medium);
+        }
+        
+        .file-upload-label:hover {
+            background: #e3f2fd;
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .file-upload input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-name {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            text-align: center;
+            display: none;
+        }
+        
+        /* Checkbox */
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 5px;
+        }
+        
+        .form-check-input {
+            margin-right: 10px;
+            margin-top: 4px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        
+        .form-check-label {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(25, 118, 210, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(25, 118, 210, 0.25);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(25, 118, 210, 0.15);
+        }
+        
+        /* Button ripple effect */
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s ease-out;
+            top: 0;
+            left: 0;
+        }
+        
+        .submit-btn:active::after {
+            transform: scale(2);
+            opacity: 0;
+        }
+        
+        /* Help Text */
+        .form-help {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: #757575;
+        }
+        
+        /* Form Footer */
+        .form-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .form-footer a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        /* Loading Indicator */
+        .loading-indicator {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(66, 165, 245, 0.3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        .loading-text {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Form Validation */
+        .is-invalid {
+            border-color: var(--error) !important;
+        }
+        
+        .invalid-feedback {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Steps Navigation */
+        .steps-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+            position: relative;
+        }
+        
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -30%;
+            width: 60%;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .step-item.active:not(:last-child)::after,
+        .step-item.completed:not(:last-child)::after {
+            background-color: var(--primary-light);
+        }
+        
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: #9e9e9e;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .step-item.active .step-circle {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 5px rgba(25, 118, 210, 0.1);
+        }
+        
+        .step-item.completed .step-circle {
+            border-color: var(--primary-light);
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.85rem;
+            color: #9e9e9e;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .step-item.active .step-label {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .step-item.completed .step-label {
+            color: var(--primary-light);
+        }
+        
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .prev-step-btn {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .prev-step-btn:hover {
+            background: #f5f9ff;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+        }
+        
+        .next-step-btn {
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(25, 118, 210, 0.1);
+        }
+        
+        .next-step-btn:hover {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(25, 118, 210, 0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .registration-container {
+                padding: 25px 20px;
+                margin: 20px 15px;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+            
+            .step-item:not(:last-child)::after {
+                width: 40%;
+                right: -20%;
+            }
+            
+            .step-label {
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .steps-nav {
+                margin-bottom: 20px;
+            }
+            
+            .step-item {
+                width: 80px;
+            }
+            
+            .step-circle {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .prev-step-btn, .next-step-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Decorative Elements -->
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+    
+    <!-- Header with Logo -->
+    <header>
+        <div class="logo-header-container">
+            <div class="school-logo">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </div>
+            <h1 class="logo-header-title">Shkolla Fillore "Kenan Halimi"</h1>
+        </div>
+        <p>Platforma e regjistrimit për mësuesit e rinj</p>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="registration-container">
+            <div class="form-header">
+                <h2 class="form-title">Regjistrimi i Mësuesit të Ri</h2>
+                <p class="form-subtitle">Ju lutemi plotësoni formularin më poshtë me informacionet e kërkuara për të regjistruar një mësues të ri në platformën tonë digjitale.</p>
+            </div>
+            
+            <!-- Step Navigation -->
+            <div class="steps-nav">
+                <div class="step-item active">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Të dhënat personale</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Kredencialet</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Kualifikimet</div>
+                </div>
+            </div>
+            
+            <!-- Registration Form -->
+            <form id="registration-form" action="submit_registration.php" method="POST" enctype="multipart/form-data">
+                <!-- Step 1: Personal Information -->
+                <div class="form-step active" id="step-1">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="first_name" class="form-label">Emri</label>
+                            <input type="text" id="first_name" name="first_name" class="form-control" required>
+                            <i class="fas fa-user form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani emrin.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last_name" class="form-label">Mbiemri</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control" required>
+                            <i class="fas fa-user form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani mbiemrin.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthday" class="form-label">Datëlindja</label>
+                            <input type="date" id="birthday" name="birthday" class="form-control" required>
+                            <i class="fas fa-calendar-alt form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi zgjidhni datëlindjen.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender" class="form-label">Gjinia</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="">Zgjidhni gjininë</option>
+                                <option value="male">Mashkull</option>
+                                <option value="female">Femër</option>
+                            </select>
+                            <i class="fas fa-venus-mars form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi zgjidhni gjininë.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Numri i Telefonit</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+383 4x xxx xxx" required>
+                            <i class="fas fa-phone form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani numrin e telefonit.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="personal_id" class="form-label">Numri Personal</label>
+                            <input type="text" id="personal_id" name="personal_id" class="form-control" required>
+                            <i class="fas fa-id-card form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani numrin personal.</div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="address" class="form-label">Adresa</label>
+                            <input type="text" id="address" name="address" class="form-control" required>
+                            <i class="fas fa-home form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani adresën.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="next-step-btn" data-next="step-2">Vazhdo <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Credentials -->
+                <div class="form-step" id="step-2">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                            <i class="fas fa-envelope form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani një email valide.</div>
+                            <span class="form-help">Ky email do të përdoret për kyçje në platformë.</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="username" class="form-label">Emri i Përdoruesit</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                            <i class="fas fa-user-tag form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani emrin e përdoruesit.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="form-label">Fjalëkalimi</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                            <i class="fas fa-lock form-icon"></i>
+                            <button type="button" class="password-toggle" id="password-toggle" aria-label="Shfaq/fshih fjalëkalimin">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="invalid-feedback">Ju lutemi shkruani fjalëkalimin.</div>
+                            <span class="form-help">Minimum 8 karaktere, duke përfshirë shkronja dhe numra.</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm_password" class="form-label">Konfirmimi i Fjalëkalimit</label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                            <i class="fas fa-lock form-icon"></i>
+                            <button type="button" class="password-toggle" id="confirm-password-toggle" aria-label="Shfaq/fshih fjalëkalimin">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="invalid-feedback">Fjalëkalimet nuk përputhen.</div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="profile_photo" class="form-label">Fotografia Profil</label>
+                            <div class="file-upload">
+                                <label for="profile_photo" class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i> Ngarko fotografinë
+                                </label>
+                                <input type="file" id="profile_photo" name="profile_photo" accept="image/*">
+                                <div class="file-name" id="profile-photo-name"></div>
+                            </div>
+                            <span class="form-help">Formatet e pranuara: JPG, PNG, GIF. Madhësia maksimale 2MB.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="prev-step-btn" data-prev="step-1"><i class="fas fa-arrow-left"></i> Prapa</button>
+                        <button type="button" class="next-step-btn" data-next="step-3">Vazhdo <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Qualifications -->
+                <div class="form-step" id="step-3">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="education" class="form-label">Niveli i Arsimit</label>
+                            <select id="education" name="education" class="form-control" required>
+                                <option value="">Zgjidhni nivelin</option>
+                                <option value="bachelor">Bachelor</option>
+                                <option value="master">Master</option>
+                                <option value="phd">PhD/Doktoraturë</option>
+                            </select>
+                            <i class="fas fa-graduation-cap form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi zgjidhni nivelin e arsimit.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="university" class="form-label">Universiteti</label>
+                            <input type="text" id="university" name="university" class="form-control" required>
+                            <i class="fas fa-university form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani universitetin.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Lënda Kryesore</label>
+                            <select id="subject" name="subject" class="form-control" required>
+                                <option value="">Zgjidhni lëndën</option>
+                                <option value="math">Matematikë</option>
+                                <option value="albanian">Gjuhë Shqipe</option>
+                                <option value="english">Gjuhë Angleze</option>
+                                <option value="science">Shkenca Natyrore</option>
+                                <option value="history">Histori</option>
+                                <option value="geography">Gjeografi</option>
+                                <option value="art">Art</option>
+                                <option value="music">Muzikë</option>
+                                <option value="phys_ed">Edukatë Fizike</option>
+                                <option value="informatics">Informatikë</option>
+                                <option value="other">Tjetër</option>
+                            </select>
+                            <i class="fas fa-book form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi zgjidhni lëndën kryesore.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience" class="form-label">Vite Përvoje</label>
+                            <input type="number" id="experience" name="experience" class="form-control" min="0" required>
+                            <i class="fas fa-briefcase form-icon"></i>
+                            <div class="invalid-feedback">Ju lutemi shkruani vitet e përvojës.</div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="cv" class="form-label">CV</label>
+                            <div class="file-upload">
+                                <label for="cv" class="file-upload-label">
+                                    <i class="fas fa-file-pdf"></i> Ngarko CV (PDF)
+                                </label>
+                                <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx">
+                                <div class="file-name" id="cv-name"></div>
+                            </div>
+                            <span class="form-help">Formatet e pranuara: PDF, DOC, DOCX. Madhësia maksimale 5MB.</span>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="diploma" class="form-label">Diploma</label>
+                            <div class="file-upload">
+                                <label for="diploma" class="file-upload-label">
+                                    <i class="fas fa-file-pdf"></i> Ngarko Diplomën (PDF)
+                                </label>
+                                <input type="file" id="diploma" name="diploma" accept=".pdf,.jpg,.png">
+                                <div class="file-name" id="diploma-name"></div>
+                            </div>
+                            <span class="form-help">Formatet e pranuara: PDF, JPG, PNG. Madhësia maksimale 5MB.</span>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <div class="form-check">
+                                <input type="checkbox" id="terms" name="terms" class="form-check-input" required>
+                                <label for="terms" class="form-check-label">
+                                    Unë pajtohem me <a href="terms.html" target="_blank">Kushtet e Përdorimit</a> dhe <a href="privacy.html" target="_blank">Politikën e Privatësisë</a> të platformës.
+                                </label>
+                            </div>
+                            <div class="invalid-feedback">Ju duhet të pajtoheni me kushtet e përdorimit për të vazhduar.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="prev-step-btn" data-prev="step-2"><i class="fas fa-arrow-left"></i> Prapa</button>
+                        <button type="submit" class="submit-btn">Përfundo Regjistrimin <i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Loading Indicator -->
+                <div class="loading-indicator" id="loading-indicator">
+                    <div class="spinner"></div>
+                    <p class="loading-text">Duke përpunuar regjistrimin...</p>
+                </div>
+            </form>
+            
+            <div class="form-footer">
+                Keni nevojë për ndihmë? <a href="ndihme.html">Kontaktoni ekipin e mbështetjes</a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Shkolla Fillore "Kenan Halimi". Të gjitha të drejtat e rezervuara.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form step navigation
+            const steps = document.querySelectorAll('.form-step');
+            const stepItems = document.querySelectorAll('.step-item');
+            const nextButtons = document.querySelectorAll('.next-step-btn');
+            const prevButtons = document.querySelectorAll('.prev-step-btn');
+            
+            // Next step
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentStep = document.querySelector('.form-step.active');
+                    const nextStepId = this.getAttribute('data-next');
+                    const nextStep = document.getElementById(nextStepId);
+                    
+                    // Validate current step
+                    if (validateStep(currentStep)) {
+                        // Hide current step
+                        currentStep.classList.remove('active');
+                        
+                        // Show next step
+                        nextStep.classList.add('active');
+                        
+                        // Update step navigation
+                        updateStepNav(nextStepId);
+                    }
+                });
+            });
+            
+            // Previous step
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentStep = document.querySelector('.form-step.active');
+                    const prevStepId = this.getAttribute('data-prev');
+                    const prevStep = document.getElementById(prevStepId);
+                    
+                    // Hide current step
+                    currentStep.classList.remove('active');
+                    
+                    // Show previous step
+                    prevStep.classList.add('active');
+                    
+                    // Update step navigation
+                    updateStepNav(prevStepId);
+                });
+            });
+            
+            // Update step navigation
+            function updateStepNav(stepId) {
+                const stepIndex = parseInt(stepId.split('-')[1]) - 1;
+                
+                stepItems.forEach((item, index) => {
+                    if (index < stepIndex) {
+                        item.classList.add('completed');
+                        item.classList.remove('active');
+                    } else if (index === stepIndex) {
+                        item.classList.add('active');
+                        item.classList.remove('completed');
+                    } else {
+                        item.classList.remove('active', 'completed');
+                    }
+                });
+            }
+            
+            // Validate form step
+            function validateStep(step) {
+                const inputs = step.querySelectorAll('input[required], select[required]');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        input.classList.add('is-invalid');
+                        const feedback = input.nextElementSibling.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.style.display = 'block';
+                        }
+                        isValid = false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                        const feedback = input.nextElementSibling.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // Password match validation
+                if (step.id === 'step-2' && document.getElementById('password').value !== document.getElementById('confirm_password').value) {
+                    document.getElementById('confirm_password').classList.add('is-invalid');
+                    document.getElementById('confirm_password').nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            // Toggle password visibility
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const passwordField = this.previousElementSibling.previousElementSibling;
+                    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordField.setAttribute('type', type);
+                    
+                    // Toggle eye icon
+                    const iconClass = type === 'password' ? 'fa-eye' : 'fa-eye-slash';
+                    this.querySelector('i').className = 'fas ' + iconClass;
+                });
+            });
+            
+            // File upload
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const fileName = this.files[0] ? this.files[0].name : '';
+                    const fileNameElement = document.getElementById(`${this.id}-name`);
+                    
+                    if (fileName) {
+                        fileNameElement.textContent = fileName;
+                        fileNameElement.style.display = 'block';
+                    } else {
+                        fileNameElement.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Form submission
+            const form = document.getElementById('registration-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate all fields
+                const currentStep = document.querySelector('.form-step.active');
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+                
+                // Show loading indicator
+                document.getElementById('loading-indicator').style.display = 'flex';
+                
+                // Simulate form submission (replace with actual form submission)
+                setTimeout(function() {
+                    // Hide loading indicator
+                    document.getElementById('loading-indicator').style.display = 'none';
+                    
+                    // Redirect to success page (replace with actual redirect)
+                    alert('Regjistrimi u krye me sukses! Ju do të ridrejtoheni në faqen e kyçjes.');
+                    window.location.href = 'login_mesues.html';
+                }, 2000);
+            });
+            
+            // Input validation on blur
+            const requiredInputs = document.querySelectorAll('input[required], select[required]');
+            requiredInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.classList.add('is-invalid');
+                        const feedback = this.nextElementSibling.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.style.display = 'block';
+                        }
+                    } else {
+                        this.classList.remove('is-invalid');
+                        const feedback = this.nextElementSibling.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.style.display = 'none';
+                        }
+                    }
+                });
+            });
+            
+            // Password match validation
+            document.getElementById('confirm_password').addEventListener('input', function() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = this.value;
+                
+                if (password && confirmPassword && password !== confirmPassword) {
+                    this.classList.add('is-invalid');
+                    this.nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'block';
+                } else {
+                    this.classList.remove('is-invalid');
+                    this.nextElementSibling.nextElementSibling.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="description" content="Platforma digjitale e Shkollës Fillore 'Kenan Halimi'">
+    <title>Platforma Shkollore - Shkolla Fillore "Kenan Halimi"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Background Elements */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+        
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: #1976d2;
+            top: -250px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #4fc3f7;
+            bottom: -200px;
+            right: -100px;
+        }
+        
+        /* Enhanced Header */
+        header {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+            padding: 38px 0 28px 0;
+            animation: fadeInDown 0.8s;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            z-index: 1;
+        }
+        
+        .logo-header-container {
+            position: relative;
+            z-index: 2;
+            gap: 15px;
+        }
+        
+        .logo-header-title {
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        header p {
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+            margin-top: 10px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Enhanced Main Content */
+        main {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .main-content-flex {
+            max-width: 1200px;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        /* Enhanced Post Section */
+        .posts-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.1);
+            padding: 30px;
+            animation: fadeInUp 0.8s;
+        }
+        
+        .posts-title {
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .posts-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #4fc3f7;
+            border-radius: 2px;
+        }
+        
+        .posts-list {
+            gap: 20px;
+        }
+        
+        .post {
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            border-left-width: 6px;
+            position: relative;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .post-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .post p {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            color: #455a64;
+        }
+        
+        .post-date {
+            font-weight: 500;
+            margin-top: 20px;
+            font-style: normal;
+            font-size: 0.9rem;
+            color: #90a4ae;
+        }
+        
+        /* Enhanced Role Cards */
+        .role-sidebar {
+            gap: 25px;
+            animation: fadeInRight 0.8s;
+        }
+        
+        .role-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(25, 118, 210, 0.08);
+            padding: 30px 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #42a5f5, #1976d2);
+        }
+        
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(25, 118, 210, 0.15);
+        }
+        
+        .role-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .role-card h2 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1976d2;
+        }
+        
+        .role-card button {
+            background: linear-gradient(to right, #42a5f5, #1976d2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(25, 118, 210, 0.15);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .role-card button:hover {
+            background: linear-gradient(to right, #1976d2, #1565c0);
+            box-shadow: 0 6px 15px rgba(25, 118, 210, 0.2);
+        }
+        
+        .role-card button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .role-card button:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* Responsive Tweaks */
+        @media (max-width: 1000px) {
+            .role-card button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .role-card .icon {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 700px) {
+            .posts-section {
+                padding: 25px 20px;
+            }
+            
+            .logo-header-title {
+                font-size: 2.4rem;
+            }
+            
+            header::after {
+                bottom: -10px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo-header-container">
+            <div class="school-logo">
+                <!-- SVG logo -->
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </div>
+            <h1 class="logo-header-title">Shkolla Fillore "Kenan Halimi"</h1>
+        </div>
+        <p>Zgjidh rolin për të vazhduar në platformën digjitale</p>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="main-content-flex">
+            <!-- Posts Section -->
+            <section class="posts-section">
+                <h2 class="posts-title">Lajme & Postime nga Shkolla</h2>
+                <div class="posts-list">
+                    <article class="post post-blue">
+                        <h3 class="post-title post-title-green">📢 Fillimi i Vitit të Ri Shkollor</h3>
+                        <p>Mirësevini të gjithë nxënësit dhe prindërit në vitin e ri shkollor! Urojmë suksese dhe përvoja të bukura për të gjithë.</p>
+                        <p class="post-date">Postuar: 1 Shtator 2025</p>
+                    </article>
+                    <article class="post post-yellow">
+                        <h3 class="post-title post-title-yellow">🏆 Sukses në Garat e Matematikës</h3>
+                        <p>Nxënësit tanë fituan vendin e parë në garat komunale të matematikës! Urime të gjithëve për punën dhe përkushtimin.</p>
+                        <p class="post-date">Postuar: 20 Mars 2025</p>
+                    </article>
+                    <article class="post post-green">
+                        <h3 class="post-title post-title-blue">🎨 Ekspozita e Artit</h3>
+                        <p>Ftojmë të gjithë prindërit në ekspozitën e artit të nxënësve që do të mbahet të premten në sallën e shkollës.</p>
+                        <p class="post-date">Postuar: 10 Prill 2025</p>
+                    </article>
+                    <article class="post post-orange">
+                        <h3 class="post-title post-title-red">📅 Orari i Ri i Mësimit</h3>
+                        <p>Orari i ri i mësimit është publikuar në platformë. Ju lutem kontrolloni seksionin përkatës për detaje.</p>
+                        <p class="post-date">Postuar: 5 Maj 2025</p>
+                    </article>
+                    <article class="post post-purple">
+                        <h3 class="post-title post-title-purple">🎵 Koncerti i Pranverës</h3>
+                        <p>Shkolla jonë organizon koncertin tradicional të pranverës me pjesëmarrjen e nxënësve të të gjitha klasave.</p>
+                        <p class="post-date">Postuar: 25 Maj 2025</p>
+                    </article>
+                </div>
+            </section>
+            
+            <!-- Role Selection Sidebar -->
+            <aside class="role-sidebar">
+                <section class="role-card">
+                    <div class="icon" aria-hidden="true"><i class="fas fa-user-graduate"></i></div>
+                    <h2>Nxënës</h2>
+                    <button onclick="location.href='login_nxenes.html'">Hyr si Nxënës <i class="fas fa-arrow-right"></i></button>
+                </section>
+                <section class="role-card">
+                    <div class="icon" aria-hidden="true"><i class="fas fa-users"></i></div>
+                    <h2>Prindër</h2>
+                    <button onclick="location.href='login_prinder.html'">Hyr si Prindër <i class="fas fa-arrow-right"></i></button>
+                </section>
+                <section class="role-card">
+                    <div class="icon" aria-hidden="true"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h2>Mësues</h2>
+                    <button onclick="location.href='login_mesues.html'">Hyr si Mësues <i class="fas fa-arrow-right"></i></button>
+                </section>
+            </aside>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animations for posts
+            const posts = document.querySelectorAll('.post');
+            posts.forEach((post, index) => {
+                setTimeout(() => {
+                    post.style.opacity = '0';
+                    post.style.transform = 'translateY(20px)';
+                    post.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        post.style.opacity = '1';
+                        post.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+            
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const x = e.clientX - e.target.getBoundingClientRect().left;
+                    const y = e.clientY - e.target.getBoundingClientRect().top;
+                    
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.width = '1px';
+                    ripple.style.height = '1px';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.7)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.left = `${x}px`;
+                    ripple.style.top = `${y}px`;
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 700);
+                });
+            });
+            
+            // Add keyframe for ripple animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(70);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

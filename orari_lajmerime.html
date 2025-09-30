@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orari & Lajmërime - Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .video-section {
+            background: #e1f5fe;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.08);
+            padding: 22px 20px 18px 20px;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-section h2 { color: #0288d1; }
+        .video-section label { display: block; margin-top: 10px; font-weight: 500; }
+    .video-section input[type="url"] { max-width: 100%; }
+        .video-section input, .video-section textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #bdbdbd;
+            margin-top: 4px;
+            font-size: 1rem;
+        }
+        .video-section input[type="datetime-local"] { max-width: 220px; }
+        .video-section button {
+            background: #0288d1;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            margin-top: 14px;
+            cursor: pointer;
+        }
+        .video-section button:hover { background: #01579b; }
+        .meeting-list {
+            margin-top: 18px;
+        }
+        .meeting-item {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(2,136,209,0.07);
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .meeting-item .join-link {
+            color: #0288d1;
+            text-decoration: underline;
+            font-weight: 500;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        .meeting-item .join-link:hover { color: #01579b; }
+        .form-section {
+            background: #f8bbd0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(216,27,96,0.08);
+            padding: 22px 20px 18px 20px;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-section h2 { color: #ad1457; }
+        .form-section label { display: block; margin-top: 10px; font-weight: 500; }
+        .form-section input, .form-section textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #bdbdbd;
+            margin-top: 4px;
+            font-size: 1rem;
+        }
+        .form-section input[type="date"] { max-width: 200px; }
+        .form-section input[type="password"] { max-width: 180px; }
+        .form-section button {
+            background: #d81b60;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            margin-top: 14px;
+            cursor: pointer;
+        }
+        .form-section button:hover { background: #ad1457; }
+        .msg-box {
+            margin-top: 10px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .msg-success { background: #c8e6c9; color: #388e3c; }
+        .msg-error { background: #ffcdd2; color: #b71c1c; }
+        #form-msg { display: none; }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #e1bee7 100%);
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .schedule, .announcements {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-family: 'Baloo 2', cursive;
+            color: #d81b60;
+        }
+        h2 {
+            color: #ad1457;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8bbd0;
+        }
+        .announcement {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .announcement:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Orari & Lajmërime</h1>
+    </header>
+    <main>
+        <section class="video-section">
+            <h2>Video Takime</h2>
+            <form id="video-form" autocomplete="off" onsubmit="return false;">
+                <label for="meeting-title">Titulli i Takimit</label>
+                <input type="text" id="meeting-title" required>
+                <label for="meeting-date">Data & Ora</label>
+                <input type="datetime-local" id="meeting-date" required>
+                <label for="meeting-link">Lidhja e Takimit (Google Meet, Zoom, Teams, etj.)</label>
+                <input type="url" id="meeting-link" placeholder="https://meet.google.com/..." required>
+                <label for="meeting-desc">Përshkrimi</label>
+                <textarea id="meeting-desc" rows="2" required></textarea>
+                <button type="submit">Cakto Takim</button>
+                <div id="video-msg" class="msg-box"></div>
+            </form>
+            <div class="meeting-list" id="meeting-list">
+                <!-- Takimet e ardhshme do të shfaqen këtu -->
+            </div>
+        </section>
+        <section class="form-section">
+            <h2>Shto Lajmërim të Ri</h2>
+            <form id="announcement-form" autocomplete="off" onsubmit="return false;">
+                <label for="date">Data</label>
+                <input type="date" id="date" required>
+                <label for="content">Përmbajtja</label>
+                <textarea id="content" rows="2" required></textarea>
+                <label for="password">Fjalëkalimi (vetëm stafi)</label>
+                <input type="password" id="password" placeholder="Fjalëkalimi" required>
+                <div id="form-msg" class="msg-box"></div>
+            </form>
+        </section>
+        <section class="schedule">
+            <h2>Orari i Mësimeve</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Klasa</th>
+                        <th>Ora</th>
+                        <th>Subjekti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1A</td>
+                        <td>08:00 - 09:00</td>
+                        <td>Matematikë</td>
+                    </tr>
+                    <tr>
+                        <td>1A</td>
+                        <td>09:00 - 10:00</td>
+                        <td>Shkencë</td>
+                    </tr>
+                    <tr>
+                        <td>1A</td>
+                        <td>10:00 - 11:00</td>
+                        <td>Gjuhë Shqipe</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="announcements">
+            <h2>Lajmërime të Fundit</h2>
+            <div class="announcement">
+                <strong>Data:</strong> 01 Shtator 2025
+                <p>Mirësevini në vitin e ri shkollor!</p>
+            </div>
+            <div class="announcement">
+                <strong>Data:</strong> 29 Shtator 2025
+                <p>Testi i parë do të mbahet më 10 Tetor.</p>
+            </div>
+        </section>
+    </main>
+<script>
+// Video meeting logic
+const videoForm = document.getElementById('video-form');
+const videoMsg = document.getElementById('video-msg');
+const meetingList = document.getElementById('meeting-list');
+function showVideoMsg(msg, type) {
+    videoMsg.textContent = msg;
+    videoMsg.className = 'msg-box msg-' + type;
+    videoMsg.style.display = 'block';
+}
+function hideVideoMsg() { videoMsg.style.display = 'none'; }
+function isMeetingDuplicate(title, date) {
+    return Array.from(document.querySelectorAll('.meeting-item')).some(div => {
+        return div.dataset.title === title.trim() && div.dataset.date === date;
+    });
+}
+videoForm.addEventListener('submit', function() {
+    hideVideoMsg();
+    const title = document.getElementById('meeting-title').value.trim();
+    const date = document.getElementById('meeting-date').value;
+    const link = document.getElementById('meeting-link').value.trim();
+    const desc = document.getElementById('meeting-desc').value.trim();
+    if (!title || !date || !desc || !link) {
+        showVideoMsg('Ju lutem plotësoni të gjitha fushat!', 'error');
+        return;
+    }
+    // Date validation
+    const now = new Date();
+    const inputDate = new Date(date);
+    if (inputDate < now) {
+        showVideoMsg('Data/ora duhet të jetë në të ardhmen!', 'error');
+        return;
+    }
+    // Link validation
+    if (!/^https:\/\//.test(link)) {
+        showVideoMsg('Lidhja duhet të fillojë me https://', 'error');
+        return;
+    }
+    // Duplicate check
+    if (isMeetingDuplicate(title, date)) {
+        showVideoMsg('Ky takim ekziston tashmë!', 'error');
+        return;
+    }
+    // Add meeting
+    const div = document.createElement('div');
+    div.className = 'meeting-item';
+    div.dataset.title = title;
+    div.dataset.date = date;
+    div.innerHTML = `<strong>${title}</strong><span>📅 ${date.replace('T',' | ')}</span><span>${desc}</span><a class=\"join-link\" href=\"${link}\" target=\"_blank\">Bashkohu në takim</a>`;
+    meetingList.appendChild(div);
+    showVideoMsg('Takimi u caktua me sukses!', 'success');
+    videoForm.reset();
+    setTimeout(hideVideoMsg, 2000);
+});
+</script>
+</main>
+<script>
+// Advanced verification for announcement form
+const form = document.getElementById('announcement-form');
+const msgBox = document.getElementById('form-msg');
+const announcementsSection = document.querySelector('.announcements');
+const passwordCorrect = 'staf2025'; // Example password
+
+function showMsg(msg, type) {
+    msgBox.textContent = msg;
+    msgBox.className = 'msg-box msg-' + type;
+    msgBox.style.display = 'block';
+}
+
+function hideMsg() { msgBox.style.display = 'none'; }
+
+function isDuplicate(date, content) {
+    return Array.from(document.querySelectorAll('.announcement')).some(div => {
+        return div.textContent.includes(date) && div.textContent.includes(content.trim());
+    });
+}
+
+form.addEventListener('submit', function() {
+    hideMsg();
+    const date = document.getElementById('date').value;
+    const content = document.getElementById('content').value.trim();
+    const password = document.getElementById('password').value;
+    if (!date || !content || !password) {
+        showMsg('Ju lutem plotësoni të gjitha fushat!', 'error');
+        return;
+    }
+    // Date validation
+    const today = new Date();
+    const inputDate = new Date(date);
+    today.setHours(0,0,0,0);
+    if (inputDate < today) {
+        showMsg('Data nuk mund të jetë në të kaluarën!', 'error');
+        return;
+    }
+    // Password check
+    if (password !== passwordCorrect) {
+        showMsg('Fjalëkalimi i pasaktë! Vetëm stafi mund të shtojë lajme.', 'error');
+        return;
+    }
+    // Duplicate check
+    if (isDuplicate(date, content)) {
+        showMsg('Ky lajmërim ekziston tashmë!', 'error');
+        return;
+    }
+    // Add announcement
+    const div = document.createElement('div');
+    div.className = 'announcement';
+    div.innerHTML = `<strong>Data:</strong> ${date.split('-').reverse().join('.')}<p>${content}</p>`;
+    announcementsSection.appendChild(div);
+    showMsg('Lajmërimi u shtua me sukses!', 'success');
+    form.reset();
+    setTimeout(hideMsg, 2000);
+});
+</script>
+</body>
+</html>

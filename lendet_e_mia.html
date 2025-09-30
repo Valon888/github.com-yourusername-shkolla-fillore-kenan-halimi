@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4fc3f7">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Lëndët e Mia</title>
+    <link rel="stylesheet" href="notat.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
+            min-height: 100vh;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            position: relative;
+            overscroll-behavior: none;
+        }
+        
+        /* Optimizime për pajisje Samsung */
+        .samsung-s22 .subjects-container {
+            box-shadow: 0 8px 24px rgba(33,150,243,0.14);
+        }
+        
+        /* Klasa për efektin "tap" */
+        .subjects-list li.tapped {
+            background-color: #bbdefb !important;
+            transform: scale(0.98) !important;
+        }
+        .subjects-container {
+            max-width: 440px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(33,150,243,0.12);
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.7s;
+            position: relative;
+            overflow: hidden;
+        }
+        .subjects-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #4fc3f7, #1976d2);
+        }
+        .subjects-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            justify-content: center;
+        }
+        .subjects-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4fc3f7 60%, #fffde7 100%);
+            box-shadow: 0 2px 8px rgba(33,150,243,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .subjects-logo svg {
+            width: 80%;
+            height: 80%;
+        }
+        .subjects-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.7rem;
+            color: #1976d2;
+            margin: 0;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+        .subjects-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        
+        .subjects-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #757575;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .subjects-list li {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s, transform 0.15s;
+            font-size: 1.08rem;
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+        }
+        .subjects-list li:last-child {
+            border-bottom: none;
+        }
+        .subjects-list li:hover {
+            background: #e3f2fd;
+            transform: translateX(4px) scale(1.03);
+            color: #1976d2;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.15);
+            border-radius: 8px;
+        }
+        .subject-icon {
+            font-size: 1.4rem;
+            color: #4fc3f7;
+            transition: transform 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .subjects-list li:hover .subject-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+        /* Stili për efekt "tap" në mobile */
+        .subjects-list li:active {
+            background: #bbdefb;
+            transform: translateX(2px) scale(0.98);
+            transition: all 0.1s ease;
+        }
+        /* Media queries për telefona mobilë */
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+            .subjects-container {
+                padding: 1.2rem 0.5rem 2rem 0.5rem;
+                margin: 12px 6px;
+                width: 92%;
+                border-radius: 16px;
+            }
+            .subjects-title {
+                font-size: 1.2rem;
+            }
+            .subjects-logo {
+                width: 38px;
+                height: 38px;
+            }
+            .subjects-list li {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Specifike për Samsung Galaxy S22 Ultra (dhe ekrane të ngjashme) */
+        @media screen and (min-width: 390px) and (max-width: 450px) and (-webkit-device-pixel-ratio: 3) {
+            .subjects-container {
+                padding: 1.5rem 0.8rem 2rem 0.8rem;
+                margin: 18px 12px;
+            }
+            .subjects-list li {
+                padding: 1.2rem 1.3rem;
+            }
+        }
+        
+        /* Optimizime për touch */
+        @media (hover: none) and (pointer: coarse) {
+            .subjects-list li {
+                padding: 1.2rem 1.5rem;  /* Hapësirë më e madhe për touch */
+                margin-bottom: 0.4rem;
+                border-radius: 12px;
+            }
+            
+            .subjects-list li:active {
+                background-color: #e3f2fd;
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="subjects-container fade-in">
+        <div class="subjects-header">
+            <span class="subjects-logo">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </span>
+            <h1 class="subjects-title">Lëndët e Mia</h1>
+        </div>
+        <p class="subjects-info">Zgjidh një nga lëndët e mëposhtme për të parë notat dhe detyrat</p>
+        <ul class="subjects-list">
+            <li><span class="subject-icon">📘</span>Matematika</li>
+            <li><span class="subject-icon">🔬</span>Shkenca</li>
+            <li><span class="subject-icon">📖</span>Gjuha Shqipe</li>
+            <li><span class="subject-icon">🌍</span>Gjeografia</li>
+            <li><span class="subject-icon">⚽</span>Edukatë Fizike</li>
+            <!-- Më shumë lëndë mund të shtohen këtu -->
+        </ul>
+    </div>
+    <script>
+        // Efekte të animuara për lëndët
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.subjects-list li');
+            
+            // Detektojmë nëse është pajisje mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            // Detektojmë specifikkisht Samsung Galaxy S22
+            const isSamsungS22 = /SM-S9[01]8/i.test(navigator.userAgent);
+            
+            // Përshtatim animacionin bazuar në pajisjen
+            const animDelay = isMobile ? 150 : 300;
+            
+            items.forEach((item, index) => {
+                // Animacion gradual për shfaqjen e lëndëve
+                item.style.opacity = 0;
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    item.style.opacity = 1;
+                    item.style.transform = 'translateY(0)';
+                }, animDelay + (index * 80));
+                
+                // Trajtojmë eventin për klikim dhe touch
+                item.addEventListener(isMobile ? 'touchend' : 'click', function(e) {
+                    if (isMobile) {
+                        // Parandalojmë sjelljet default për touch
+                        e.preventDefault();
+                        
+                        // Krijojmë efektin "tap" vizual
+                        this.classList.add('tapped');
+                        setTimeout(() => {
+                            this.classList.remove('tapped');
+                            // Kjo mund të lidhet me një faqe specifike për lëndën
+                            alert('Keni zgjedhur: ' + this.textContent.trim());
+                        }, 150);
+                    } else {
+                        // Për klikime në desktop
+                        alert('Keni zgjedhur: ' + this.textContent.trim());
+                    }
+                });
+            });
+            
+            // Vendosim një klasë në body për stilizim specifik të platformës
+            if (isMobile) {
+                document.body.classList.add('mobile-device');
+                if (isSamsungS22) {
+                    document.body.classList.add('samsung-s22');
+                }
+                if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    document.body.classList.add('ios-device');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

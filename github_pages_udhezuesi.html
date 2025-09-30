@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instruksione për Hostimin në GitHub Pages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            color: #333;
+        }
+        h1 {
+            color: #1976d2;
+            border-bottom: 2px solid #1976d2;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0277bd;
+            margin-top: 30px;
+        }
+        .step {
+            background-color: #f5f9ff;
+            border-left: 4px solid #1976d2;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        code {
+            background: #eee;
+            padding: 3px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .note {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Instruksione për Hostimin në GitHub Pages</h1>
+    
+    <p>Udhëzuesi i mëposhtëm ju ndihmon të hostoni faqen e shkollës "Kenan Halimi" në GitHub Pages.</p>
+    
+    <div class="step">
+        <h2>Hapi 1: Krijoni një llogari në GitHub</h2>
+        <p>Nëse nuk keni ende një llogari GitHub:</p>
+        <ol>
+            <li>Shkoni në <a href="https://github.com" target="_blank">https://github.com</a></li>
+            <li>Klikoni në butonin "Sign up" dhe ndiqni udhëzimet për të krijuar një llogari të re</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Hapi 2: Krijoni një depo të re (repository)</h2>
+        <ol>
+            <li>Pasi të keni hyrë në llogarinë tuaj, klikoni në butonin "+" në këndin e sipërm djathtas të ekranit</li>
+            <li>Zgjidhni "New repository"</li>
+            <li>Te "Repository name", shkruani: <code>shkolla-fillore-kenan-halimi</code></li>
+            <li>Mund të shtoni një përshkrim opsional: "Faqja zyrtare e shkollës fillore Kenan Halimi"</li>
+            <li>Zgjidhni "Public" si opsion për vizibilitetin</li>
+            <li>Klikoni në "Create repository"</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Hapi 3: Lidhni repositoryn lokale me GitHub</h2>
+        <p>Hapni terminale (PowerShell) dhe ekzekutoni komandat e mëposhtme:</p>
+        <pre><code>cd "d:\shkolla fillore Kenan Halimi"
+
+# Zëvendësoni "yourusername" me emrin tuaj të përdoruesit në GitHub
+git remote add origin https://github.com/yourusername/shkolla-fillore-kenan-halimi.git
+
+# Dërgoni të dhënat në GitHub
+git push -u origin master</code></pre>
+        <p>Pas ekzekutimit të këtyre komandave, do t'ju kërkohet të identifikoheni në GitHub.</p>
+    </div>
+    
+    <div class="step">
+        <h2>Hapi 4: Aktivizoni GitHub Pages</h2>
+        <ol>
+            <li>Shkoni në depon tuaj në GitHub</li>
+            <li>Klikoni në "Settings" në menunë e sipërme</li>
+            <li>Lëvizni poshtë deri te seksioni "GitHub Pages"</li>
+            <li>Te "Source", zgjidhni "master branch" nga menuja drop-down</li>
+            <li>Klikoni "Save"</li>
+            <li>Faqja do të publikohet dhe do t'ju shfaqet një link në formatin: <code>https://yourusername.github.io/shkolla-fillore-kenan-halimi/</code></li>
+        </ol>
+        <p>Mund të duhen disa minuta që faqja të bëhet e disponueshme.</p>
+    </div>
+    
+    <div class="note">
+        <h2>Shënim i rëndësishëm</h2>
+        <p>Sigurohuni që keni vendosur saktë emrin e përdoruesit tuaj të GitHub në komandën e mësipërme. Për shembull, nëse emri i përdoruesit tuaj është "shkollakenanhalimi", atëherë komanda duhet të jetë:</p>
+        <pre><code>git remote add origin https://github.com/shkollakenanhalimi/shkolla-fillore-kenan-halimi.git</code></pre>
+    </div>
+    
+    <div class="step">
+        <h2>Hapi 5: Përditësimi i faqes</h2>
+        <p>Kur bëni ndryshime në faqen tuaj, mund t'i ngarkoni me këto komanda:</p>
+        <pre><code>git add .
+git commit -m "Përshkrimi i ndryshimeve"
+git push</code></pre>
+        <p>Ndryshimet do të pasqyrohen në faqen e publikuar pas disa minutash.</p>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mësuesit | Shkolla Fillore Kenan Halimi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Stilizimi i përmirësuar i faqes */
+        :root {
+            --color-primary: #388e3c;
+            --color-secondary: #4fc3f7;
+            --color-accent: #1976d2;
+            --color-bg-light: #f4f4f4;
+            --font-heading: 'Baloo 2', cursive;
+            --font-body: 'Roboto', sans-serif;
+        }
+        
+        /* Rregullimi i logos së shkollës */
+        .school-logo {
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
+            min-height: 32px !important;
+            max-width: 32px !important;
+            max-height: 32px !important;
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Kontejner për header dhe logo */
+        .logo-header-container {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            max-width: 98%;
+            margin: 0 auto 20px;
+        }
+        
+        /* Titull i header-it */
+        .logo-header-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin: 0;
+        }
+        
+        /* Stili i faqes kryesore */
+        body {
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg-light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navbar stilizim i përmirësuar */
+        .main-navbar {
+            background: linear-gradient(to right, var(--color-secondary), var(--color-accent));
+            padding: 12px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .main-navbar a {
+            color: #fff;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1rem;
+            margin: 0 15px;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .main-navbar a.active {
+            background-color: rgba(255,255,255,0.2);
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .main-navbar a:hover {
+            background-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Përmirësim i seksionit hyrës */
+        .teachers-intro {
+            background: #fff;
+            padding: 25px;
+            margin: 0 auto 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        .teachers-intro h2 {
+            color: var(--color-accent);
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .teachers-intro p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        
+        /* Kutia e kërkimit */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .teacher-search {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .teacher-search:focus {
+            border-color: var(--color-secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79,195,247,0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+        
+        /* Kartelat e mësuesve */
+        .teachers-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .teacher-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .teacher-photo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--color-secondary);
+        }
+        
+        .teacher-info {
+            padding: 20px;
+        }
+        
+        .teacher-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .teacher-subject {
+            font-weight: 500;
+            color: var(--color-primary);
+            margin: 0 0 10px 0;
+        }
+        
+        .teacher-email {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0 0 15px 0;
+        }
+        
+        .teacher-bio {
+            border-left: 3px solid var(--color-secondary);
+            padding-left: 10px;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .teacher-achievements {
+            background: #f9f9f9;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 0 0 15px 0;
+        }
+        
+        .teacher-achievements li {
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .teacher-achievements li:before {
+            content: "✓";
+            color: var(--color-primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .teacher-gallery {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+        
+        .teacher-gallery img {
+            border-radius: 5px;
+            border: 2px solid #eee;
+            transition: transform 0.2s;
+        }
+        
+        .teacher-gallery img:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Butoni i kontaktit */
+        .contact-btn {
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+        }
+        
+        .contact-btn:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+        }
+        
+        .contact-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Seksioni i komenteve */
+        .teacher-comments {
+            padding: 15px 20px;
+            background: #f5f5f5;
+            border-top: 1px solid #eee;
+        }
+        
+        .teacher-comments h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-accent);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .comments-list {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 5px;
+        }
+        
+        .comments-list li {
+            margin-bottom: 8px;
+            padding: 8px 10px;
+            background: white;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .comment-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .comment-name {
+            flex: 1;
+            min-width: 100px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .comment-text {
+            flex: 2;
+            min-width: 150px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .comment-form button {
+            padding: 8px 15px;
+            background: var(--color-secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .comment-form button:hover {
+            background: #29b6f6;
+        }
+        
+        /* Footer i përmirësuar */
+        .main-footer {
+            background: linear-gradient(to right, var(--color-accent), var(--color-secondary));
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .footer-love {
+            font-style: italic;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Modali i kontaktit */
+        .teacher-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .teacher-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            min-width: 300px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .teacher-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+        
+        .teacher-modal-close:hover {
+            color: #f44336;
+        }
+        
+        /* Renditja e mësuesve */
+        .sort-bar {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            max-width: 400px;
+        }
+        
+        #sort-select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            background: white;
+        }
+        
+        /* Përgjegjshmëria */
+        @media (max-width: 768px) {
+            .teachers-list {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .logo-header-title {
+                font-size: 1.5rem;
+            }
+            
+            .main-navbar a {
+                margin: 0 5px;
+                font-size: 0.9rem;
+            }
+            
+            .school-logo {
+                width: 24px !important;
+                height: 24px !important;
+                min-width: 24px !important;
+                min-height: 24px !important;
+                max-width: 24px !important;
+                max-height: 24px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-header-container">
+            <span class="school-logo">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                  <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                  <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                  <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </span>
+            <h1 class="logo-header-title">Mësuesit e Shkollës</h1>
+        </div>
+    </header>
+    <nav class="main-navbar">
+        <a href="index.html">Kreu</a>
+        <a href="dashboard_mesues.html">Paneli i Mësuesit</a>
+        <a href="dashboard_nxenes.html">Paneli i Nxënësit</a>
+        <a href="dashboard_prinder.html">Paneli i Prindit</a>
+        <a href="orari_lajmerime.html">Orari & Lajmërime</a>
+        <a href="mesuesit.html" class="active">Mësuesit</a>
+    </nav>
+    <main class="teachers-main">
+        <section class="teachers-intro">
+            <h2>Stafi Mësimdhënës</h2>
+            <p>Njihuni me mësuesit tanë të përkushtuar që japin kontribut të jashtëzakonshëm në edukimin e nxënësve.</p>
+            <div class="search-container">
+                <input type="text" id="teacher-search" class="teacher-search" placeholder="Kërko mësuesin ose lëndën..." autocomplete="off">
+                <span class="search-icon">🔍</span>
+            </div>
+        </section>
+        <section class="teachers-list" id="teachers-list">
+            <!-- Example teacher card with detailed profile, gallery, and comments -->
+            <div class="teacher-card" data-subject="Matematika" data-experience="15">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mësuesi" class="teacher-photo">
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Arben Krasniqi</h3>
+                    <p class="teacher-subject">Lënda: Matematika</p>
+                    <p class="teacher-email">Email: arben.krasniqi@kenanhalimi.edu</p>
+                    <p class="teacher-bio">Biografi: Mësues me përvojë 15 vjeçare, fitues i çmimit "Mësuesi i Vitit" 2023. I apasionuar pas inovacionit në mësimdhënie.</p>
+                    <ul class="teacher-achievements">
+                        <li>Çmimi "Mësuesi i Vitit" 2023</li>
+                        <li>Autor i librit "Matematika për të gjithë"</li>
+                        <li>15 vite eksperiencë</li>
+                    </ul>
+                    <div class="teacher-gallery">
+                        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 1">
+                        <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 2">
+                    </div>
+                    <button class="contact-btn" data-name="Arben Krasniqi" data-email="arben.krasniqi@kenanhalimi.edu">Kontakto</button>
+                </div>
+                <div class="teacher-comments">
+                    <h4>Vlerësime & Komente</h4>
+                    <ul class="comments-list">
+                        <li><b>Elira:</b> Mësues shumë i përkushtuar dhe motivues!</li>
+                        <li><b>Ardian:</b> Shpjegon matematikën në mënyrë të thjeshtë dhe të kuptueshme.</li>
+                    </ul>
+                    <form class="comment-form">
+                        <input type="text" class="comment-name" placeholder="Emri juaj" required>
+                        <input type="text" class="comment-text" placeholder="Komenti juaj" required>
+                        <button type="submit">Dërgo</button>
+                    </form>
+                </div>
+            </div>
+            <div class="teacher-card" data-subject="Gjuhë Shqipe" data-experience="10">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mësuesja" class="teacher-photo">
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Vjollca Gashi</h3>
+                    <p class="teacher-subject">Lënda: Gjuhë Shqipe</p>
+                    <p class="teacher-email">Email: vjollca.gashi@kenanhalimi.edu</p>
+                    <p class="teacher-bio">Biografi: Specialiste e gjuhësisë, autore e shumë artikujve shkencorë. 10 vite eksperiencë në arsim.</p>
+                    <ul class="teacher-achievements">
+                        <li>Autoritet në fushën e gjuhësisë</li>
+                        <li>10 vite eksperiencë</li>
+                    </ul>
+                    <div class="teacher-gallery">
+                        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 1">
+                        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 2">
+                    </div>
+                    <button class="contact-btn" data-name="Vjollca Gashi" data-email="vjollca.gashi@kenanhalimi.edu">Kontakto</button>
+                </div>
+                <div class="teacher-comments">
+                    <h4>Vlerësime & Komente</h4>
+                    <ul class="comments-list">
+                        <li><b>Blerta:</b> Mësuese shumë e dashur dhe profesionale.</li>
+                    </ul>
+                    <form class="comment-form">
+                        <input type="text" class="comment-name" placeholder="Emri juaj" required>
+                        <input type="text" class="comment-text" placeholder="Komenti juaj" required>
+                        <button type="submit">Dërgo</button>
+                    </form>
+                </div>
+            </div>
+            <div class="teacher-card" data-subject="Shkencat Natyrore" data-experience="8">
+                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Mësuesi" class="teacher-photo">
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Ilir Dervishi</h3>
+                    <p class="teacher-subject">Lënda: Shkencat Natyrore</p>
+                    <p class="teacher-email">Email: ilir.dervishi@kenanhalimi.edu</p>
+                    <p class="teacher-bio">Biografi: Ekspert i shkencave natyrore, pjesëmarrës në projekte ndërkombëtare. 8 vite eksperiencë.</p>
+                    <ul class="teacher-achievements">
+                        <li>Pjesëmarrës në "Science for Kids"</li>
+                        <li>8 vite eksperiencë</li>
+                    </ul>
+                    <div class="teacher-gallery">
+                        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 1">
+                        <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 2">
+                    </div>
+                    <button class="contact-btn" data-name="Ilir Dervishi" data-email="ilir.dervishi@kenanhalimi.edu">Kontakto</button>
+                </div>
+                <div class="teacher-comments">
+                    <h4>Vlerësime & Komente</h4>
+                    <ul class="comments-list">
+                        <li><b>Arta:</b> Shumë kreativ dhe i afërt me nxënësit.</li>
+                    </ul>
+                    <form class="comment-form">
+                        <input type="text" class="comment-name" placeholder="Emri juaj" required>
+                        <input type="text" class="comment-text" placeholder="Komenti juaj" required>
+                        <button type="submit">Dërgo</button>
+                    </form>
+                </div>
+            </div>
+            <div class="teacher-card" data-subject="Anglisht" data-experience="6">
+                <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Mësuesja" class="teacher-photo">
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Arta Berisha</h3>
+                    <p class="teacher-subject">Lënda: Anglisht</p>
+                    <p class="teacher-email">Email: arta.berisha@kenanhalimi.edu</p>
+                    <p class="teacher-bio">Biografi: Mësuese e anglishtes me pasion për teknologjinë dhe mësimdhënien moderne. 6 vite eksperiencë.</p>
+                    <ul class="teacher-achievements">
+                        <li>Certifikatë "Best English Teacher"</li>
+                        <li>6 vite eksperiencë</li>
+                    </ul>
+                    <div class="teacher-gallery">
+                        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 1">
+                        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=facearea&w=80&h=80" alt="Aktivitet 2">
+                    </div>
+                    <button class="contact-btn" data-name="Arta Berisha" data-email="arta.berisha@kenanhalimi.edu">Kontakto</button>
+                </div>
+                <div class="teacher-comments">
+                    <h4>Vlerësime & Komente</h4>
+                    <ul class="comments-list">
+                        <li><b>Besnik:</b> Mësuese shumë e durueshme dhe inovative.</li>
+                    </ul>
+                    <form class="comment-form">
+                        <input type="text" class="comment-name" placeholder="Emri juaj" required>
+                        <input type="text" class="comment-text" placeholder="Komenti juaj" required>
+                        <button type="submit">Dërgo</button>
+                    </form>
+                </div>
+            </div>
+    <div class="sort-bar">
+        <label for="sort-select">Rendit sipas:</label>
+        <select id="sort-select">
+            <option value="default">Default</option>
+            <option value="subject">Lënda</option>
+            <option value="experience">Përvoja (më shumë vite)</option>
+        </select>
+    </div>
+            <!-- Add more teacher cards as needed -->
+        </section>
+    </main>
+    <footer class="main-footer">
+    <p>&copy; 2025 Shkolla Fillore "Kenan Halimi". Të gjitha të drejtat e rezervuara.</p>
+    <p class="footer-love">Krijuar me dashuri për edukimin.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTeacherSearch();
+            initializeSorting();
+            initializeContactModal();
+            initializeComments();
+            animateOnScroll();
+        });
+        
+        // Kërkimi i avancuar dhe filtrimi i mësuesve
+        function initializeTeacherSearch() {
+            const searchInput = document.getElementById('teacher-search');
+            const teachersList = document.getElementById('teachers-list');
+            let teacherCards = Array.from(document.querySelectorAll('.teacher-card'));
+            
+            if (!searchInput) return;
+            
+            searchInput.addEventListener('input', function() {
+                const val = this.value.toLowerCase();
+                let matchFound = false;
+                
+                teacherCards.forEach(card => {
+                    const name = card.querySelector('.teacher-name').textContent.toLowerCase();
+                    const subject = card.querySelector('.teacher-subject').textContent.toLowerCase();
+                    const bio = card.querySelector('.teacher-bio').textContent.toLowerCase();
+                    
+                    if (name.includes(val) || subject.includes(val) || bio.includes(val)) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                        card.style.display = '';
+                        matchFound = true;
+                    } else {
+                        card.style.opacity = '0.6';
+                        card.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            if (card.style.opacity === '0.6') {
+                                card.style.display = 'none';
+                            }
+                        }, 300);
+                    }
+                });
+                
+                // Shfaq mesazh nëse nuk ka rezultate
+                const noResultsMsg = document.getElementById('no-results-msg');
+                if (!matchFound && val) {
+                    if (!noResultsMsg) {
+                        const msg = document.createElement('div');
+                        msg.id = 'no-results-msg';
+                        msg.className = 'no-results';
+                        msg.textContent = 'Nuk u gjet asnjë mësues me këto kritere';
+                        teachersList.appendChild(msg);
+                    }
+                } else if (noResultsMsg) {
+                    noResultsMsg.remove();
+                }
+            });
+            
+            // Fokusimi dhe animacioni i kutisë së kërkimit
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.03)';
+                this.parentElement.style.boxShadow = '0 0 15px rgba(79,195,247,0.25)';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+                this.parentElement.style.boxShadow = 'none';
+            });
+        }
+        
+        // Renditja e mësuesve
+        function initializeSorting() {
+            const sortSelect = document.getElementById('sort-select');
+            const teachersList = document.getElementById('teachers-list');
+            let teacherCards = Array.from(document.querySelectorAll('.teacher-card'));
+            
+            if (!sortSelect) return;
+            
+            sortSelect.addEventListener('change', function() {
+                let sorted;
+                if (this.value === 'subject') {
+                    sorted = [...teacherCards].sort((a, b) => a.dataset.subject.localeCompare(b.dataset.subject));
+                } else if (this.value === 'experience') {
+                    sorted = [...teacherCards].sort((a, b) => b.dataset.experience - a.dataset.experience);
+                } else {
+                    sorted = [...teacherCards];
+                }
+                
+                // Animacioni i renditjes
+                teacherCards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                });
+                
+                setTimeout(() => {
+                    sorted.forEach(card => {
+                        teachersList.appendChild(card);
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    });
+                }, 300);
+            });
+        }
+        
+        // Modali i kontaktit me mësuesit
+        function initializeContactModal() {
+            // Krijimi i modalit
+            const modal = document.createElement('div');
+            modal.className = 'teacher-modal';
+            modal.innerHTML = `
+                <div class="teacher-modal-content">
+                    <span class="teacher-modal-close">&times;</span>
+                    <h3 id="modal-name"></h3>
+                    <p id="modal-email"></p>
+                    <button id="modal-copy" class="contact-btn">Kopjo Email-in</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            const modalName = modal.querySelector('#modal-name');
+            const modalEmail = modal.querySelector('#modal-email');
+            const modalCopy = modal.querySelector('#modal-copy');
+            
+            // Lidhjet e butonave të kontaktit
+            document.querySelectorAll('.contact-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modalName.textContent = this.dataset.name;
+                    modalEmail.textContent = this.dataset.email;
+                    modal.style.display = 'flex';
+                    setTimeout(() => {
+                        modal.querySelector('.teacher-modal-content').style.opacity = '1';
+                        modal.querySelector('.teacher-modal-content').style.transform = 'scale(1)';
+                    }, 10);
+                });
+            });
+            
+            // Mbyllja e modalit
+            modal.querySelector('.teacher-modal-close').onclick = closeModal;
+            
+            function closeModal() {
+                modal.querySelector('.teacher-modal-content').style.opacity = '0';
+                modal.querySelector('.teacher-modal-content').style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+            
+            // Kopjimi i emailit
+            modalCopy.onclick = function() {
+                navigator.clipboard.writeText(modalEmail.textContent)
+                    .then(() => {
+                        const originalText = modalCopy.textContent;
+                        modalCopy.textContent = 'Kopjuar!';
+                        modalCopy.style.backgroundColor = '#4caf50';
+                        setTimeout(() => {
+                            modalCopy.textContent = originalText;
+                            modalCopy.style.backgroundColor = '';
+                        }, 1500);
+                    })
+                    .catch(err => {
+                        console.error('Gabim në kopjim:', err);
+                        modalCopy.textContent = 'Gabim!';
+                        modalCopy.style.backgroundColor = '#f44336';
+                    });
+            };
+            
+            // Mbyllja me klikim jashtë
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Mbyllja me ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+        }
+        
+        // Funksionaliteti i komenteve
+        function initializeComments() {
+            document.querySelectorAll('.comment-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const nameInput = this.querySelector('.comment-name');
+                    const textInput = this.querySelector('.comment-text');
+                    const name = nameInput.value.trim();
+                    const text = textInput.value.trim();
+                    
+                    if (name && text) {
+                        const ul = this.parentElement.querySelector('.comments-list');
+                        const li = document.createElement('li');
+                        li.innerHTML = `<b>${name}:</b> ${text}`;
+                        li.style.opacity = '0';
+                        li.style.transform = 'translateY(10px)';
+                        ul.appendChild(li);
+                        
+                        // Animacioni i komentit të ri
+                        setTimeout(() => {
+                            li.style.opacity = '1';
+                            li.style.transform = 'translateY(0)';
+                            li.style.transition = 'all 0.3s ease';
+                        }, 10);
+                        
+                        // Ruajtja e emrit në localStorage për përdorim të ardhshëm
+                        localStorage.setItem('lastCommentName', name);
+                        
+                        // Pastro formën
+                        textInput.value = '';
+                    }
+                });
+                
+                // Plotësimi automatik i emrit nga localStorage
+                const nameInput = form.querySelector('.comment-name');
+                const savedName = localStorage.getItem('lastCommentName');
+                if (savedName && nameInput.value === '') {
+                    nameInput.value = savedName;
+                }
+            });
+        }
+        
+        // Animacionet në scroll
+        function animateOnScroll() {
+            const teacherCards = document.querySelectorAll('.teacher-card');
+            
+            // Vendos gjendjen fillestare për animim
+            teacherCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                // Animimi me vonesë progresive
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+            
+            // Animimi i elementeve të tjerë
+            const elementsToAnimate = [
+                document.querySelector('.teachers-intro'),
+                document.querySelector('.sort-bar'),
+                document.querySelector('.main-footer')
+            ];
+            
+            elementsToAnimate.forEach((el, index) => {
+                if (el) {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 200 + (index * 150));
+                }
+            });
+        }
+    </script>
+</body>
+</html>

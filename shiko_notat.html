@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistemi i notave për nxënësit e Shkollës Fillore 'Kenan Halimi'">
+    <title>Notat e Mia | Shkolla Fillore "Kenan Halimi"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="notat.css">
+    <!-- Font Awesome për ikonat -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+
+    <style>
+            
+
+            
+
+            
+            /* Përgjegjshmëria për ekrane të vogla */
+            @media (max-width: 900px) {
+                .main-container {
+                    grid-template-columns: 1fr;
+                }
+                
+                .stats-container {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            
+            @media (max-width: 600px) {
+                .header-container {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 1rem;
+                    padding: 1rem;
+                    margin: 1rem;
+                }
+                
+                .logo-container {
+                    justify-content: center;
+                }
+                
+                .main-nav {
+                    margin: 0 1rem 1.5rem;
+                    padding: 0.6rem 0.5rem;
+                }
+                
+                .nav-list {
+                    gap: 0.3rem 1rem;
+                }
+                
+                .nav-item a {
+                    padding: 0.4rem 0.8rem;
+                    font-size: 0.9rem;
+                }
+                
+                .filter-sidebar, .grades-section {
+                    margin: 0 1rem;
+                    padding: 1rem;
+                }
+                
+                .grades-table {
+                    font-size: 0.85rem;
+                }
+                
+                .grades-table td, .grades-table th {
+                    padding: 0.6rem 0.5rem;
+                }
+                
+                .stats-container {
+                    grid-template-columns: 1fr;
+                }
+                
+                .chart-label {
+                    min-width: 70px;
+                    font-size: 0.8rem;
+                }
+                
+                .grade-modal-content {
+                    padding: 1.5rem;
+                    width: 95%;
+                }
+            }
+            
+            /* Animacionet */
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes slideInUp {
+                from { transform: translateY(20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            
+            .fade-in {
+                animation: fadeIn var(--transition-medium);
+            }
+            
+            .slide-in-up {
+                animation: slideInUp var(--transition-medium);
+            }
+            
+            .pulse {
+                animation: pulse 2s;
+            }
+            
+            /* Klasa ndihmëse */
+            .text-center {
+                text-align: center;
+            }
+            
+            .mt-1 {
+                margin-top: 0.5rem;
+            }
+            
+            .mt-2 {
+                margin-top: 1rem;
+            }
+            
+            .mt-3 {
+                margin-top: 1.5rem;
+            }
+            
+            .mb-1 {
+                margin-bottom: 0.5rem;
+            }
+            
+            .mb-2 {
+                margin-bottom: 1rem;
+            }
+            
+            .mb-3 {
+                margin-bottom: 1.5rem;
+            }
+            
+            .hidden {
+                display: none !important;
+            }
+    </style>
+    </style>
+</head>
+<body>
+    <!-- Header me logo -->
+    <header>
+        <div class="header-container slide-in-up">
+            <div class="logo-container">
+                <span class="school-logo">
+                    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                        <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                        <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                        <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                    </svg>
+                </span>
+                <h1>Notat e Mia</h1>
+            </div>
+            <div class="student-info">
+                <strong>Nxënësi:</strong> <span id="student-name">Ardian Krasniqi</span> | 
+                <strong>Klasa:</strong> <span id="student-class">VII A</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigacioni kryesor -->
+    <nav class="main-nav slide-in-up">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="index.html">Ballina</a></li>
+            <li class="nav-item"><a href="dashboard_nxenes.html">Dashboard</a></li>
+            <li class="nav-item"><a href="shiko_notat.html" class="active">Notat</a></li>
+            <li class="nav-item"><a href="lendet_e_mia.html">Lëndët</a></li>
+            <li class="nav-item"><a href="mesuesit.html">Mësuesit</a></li>
+            <li class="nav-item"><a href="orari_lajmerime.html">Orari & Lajmërime</a></li>
+        </ul>
+    </nav>
+
+    <!-- Përmbajtja kryesore -->
+    <main class="main-container">
+        <!-- Sidebar për filtrim -->
+        <aside class="filter-sidebar slide-in-up">
+            <h3 class="filter-title">Filtro Notat</h3>
+            
+            <div class="filter-group">
+                <label for="period-filter" class="filter-group-title">Periudha</label>
+                <select id="period-filter" class="filter-select">
+                    <option value="all">Të gjitha</option>
+                    <option value="period1">Periudha I (Shtator-Dhjetor)</option>
+                    <option value="period2" selected>Periudha II (Janar-Mars)</option>
+                    <option value="period3">Periudha III (Prill-Qershor)</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="subject-filter" class="filter-group-title">Lënda</label>
+                <select id="subject-filter" class="filter-select">
+                    <option value="all" selected>Të gjitha lëndët</option>
+                    <option value="math">Matematikë</option>
+                    <option value="albanian">Gjuhë Shqipe</option>
+                    <option value="english">Gjuhë Angleze</option>
+                    <option value="science">Shkencat Natyrore</option>
+                    <option value="history">Histori</option>
+                    <option value="geography">Gjeografi</option>
+                    <option value="art">Edukatë Figurative</option>
+                    <option value="music">Edukatë Muzikore</option>
+                    <option value="pe">Edukatë Fizike</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="grade-filter" class="filter-group-title">Nota</label>
+                <select id="grade-filter" class="filter-select">
+                    <option value="all" selected>Të gjitha notat</option>
+                    <option value="5">Nota 5</option>
+                    <option value="4">Nota 4</option>
+                    <option value="3">Nota 3</option>
+                    <option value="2">Nota 2</option>
+                    <option value="1">Nota 1</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="type-filter" class="filter-group-title">Lloji i Vlerësimit</label>
+                <select id="type-filter" class="filter-select">
+                    <option value="all" selected>Të gjitha</option>
+                    <option value="test">Test</option>
+                    <option value="quiz">Kuiz</option>
+                    <option value="homework">Detyra Shtëpie</option>
+                    <option value="project">Projekt</option>
+                    <option value="participation">Pjesëmarrje</option>
+                </select>
+            </div>
+            
+            <button id="reset-filters" class="pagination-button mt-3">Rivendos filtrat</button>
+        </aside>
+
+        <!-- Seksioni i notave -->
+        <section class="grades-section slide-in-up">
+            <h2 class="section-title"><span class="icon"><i class="fas fa-chart-line"></i></span>Raporti i Notave</h2>
+            
+            <!-- Kartat statistikore -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value" id="average-grade">4.3</div>
+                    <div class="stat-label">Nota mesatare</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="highest-grade">5</div>
+                    <div class="stat-label">Nota më e lartë</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-grades">32</div>
+                    <div class="stat-label">Vlerësime totale</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="best-subject">Mat</div>
+                    <div class="stat-label">Lënda më e mirë</div>
+                </div>
+            </div>
+            
+            <!-- Kërkimi -->
+            <div class="search-container">
+                <span class="search-icon"><i class="fas fa-search"></i></span>
+                <input type="text" id="search-grades" class="search-input" placeholder="Kërko sipas lëndës, llojit të vlerësimit, ose komentit...">
+            </div>
+            
+            <!-- Tabela e notave -->
+            <div class="table-container">
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Lënda</th>
+                            <th>Lloji</th>
+                            <th>Nota</th>
+                            <th>Mësuesi</th>
+                            <th>Koment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="grades-table-body">
+                        <tr class="grade-row" data-id="1">
+                            <td class="date-column">25 Mar 2025</td>
+                            <td class="subject-column">Matematikë</td>
+                            <td>Test</td>
+                            <td class="grade-value grade-excellent">5</td>
+                            <td class="teacher-column">B. Krasniqi</td>
+                            <td class="comment-column">Punë e shkëlqyeshme në zgjidhjen e problemeve komplekse.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="2">
+                            <td class="date-column">20 Mar 2025</td>
+                            <td class="subject-column">Gjuhë Shqipe</td>
+                            <td>Ese</td>
+                            <td class="grade-value grade-good">4</td>
+                            <td class="teacher-column">V. Gashi</td>
+                            <td class="comment-column">Ese e strukturuar mirë, me disa gabime gjuhësore.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="3">
+                            <td class="date-column">18 Mar 2025</td>
+                            <td class="subject-column">Shkencat Natyrore</td>
+                            <td>Projekt</td>
+                            <td class="grade-value grade-excellent">5</td>
+                            <td class="teacher-column">I. Dervishi</td>
+                            <td class="comment-column">Projekt inovativ me prezentim të qartë.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="4">
+                            <td class="date-column">15 Mar 2025</td>
+                            <td class="subject-column">Gjuhë Angleze</td>
+                            <td>Test</td>
+                            <td class="grade-value grade-average">3</td>
+                            <td class="teacher-column">A. Berisha</td>
+                            <td class="comment-column">Nevojitet më shumë praktikë në gramatikë.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="5">
+                            <td class="date-column">12 Mar 2025</td>
+                            <td class="subject-column">Matematikë</td>
+                            <td>Kuiz</td>
+                            <td class="grade-value grade-excellent">5</td>
+                            <td class="teacher-column">B. Krasniqi</td>
+                            <td class="comment-column">Përgjigje të sakta në të gjitha pyetjet.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="6">
+                            <td class="date-column">10 Mar 2025</td>
+                            <td class="subject-column">Histori</td>
+                            <td>Detyra</td>
+                            <td class="grade-value grade-good">4</td>
+                            <td class="teacher-column">V. Kelmendi</td>
+                            <td class="comment-column">Analizë e mirë, por mungojnë disa fakte.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="7">
+                            <td class="date-column">05 Mar 2025</td>
+                            <td class="subject-column">Edukatë Fizike</td>
+                            <td>Pjesëmarrje</td>
+                            <td class="grade-value grade-excellent">5</td>
+                            <td class="teacher-column">M. Hoxha</td>
+                            <td class="comment-column">Pjesëmarrje aktive dhe shkathtësi të mira fizike.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="8">
+                            <td class="date-column">03 Mar 2025</td>
+                            <td class="subject-column">Gjuhë Shqipe</td>
+                            <td>Test</td>
+                            <td class="grade-value grade-good">4</td>
+                            <td class="teacher-column">V. Gashi</td>
+                            <td class="comment-column">Njohuri të mira të literaturës.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="9">
+                            <td class="date-column">28 Shk 2025</td>
+                            <td class="subject-column">Edukatë Muzikore</td>
+                            <td>Performancë</td>
+                            <td class="grade-value grade-excellent">5</td>
+                            <td class="teacher-column">A. Shala</td>
+                            <td class="comment-column">Performancë e shkëlqyeshme vokale.</td>
+                        </tr>
+                        <tr class="grade-row" data-id="10">
+                            <td class="date-column">25 Shk 2025</td>
+                            <td class="subject-column">Matematikë</td>
+                            <td>Detyra</td>
+                            <td class="grade-value grade-good">4</td>
+                            <td class="teacher-column">B. Krasniqi</td>
+                            <td class="comment-column">Zgjidhje të mira, por me disa gabime në kalkulim.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination mt-3">
+                <button class="pagination-button" title="Faqja e parë" aria-label="Shko te faqja e parë"><i class="fas fa-angle-double-left"></i></button>
+                <button class="pagination-button">1</button>
+                <button class="pagination-button active">2</button>
+                <button class="pagination-button">3</button>
+                <button class="pagination-button">4</button>
+                <button class="pagination-button" title="Faqja e fundit" aria-label="Shko te faqja e fundit"><i class="fas fa-angle-double-right"></i></button>
+            </div>
+            
+            <!-- Grafikët e notave -->
+            <div class="chart-container">
+                <h3 class="chart-title"><i class="fas fa-chart-bar"></i> Performanca sipas Lëndëve</h3>
+                <div class="bar-chart" id="subjects-chart">
+                    <div class="chart-bar">
+                        <div class="chart-label">Matematikë</div>
+                        <div class="chart-bar-outer">
+                            <div class="chart-bar-inner width-90"></div>
+                        </div>
+                        <div class="chart-value">4.5</div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Gjuhë Shqipe</div>
+                        <div class="chart-bar-outer">
+                            <div class="chart-bar-inner width-80"></div>
+                        </div>
+                        <div class="chart-value">4.0</div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Gjuhë Angleze</div>
+                        <div class="chart-bar-outer">
+                            <div class="chart-bar-inner width-70"></div>
+                        </div>
+                        <div class="chart-value">3.5</div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Shk. Natyrore</div>
+                        <div class="chart-bar-outer">
+                            <div class="chart-bar-inner width-94"></div>
+                        </div>
+                        <div class="chart-value">4.7</div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Histori</div>
+                        <div class="chart-bar-outer">
+                            <div class="chart-bar-inner width-84"></div>
+                        </div>
+                        <div class="chart-value">4.2</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Shkolla Fillore "Kenan Halimi" - Platforma Digjitale e Nxënësve</p>
+            <p class="copyright">&copy; 2025 Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
+
+    <!-- Modal për detajet e notës -->
+    <div class="grade-modal" id="grade-modal">
+        <div class="grade-modal-content">
+            <button class="modal-close" id="modal-close">×</button>
+            <h2 class="modal-title">Detajet e Vlerësimit</h2>
+            <div class="modal-info">
+                <div class="info-row">
+                    <div class="info-label">Lënda:</div>
+                    <div class="info-value" id="modal-subject">Matematikë</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Nota:</div>
+                    <div class="info-value" id="modal-grade">5</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Data:</div>
+                    <div class="info-value" id="modal-date">25 Mars 2025</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Lloji:</div>
+                    <div class="info-value" id="modal-type">Test</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Mësuesi:</div>
+                    <div class="info-value" id="modal-teacher">Besnik Krasniqi</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Koment:</div>
+                    <div class="info-value" id="modal-comment">Punë e shkëlqyeshme në zgjidhjen e problemeve komplekse.</div>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button secondary" id="modal-close-btn">Mbyll</button>
+                <button class="modal-button primary" id="download-report-btn">Shkarko Raportin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skriptet JavaScript -->
+    <script>
+        // Detektimi i pajisjes Samsung Galaxy
+        const isSamsungGalaxy = /SM-G998|SM-S908|Samsung Galaxy S22/i.test(navigator.userAgent);
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializimi i komponentëve UI
+            initializeGradeRows();
+            initializeFilters();
+            initializeSearch();
+            initializeModal();
+            initializeCharts();
+            updateStatistics();
+            
+            // Optimizimet për Samsung Galaxy dhe Android
+            if (isAndroid || isSamsungGalaxy) {
+                optimizeForMobile();
+            }
+        });
+        
+        // Inicializimi i rreshtave të notave
+        function initializeGradeRows() {
+            const gradeRows = document.querySelectorAll('.grade-row');
+            
+            gradeRows.forEach(row => {
+                // Aplikimi i klasave bazuar në vlerën e notës
+                const gradeCell = row.querySelector('.grade-value');
+                const gradeValue = parseInt(gradeCell.textContent);
+                
+                if (gradeValue === 5) {
+                    gradeCell.classList.add('grade-excellent');
+                } else if (gradeValue === 4) {
+                    gradeCell.classList.add('grade-good');
+                } else if (gradeValue === 3) {
+                    gradeCell.classList.add('grade-average');
+                } else if (gradeValue <= 2) {
+                    gradeCell.classList.add('grade-poor');
+                }
+                
+                // Shtimi i event listener për hapjen e modalit
+                row.addEventListener('click', function() {
+                    openGradeModal(this);
+                });
+            });
+        }
+        
+        // Inicializimi i filtrave
+        function initializeFilters() {
+            const filters = [
+                document.getElementById('period-filter'),
+                document.getElementById('subject-filter'),
+                document.getElementById('grade-filter'),
+                document.getElementById('type-filter')
+            ];
+            
+            filters.forEach(filter => {
+                if (filter) {
+                    filter.addEventListener('change', function() {
+                        applyFilters();
+                    });
+                }
+            });
+            
+            // Butoni i rivendosjes së filtrave
+            const resetButton = document.getElementById('reset-filters');
+            if (resetButton) {
+                resetButton.addEventListener('click', function() {
+                    filters.forEach(filter => {
+                        if (filter) filter.value = 'all';
+                    });
+                    applyFilters();
+                });
+            }
+        }
+        
+        // Aplikimi i filtrave
+        function applyFilters() {
+            const periodFilter = document.getElementById('period-filter').value;
+            const subjectFilter = document.getElementById('subject-filter').value;
+            const gradeFilter = document.getElementById('grade-filter').value;
+            const typeFilter = document.getElementById('type-filter').value;
+            
+            const rows = document.querySelectorAll('.grade-row');
+            
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                // Në një sistem real, këtu do të kontrollohen të dhënat aktuale
+                // nga dataset ose atributet e rreshtit
+                
+                // Për qëllime demonstrimi, po bëjmë një logjikë të thjeshtë
+                let shouldShow = true;
+                
+                // Simulimi i logjikës së filtrimit
+                if (subjectFilter !== 'all') {
+                    const subject = row.querySelector('.subject-column').textContent.toLowerCase();
+                    if (subjectFilter === 'math' && !subject.includes('matematik')) shouldShow = false;
+                    if (subjectFilter === 'albanian' && !subject.includes('shqipe')) shouldShow = false;
+                    if (subjectFilter === 'english' && !subject.includes('angleze')) shouldShow = false;
+                    // ... etj për filtrat e tjerë
+                }
+                
+                if (gradeFilter !== 'all') {
+                    const grade = row.querySelector('.grade-value').textContent;
+                    if (grade !== gradeFilter) shouldShow = false;
+                }
+                
+                if (typeFilter !== 'all') {
+                    const type = row.cells[2].textContent.toLowerCase();
+                    if (typeFilter === 'test' && !type.includes('test')) shouldShow = false;
+                    if (typeFilter === 'quiz' && !type.includes('kuiz')) shouldShow = false;
+                    if (typeFilter === 'homework' && !type.includes('detyr')) shouldShow = false;
+                    if (typeFilter === 'project' && !type.includes('projekt')) shouldShow = false;
+                    if (typeFilter === 'participation' && !type.includes('pjesëmarr')) shouldShow = false;
+                }
+                
+                // Aplikimi i vizibilitetit
+                if (shouldShow) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Përditësimi i statistikave bazuar në filtrat
+            updateStatistics();
+            
+            // Mesazhi për rezultatet
+            const gradesTable = document.getElementById('grades-table-body');
+            let noResults = document.getElementById('no-results-message');
+            
+            if (visibleCount === 0) {
+                if (!noResults) {
+                    noResults = document.createElement('tr');
+                    noResults.id = 'no-results-message';
+                    noResults.innerHTML = `<td colspan="6" class="text-center">Nuk u gjetën rezultate që përputhen me filtrat.</td>`;
+                    gradesTable.appendChild(noResults);
+                }
+            } else if (noResults) {
+                noResults.remove();
+            }
+        }
+        
+        // Inicializimi i kërkimit
+        function initializeSearch() {
+            const searchInput = document.getElementById('search-grades');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('.grade-row');
+                    
+                    rows.forEach(row => {
+                        const subject = row.querySelector('.subject-column').textContent.toLowerCase();
+                        const type = row.cells[2].textContent.toLowerCase();
+                        const teacher = row.querySelector('.teacher-column').textContent.toLowerCase();
+                        const comment = row.querySelector('.comment-column').textContent.toLowerCase();
+                        
+                        if (subject.includes(searchTerm) || type.includes(searchTerm) || 
+                            teacher.includes(searchTerm) || comment.includes(searchTerm)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+                
+                // Fokusimi dhe efekti vizual
+                searchInput.addEventListener('focus', function() {
+                    this.parentElement.style.boxShadow = '0 0 0 3px rgba(79,195,247,0.2)';
+                });
+                
+                searchInput.addEventListener('blur', function() {
+                    this.parentElement.style.boxShadow = '';
+                });
+            }
+        }
+        
+        // Hapja e modalit për detajet e notës
+        function openGradeModal(row) {
+            const modal = document.getElementById('grade-modal');
+            
+            // Plotësimi i të dhënave në modal nga rreshti
+            document.getElementById('modal-subject').textContent = row.querySelector('.subject-column').textContent;
+            document.getElementById('modal-grade').textContent = row.querySelector('.grade-value').textContent;
+            document.getElementById('modal-date').textContent = row.querySelector('.date-column').textContent;
+            document.getElementById('modal-type').textContent = row.cells[2].textContent;
+            document.getElementById('modal-teacher').textContent = row.querySelector('.teacher-column').textContent;
+            document.getElementById('modal-comment').textContent = row.querySelector('.comment-column').textContent;
+            
+            // Shfaqja e modalit me animacion
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.querySelector('.grade-modal-content').classList.add('slide-in-up');
+            }, 10);
+        }
+        
+        // Inicializimi i modalit
+        function initializeModal() {
+            const modal = document.getElementById('grade-modal');
+            const closeButton = document.getElementById('modal-close');
+            const closeBtn = document.getElementById('modal-close-btn');
+            
+            if (closeButton) {
+                closeButton.addEventListener('click', closeModal);
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+            
+            // Mbyllja me klikim jashtë
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Mbyllja me ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+            
+            // Simulimi i shkarkimit të raportit
+            const downloadBtn = document.getElementById('download-report-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function() {
+                    alert('Raporti u gjenerua dhe po shkarkohet...');
+                    setTimeout(() => {
+                        closeModal();
+                    }, 1500);
+                });
+            }
+        }
+        
+        // Mbyllja e modalit
+        function closeModal() {
+            const modal = document.getElementById('grade-modal');
+            modal.querySelector('.grade-modal-content').classList.remove('slide-in-up');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        
+        // Inicializimi i grafikëve
+        function initializeCharts() {
+            // Animacioni i shfaqjes së grafikëve
+            const chartBars = document.querySelectorAll('.chart-bar-inner');
+            
+            // Rivendosja e gjerësive për animacion
+            chartBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300);
+            });
+        }
+        
+        // Përditësimi i statistikave
+        function updateStatistics() {
+            // Në një aplikacion real, këto vlera do të llogariten nga të dhënat aktuale
+            // Për demonstrim, po përdorim vlera statike
+            document.getElementById('average-grade').textContent = '4.3';
+            document.getElementById('highest-grade').textContent = '5';
+            document.getElementById('total-grades').textContent = '32';
+            document.getElementById('best-subject').textContent = 'Mat';
+            
+            // Animacioni i vlerave
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(value => {
+                value.classList.add('pulse');
+                setTimeout(() => {
+                    value.classList.remove('pulse');
+                }, 2000);
+            });
+        }
+        
+        // Optimizime për pajisjet mobile
+        function optimizeForMobile() {
+            // Rrit madhësinë e target-touch për elementet interaktive
+            document.querySelectorAll('.nav-item a, button, select, .grade-row, .pagination-button').forEach(el => {
+                el.style.minHeight = '44px';  // Madhësia minimale për target touch sipas udhëzimeve
+            });
+            
+            // Optimizo scrolling për Android
+            document.querySelectorAll('.table-container').forEach(el => {
+                el.style.overflowX = 'auto';
+                el.style.WebkitOverflowScrolling = 'touch';  // Për pajisjet më të vjetra
+            });
+            
+            // Optimizo për ekrane me rezolucion të lartë
+            if (window.devicePixelRatio > 2.5) {
+                document.querySelector('body').classList.add('high-dpi');
+                document.querySelectorAll('input, select, button').forEach(el => {
+                    el.classList.add('touch-optimized');
+                });
+            }
+            
+            // Përmirëso responsivitetin e tabelës për ekrane të vogla
+            const table = document.querySelector('.grades-table');
+            if (window.innerWidth < 500 && table) {
+                table.classList.add('compact-table');
+            }
+        }
+
+        // Animacioni i faqes kur ngarkohet
+        window.addEventListener('load', function() {
+            document.body.classList.add('fade-in');
+            
+            // Optimizo performancën e animacioneve në pajisje mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const animationDelay = isMobile ? 50 : 100; // Përshpejtimi i animacioneve në mobile
+            
+            // Animacioni i elementeve të tjera sipas nevojës
+            const elementsToAnimate = document.querySelectorAll('.slide-in-up');
+            elementsToAnimate.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, animationDelay * index);
+            });
+            
+            // Përmirëso reagimin ndaj prekjes në pajisje touch
+            if ('ontouchstart' in window) {
+                document.body.style.touchAction = 'manipulation';
+                document.body.style.webkitTapHighlightColor = 'rgba(0,0,0,0)';
+            }
+        });
+    </script>
+</body>
+</html>

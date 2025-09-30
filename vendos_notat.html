@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Theme color for Chrome, Edge, Safari (limited support in Firefox/Opera) -->
+    <meta name="theme-color" content="#1976d2">
+    <!-- Note: 'theme-color' is not supported by Firefox, Firefox for Android, or Opera. No direct alternative exists for these browsers, but this tag is safe to include for Chrome, Edge, and Safari. -->
+    <!-- 'theme-color' is not supported by Firefox, Firefox for Android, or Opera. No direct alternative exists for these browsers, but this tag is safe to include for Chrome, Edge, and Safari. -->
+    <!-- Optional: theme-color for light/dark mode (for browsers that support it) -->
+    <!-- Removed media-specific theme-color meta tags for better compatibility -->
+    <!-- Note: Firefox and Opera have limited or no support for theme-color meta tag -->
+    <!-- Fallback for Microsoft browsers -->
+    <meta name="msapplication-TileColor" content="#1976d2">
+    <!-- Safari Pinned Tab (for macOS Safari) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Sistemi për vendosjen e notave të nxënësve - Shkolla Fillore Kenan Halimi">
+    <title>Vendos Notat</title>
+    <link rel="stylesheet" href="notat.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
+            min-height: 100vh;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
+        .grade-form-container {
+            max-width: 420px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(33,150,243,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            animation: fadeIn 0.7s;
+        }
+        .grade-form-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+        .grade-form-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4fc3f7 60%, #fffde7 100%);
+            box-shadow: 0 2px 8px rgba(33,150,243,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .grade-form-logo svg {
+            width: 80%;
+            height: 80%;
+        }
+        .grade-form-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.7rem;
+            color: #1976d2;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+        .grade-form label {
+            font-weight: 500;
+            color: #1976d2;
+            margin-bottom: 0.3rem;
+            display: block;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .grade-form select,
+        .grade-form input[type="number"] {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid #b3e5fc;
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #f7fbfd;
+            transition: border 0.2s;
+        }
+        .grade-form select:focus,
+        .grade-form input[type="number"]:focus {
+            border-color: #4fc3f7;
+            outline: none;
+            background: #fff;
+        }
+        .grade-form button {
+            background: linear-gradient(90deg, #4fc3f7 60%, #1976d2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 0;
+            font-size: 1.1rem;
+            font-family: 'Roboto', Arial, sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.10);
+            transition: background 0.2s, transform 0.15s;
+        }
+        .grade-form button:hover {
+            background: linear-gradient(90deg, #1976d2 60%, #4fc3f7 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        /* Samsung Galaxy S22 Ultra and other high-res devices */
+        @media screen and (min-width: 412px) and (max-width: 915px) and (-webkit-min-device-pixel-ratio: 2.5) {
+            .grade-form-container {
+                padding: 1.6rem 0.8rem 1.8rem;
+                margin: 32px auto;
+                max-width: 90%;
+            }
+            .grade-form button {
+                padding: 1.1rem 0;
+                font-size: 1.2rem;
+            }
+            .grade-form select, 
+            .grade-form input[type="number"] {
+                padding: 0.9rem 1.2rem;
+                font-size: 1.1rem;
+                border-radius: 10px;
+                margin-bottom: 1.5rem;
+            }
+            .grade-form label {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        /* General Mobile Styles */
+        @media (max-width: 600px) {
+            .grade-form-container {
+                padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+                margin: 24px 6px;
+                border-radius: 14px;
+            }
+            .grade-form-title {
+                font-size: 1.2rem;
+            }
+            .grade-form select, 
+            .grade-form input[type="number"] {
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+        }
+        
+        /* Small Mobile Devices */
+        @media (max-width: 374px) {
+            .grade-form-container {
+                padding: 1rem 0.5rem 1.2rem;
+                margin: 16px 6px;
+            }
+            .grade-form-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grade-form-container fade-in">
+        <div class="grade-form-header">
+            <span class="grade-form-logo">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </span>
+            <h1 class="grade-form-title">Vendos Notat e Nxënësve</h1>
+        </div>
+        <form class="grade-form" action="proceso_notat.html" method="POST" autocomplete="off">
+            <label for="student">Zgjidh Nxënësin</label>
+            <select id="student" name="student" required>
+                <option value="">--Zgjidh Nxënësin--</option>
+                <option value="1">Arben Krasniqi</option>
+                <option value="2">Elira Hoxha</option>
+                <option value="3">Driton Berisha</option>
+                <!-- Më shumë nxënës mund të shtohen këtu -->
+            </select>
+            <label for="subject">Zgjidh Lëndën</label>
+            <select id="subject" name="subject" required>
+                <option value="">--Zgjidh Lëndën--</option>
+                <option value="matematika">Matematika</option>
+                <option value="shkenca">Shkenca</option>
+                <option value="gjuha_shqipe">Gjuha Shqipe</option>
+                <!-- Më shumë lëndë mund të shtohen këtu -->
+            </select>
+            <label for="grade">Vendos Notën</label>
+            <input type="number" id="grade" name="grade" min="1" max="10" required placeholder="Shkruaj notën (1-10)">
+            <button type="submit">Ruaj Notën</button>
+            <a href="shiko_notat.html">Shiko Notat</a>
+        </form>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detektimi i pajisjes Samsung Galaxy dhe Android
+            const isSamsungGalaxy = /SM-G998|SM-S908|Samsung Galaxy S22/i.test(navigator.userAgent);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isHighDPI = window.devicePixelRatio > 2.5;
+            
+            // Optimizimet për pajisje mobile
+            if (isAndroid || isSamsungGalaxy || 'ontouchstart' in window) {
+                optimizeForTouch();
+            }
+            
+            // Optimizimet specifike për ekrane me rezolucion të lartë
+            if (isHighDPI) {
+                optimizeForHighDPI();
+            }
+            
+            // Përmirësimi i përvojës së përdoruesit
+            enhanceUserExperience();
+        });
+        
+        // Funksioni për optimizimin e ndërveprimit me prekje
+        function optimizeForTouch() {
+            // Rrit madhësinë e target-touch për elementet interaktive
+            document.querySelectorAll('select, input[type="number"], button, a').forEach(el => {
+                el.classList.add('touch-optimized');
+                el.style.minHeight = '44px';  // Madhësia minimale për target touch
+                
+                // Përmirëso reagimin ndaj prekjes
+                el.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                el.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Sigurohu që formulari të jetë i lehtë për t'u përdorur në mobile
+            const formInputs = document.querySelectorAll('.grade-form select, .grade-form input');
+            formInputs.forEach(input => {
+                // Përmirëso fokusimin në mobile
+                input.addEventListener('focus', function() {
+                    this.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+        }
+        
+        // Funksioni për optimizimin e ekraneve me rezolucion të lartë
+        function optimizeForHighDPI() {
+            document.querySelector('.grade-form-container').classList.add('high-dpi');
+            
+            // Përmirëso pamjen e elementeve SVG për ekranet me rezolucion të lartë
+            const svg = document.querySelector('.grade-form-logo svg');
+            if (svg) {
+                svg.setAttribute('width', '100%');
+                svg.setAttribute('height', '100%');
+            }
+        }
+        
+        // Funksioni për përmirësimin e përvojës së përdoruesit
+        function enhanceUserExperience() {
+            // Animacioni i fushave kur fokusohen
+            const formFields = document.querySelectorAll('select, input');
+            formFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.parentElement.classList.add('field-focused');
+                });
+                
+                field.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('field-focused');
+                });
+            });
+            
+            // Kontrolli i vlerave të notave (kufizimi 1-10)
+            const gradeInput = document.getElementById('grade');
+            if (gradeInput) {
+                gradeInput.addEventListener('input', function() {
+                    const value = parseInt(this.value);
+                    if (value > 10) {
+                        this.value = 10;
+                    } else if (value < 1 && this.value !== '') {
+                        this.value = 1;
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

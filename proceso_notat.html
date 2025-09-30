@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1976d2"><!-- Chrome, Edge, Android -->
+    <!-- Fallback for browsers that do not support theme-color -->
+    <style>
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #1976d2;
+            }
+        }
+    </style>
+    <meta name="msapplication-navbutton-color" content="#1976d2"><!-- Windows Phone -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><!-- iOS Safari -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Procesimi i Notave</title>
+    <link rel="stylesheet" href="notat.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f7fa 0%, #fffde7 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
+        .confirmation-container {
+            max-width: 420px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(33,150,243,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.7s;
+        }
+        .confirmation-logo {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4fc3f7 60%, #fffde7 100%);
+            box-shadow: 0 2px 8px rgba(33,150,243,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+        .confirmation-logo svg {
+            width: 80%;
+            height: 80%;
+        }
+        .confirmation-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.6rem;
+            color: #1976d2;
+            margin: 0 0 0.7rem 0;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+        .confirmation-message {
+            font-size: 1.08rem;
+            color: #388e3c;
+            margin-bottom: 1.7rem;
+            text-align: center;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .confirmation-btn {
+            background: linear-gradient(90deg, #4fc3f7 60%, #1976d2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 0;
+            font-size: 1.1rem;
+            font-family: 'Roboto', Arial, sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 220px;
+            box-shadow: 0 2px 8px rgba(33,150,243,0.10);
+            transition: background 0.2s, transform 0.15s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .confirmation-btn:hover {
+            background: linear-gradient(90deg, #1976d2 60%, #4fc3f7 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        
+        /* Stilet shtesë për përmirësimin e përvojës në mobile */
+        .high-dpi {
+            box-shadow: 0 6px 30px rgba(33,150,243,0.15) !important;
+        }
+        
+        .touch-optimized {
+            padding: 12px !important;
+            min-height: 44px;
+        }
+        
+        .pulse {
+            animation: pulseAnimation 2s infinite;
+        }
+        
+        .clicked {
+            animation: clickAnimation 0.3s;
+        }
+        
+        .highlight {
+            animation: highlightAnimation 0.6s;
+        }
+        
+        @keyframes pulseAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes clickAnimation {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes highlightAnimation {
+            0% { color: #388e3c; }
+            50% { color: #4fc3f7; }
+            100% { color: #388e3c; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Samsung Galaxy S22 Ultra and other high-res devices */
+        @media screen and (min-width: 412px) and (max-width: 915px) and (-webkit-min-device-pixel-ratio: 2.5) {
+            .confirmation-container {
+                padding: 2rem 1.5rem;
+                margin: 32px auto;
+                max-width: 90%;
+                border-radius: 20px;
+            }
+            .confirmation-logo {
+                width: 70px;
+                height: 70px;
+            }
+            .confirmation-btn {
+                padding: 1.1rem 1.5rem;
+                font-size: 1.2rem;
+                border-radius: 10px;
+            }
+            .confirmation-title {
+                font-size: 1.8rem;
+            }
+            .confirmation-message {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* General Mobile Styles */
+        @media (max-width: 600px) {
+            .confirmation-container {
+                padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+                margin: 24px 6px;
+                border-radius: 14px;
+            }
+            .confirmation-title {
+                font-size: 1.15rem;
+            }
+            .confirmation-btn {
+                min-height: 44px; /* Përmirëson target size për touch */
+            }
+        }
+        
+        /* Small Mobile Devices */
+        @media (max-width: 374px) {
+            .confirmation-container {
+                padding: 1rem 0.5rem 1.2rem;
+                margin: 16px 6px;
+            }
+            .confirmation-title {
+                font-size: 1rem;
+            }
+            .confirmation-message {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+    <script>
+        // Detektimi i pajisjes
+        document.addEventListener('DOMContentLoaded', function() {
+            const isSamsungGalaxy = /SM-G998|SM-S908|Samsung Galaxy S22/i.test(navigator.userAgent);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            
+            // Optimizime për pajisjet Android, veçanërisht Samsung Galaxy
+            if (isAndroid || isSamsungGalaxy) {
+                // Përmirëso target size për touch
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.style.minHeight = '44px';
+                });
+                
+                // Përmirëso animacionet për performancë më të mirë
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.animationDuration = '0.5s';
+                });
+                
+                // Përmirëso ndërveprimin me prekje
+                document.body.style.touchAction = 'manipulation';
+            }
+            
+            // Optimizime për ekranet me rezolucion të lartë
+            if (window.devicePixelRatio > 2.5) {
+                document.querySelector('.confirmation-container').classList.add('high-dpi');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="confirmation-container fade-in">
+        <span class="confirmation-logo">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+            </svg>
+        </span>
+        <h1 class="confirmation-title">Procesimi i Notave</h1>
+        <div class="confirmation-message">Notat e vendosura janë procesuar me sukses!</div>
+        <a href="shiko_notat.html" class="confirmation-btn">Shiko Notat</a>
+    </div>
+    
+    <script>
+        // Detektimi i pajisjes
+        document.addEventListener('DOMContentLoaded', function() {
+            const isSamsungGalaxy = /SM-G998|SM-S908|Samsung Galaxy S22/i.test(navigator.userAgent);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isHighDPI = window.devicePixelRatio > 2.5;
+            
+            // Optimizime për pajisjet Android, veçanërisht Samsung Galaxy
+            if (isAndroid || isSamsungGalaxy) {
+                // Përmirëso target size për touch
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.style.minHeight = '44px';
+                    el.style.minWidth = '44px';
+                });
+                
+                // Përmirëso animacionet për performancë më të mirë
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.animationDuration = '0.5s';
+                });
+                
+                // Përmirëso ndërveprimin me prekje
+                document.body.style.touchAction = 'manipulation';
+                
+                // Përmirëso reagimin ndaj prekjes
+                document.querySelector('.confirmation-btn').addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                document.querySelector('.confirmation-btn').addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            }
+            
+            // Optimizime për ekranet me rezolucion të lartë
+            if (isHighDPI) {
+                document.querySelector('.confirmation-container').classList.add('high-dpi');
+                
+                // Përmirëso pamjen e SVG-së për ekrane me rezolucion të lartë
+                const svg = document.querySelector('.confirmation-logo svg');
+                if (svg) {
+                    svg.setAttribute('width', '100%');
+                    svg.setAttribute('height', '100%');
+                }
+                
+                // Shto efekt hije më të theksuar për ekrane me rezolucion të lartë
+                document.querySelector('.confirmation-container').style.boxShadow = '0 6px 28px rgba(33,150,243,0.15)';
+            }
+            
+            // Efekti i konfirmimit
+            setTimeout(() => {
+                document.querySelector('.confirmation-message').classList.add('highlight');
+            }, 500);
+            
+            // Animacioni pulsues për butonin
+            setTimeout(() => {
+                document.querySelector('.confirmation-btn').classList.add('pulse');
+            }, 1500);
+        });
+        
+        // Efekti i klikimit në buton
+        document.querySelector('.confirmation-btn').addEventListener('click', function() {
+            this.classList.add('clicked');
+        });
+    </script>
+</body>
+</html>

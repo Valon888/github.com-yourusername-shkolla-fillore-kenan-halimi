@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Kyçuni si mësues në platformën digjitale të Shkollës Fillore Kenan Halimi">
+	<title>Kyçuni si Mësues - Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1976d2;
+            --primary-light: #4fc3f7;
+            --primary-dark: #0d47a1;
+            --accent-color: #ffb300;
+            --text-color: #424242;
+            --text-light: #757575;
+            --white-color: #ffffff;
+            --error-color: #f44336;
+            --success-color: #4caf50;
+            --background-gradient: linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%);
+            --box-shadow: 0 6px 30px rgba(25, 118, 210, 0.15);
+            --transition-fast: 0.2s;
+            --transition-medium: 0.3s;
+            --border-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--background-gradient);
+            font-family: 'Roboto', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            position: relative;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        body::before {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(79, 195, 247, 0.3) 0%, rgba(79, 195, 247, 0.1) 60%, rgba(79, 195, 247, 0) 70%);
+            top: -150px;
+            right: -100px;
+        }
+
+        body::after {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 179, 0, 0.2) 0%, rgba(255, 179, 0, 0.1) 60%, rgba(255, 179, 0, 0) 70%);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 20px;
+            background: var(--white-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--white-color);
+            position: relative;
+        }
+
+        .login-header .school-logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .login-header .school-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .login-title {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .login-subtitle {
+            font-weight: 300;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .login-body {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+            transition: color var(--transition-fast);
+        }
+
+        .form-group .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 38px;
+            color: var(--text-light);
+            transition: color var(--transition-fast);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all var(--transition-medium);
+            background-color: #f9f9f9;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-light);
+            background-color: var(--white-color);
+            box-shadow: 0 0 0 4px rgba(79, 195, 247, 0.15);
+            outline: none;
+        }
+
+        .form-group input:focus + .input-icon {
+            color: var(--primary-color);
+        }
+
+        .form-group.focused label {
+            color: var(--primary-color);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: var(--primary-color);
+        }
+
+        .forgot-password {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            color: var(--white-color);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.35);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: color var(--transition-fast);
+            gap: 5px;
+        }
+
+        .back-to-home:hover {
+            color: var(--primary-dark);
+        }
+
+        .back-to-home i {
+            font-size: 0.8rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Error state */
+        .form-group.error input {
+            border-color: var(--error-color);
+            background-color: rgba(244, 67, 54, 0.05);
+        }
+
+        .form-group.error label,
+        .form-group.error .input-icon {
+            color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Success state */
+        .form-group.success input {
+            border-color: var(--success-color);
+        }
+
+        .form-group.success .input-icon {
+            color: var(--success-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .login-container {
+                margin: 15px;
+                border-radius: 12px;
+            }
+            
+            .login-header {
+                padding: 20px;
+            }
+            
+            .login-header .school-logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+            }
+            
+            .login-body {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Samsung Galaxy S22 Ultra and high DPI screens */
+        @media screen and (min-width: 412px) and (max-width: 915px) and (-webkit-min-device-pixel-ratio: 2.5) {
+            .login-container {
+                box-shadow: 0 8px 30px rgba(25, 118, 210, 0.2);
+            }
+            
+            .form-group input {
+                padding: 14px 14px 14px 45px;
+                font-size: 1.05rem;
+            }
+            
+            .form-group .input-icon {
+                top: 40px;
+                font-size: 1.1rem;
+            }
+            
+            .login-button {
+                padding: 16px;
+                font-size: 1.15rem;
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="school-logo">
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </div>
+            <h1 class="login-title">Kyçuni si Mësues</h1>
+            <p class="login-subtitle">Platforma digjitale për mësimdhënës</p>
+        </div>
+        
+        <div class="login-body">
+            <!-- Mesazhi i sigurisë -->
+            <div class="security-alert" id="securityAlert" style="display: none; padding: 12px; background-color: rgba(244, 67, 54, 0.1); border-left: 4px solid #f44336; margin-bottom: 20px; color: #d32f2f; font-size: 0.95rem; border-radius: 8px;"></div>
+            
+            <!-- Paralajmërimi i përpjekjeve -->
+            <div class="attempts-warning" id="attemptsWarning" style="display: none; margin-bottom: 15px; padding: 8px 12px; background-color: #fff8e1; border-left: 4px solid #ffb300; color: #ff8f00; font-size: 0.9rem; border-radius: 8px;"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Emri i Përdoruesit</label>
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="username" name="username" required>
+                    <div class="error-message">Ju lutemi plotësoni emrin e përdoruesit</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Fjalëkalimi</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="password" name="password" required>
+                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                    <div class="error-message">Ju lutemi plotësoni fjalëkalimin</div>
+                </div>
+                
+                <!-- Treguesi i forcës së fjalëkalimit -->
+                <div class="password-strength-meter" style="height: 5px; background-color: #e0e0e0; margin-bottom: 20px; border-radius: 3px; position: relative; overflow: hidden;">
+                    <div class="password-strength-value" id="passwordStrength" style="height: 100%; width: 0; background-color: #f44336; transition: width 0.3s ease, background-color 0.3s ease;"></div>
+                </div>
+                
+                <!-- CAPTCHA Container -->
+                <div class="captcha-container" id="captchaContainer" style="display: none; margin-top: 15px; margin-bottom: 20px; padding: 15px; background-color: #f5f9ff; border: 1px solid #e0e0e0; border-radius: 10px; text-align: center;">
+                    <div class="captcha-image" id="captchaImage" style="background-color: #fff; padding: 10px; border-radius: 4px; margin-bottom: 10px; display: inline-block; -webkit-user-select: none; user-select: none;">
+                        <span style="font-family: 'Courier New', monospace; font-weight: bold; font-size: 1.2rem; letter-spacing: 3px;"></span>
+                    </div>
+                    <input type="text" id="captchaInput" placeholder="Shkruani kodin e mësipërm" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; margin-top: 10px;">
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: var(--text-light);">
+                        <i class="fas fa-sync-alt" id="refreshCaptcha" style="cursor: pointer; margin-right: 5px;"></i> 
+                        Nuk lexohet? Klikoni për të rifreskuar kodin
+                    </div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Më mbaj mend</label>
+                    </div>
+                    <a href="#" class="forgot-password" id="forgotPassword">Harruat fjalëkalimin?</a>
+                </div>
+                
+                <button type="submit" class="login-button">
+                    <i class="fas fa-sign-in-alt"></i> Kyçu
+                </button>
+                
+                <!-- Vërejtje për privatësinë -->
+                <div class="privacy-notice" style="font-size: 0.8rem; color: var(--text-light); margin-top: 20px; text-align: center;">
+                    <i class="fas fa-shield-alt" style="margin-right: 3px; color: var(--primary-color);"></i> 
+                    Të dhënat tuaja mbrohen me enkriptim të avancuar dhe nuk ndahen me palë të treta.
+                </div>
+                
+                <!-- Badge i sigurisë -->
+                <div class="security-badge" style="display: flex; align-items: center; justify-content: center; margin-top: 12px; gap: 5px; font-size: 0.85rem; color: #558b2f;">
+                    <i class="fas fa-lock"></i> Lidhje e sigurt me enkriptim SSL
+                </div>
+            </form>
+        </div>
+        
+        <div class="login-footer">
+            <a href="register_mesues.html">Nuk keni një llogari? Regjistrohuni këtu</a>
+            <a href="index.html" class="back-to-home"><i class="fas fa-home"></i> Kthehu në Ballinë</a>
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loadingIndicator" style="display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.8); z-index: 10; align-items: center; justify-content: center; flex-direction: column; border-radius: var(--border-radius);">
+            <div class="spinner" style="width: 40px; height: 40px; border: 4px solid rgba(25, 118, 210, 0.3); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px;"></div>
+            <div class="loading-text" style="color: var(--primary-color); font-weight: 500;">Duke u kyçur...</div>
+        </div>
+        
+        <!-- Session Expire Warning -->
+        <div class="session-expire-warning" id="sessionExpireWarning" style="position: fixed; bottom: 20px; right: 20px; padding: 15px 20px; background-color: rgba(33, 33, 33, 0.9); color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); z-index: 1000; display: none; animation: fadeInUp 0.3s ease;">
+            <div><strong>Sesioni juaj do të skadojë së shpejti</strong></div>
+            <div>Koha e mbetur: <span class="session-expire-timer" id="sessionTimer" style="font-weight: 700; color: #ff9800;">2:00</span></div>
+            <div class="session-buttons" style="display: flex; gap: 10px; margin-top: 10px;">
+                <button class="session-button extend-session" id="extendSession" style="padding: 6px 12px; border-radius: 4px; border: none; font-size: 0.85rem; cursor: pointer; font-weight: 600; background-color: var(--primary-color); color: white;">Vazhdo sesionin</button>
+                <button class="session-button logout-session" id="logoutSession" style="padding: 6px 12px; border-radius: 4px; background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.3); color: white; font-size: 0.85rem; cursor: pointer; font-weight: 600;">Dilni</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variablat e sigurisë
+            let loginAttempts = 0;
+            const maxLoginAttempts = 5;
+            let isLocked = false;
+            let lockTime = 0;
+            
+            // Referencat e elementeve DOM
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const securityAlert = document.getElementById('securityAlert');
+            const attemptsWarning = document.getElementById('attemptsWarning');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const captchaContainer = document.getElementById('captchaContainer');
+            const captchaImage = document.querySelector('#captchaImage span');
+            const refreshCaptcha = document.getElementById('refreshCaptcha');
+            const forgotPassword = document.getElementById('forgotPassword');
+            const passwordStrength = document.getElementById('passwordStrength');
+            
+            // Kontrollo nëse llogaria ka qenë e bllokuar më parë
+            if (localStorage.getItem('accountLockedTeacher')) {
+                const lockData = JSON.parse(localStorage.getItem('accountLockedTeacher'));
+                const currentTime = new Date().getTime();
+                
+                if (currentTime < lockData.expiry) {
+                    isLocked = true;
+                    lockTime = Math.ceil((lockData.expiry - currentTime) / 60000); // konvertim në minuta
+                    showAccountLockedMessage(lockTime);
+                } else {
+                    localStorage.removeItem('accountLockedTeacher');
+                }
+            }
+            
+            // Gjenerojmë CAPTCHA
+            captchaImage.textContent = generateCaptcha();
+            
+            // Event Listeners
+            refreshCaptcha.addEventListener('click', function() {
+                captchaImage.textContent = generateCaptcha();
+            });
+            
+            // Password visibility toggle
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Ndryshojmë ikonën
+                if (type === 'password') {
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                } else {
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                }
+            });
+            
+            // Monitorojmë forcën e fjalëkalimit
+            passwordInput.addEventListener('input', function() {
+                checkPasswordStrength(this.value);
+            });
+            
+            // Focus effects
+            const inputs = document.querySelectorAll('.form-group input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+            
+            // "Harruat fjalëkalimin?" handler
+            forgotPassword.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const username = prompt('Shkruani emrin e përdoruesit për të rivendosur fjalëkalimin:');
+                
+                if (username) {
+                    alert('Nëse ky përdorues ekziston, një email me udhëzime për rivendosjen e fjalëkalimit do të dërgohet në adresën e regjistruar të email-it.');
+                }
+            });
+            
+            // Form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (isLocked) {
+                    return; // Nëse llogaria është e bllokuar, nuk lejojmë kyçje
+                }
+                
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value;
+                
+                // Validimi i formularit
+                let isValid = true;
+                
+                if (!username) {
+                    usernameInput.parentElement.classList.add('error');
+                    isValid = false;
+                } else {
+                    usernameInput.parentElement.classList.remove('error');
+                }
+                
+                if (!password) {
+                    passwordInput.parentElement.classList.add('error');
+                    isValid = false;
+                } else {
+                    passwordInput.parentElement.classList.remove('error');
+                }
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // Kontrollo për sulme të mundshme
+                if (checkForXSS(username) || checkForXSS(password) || 
+                    checkForSQLInjection(username) || checkForSQLInjection(password)) {
+                    
+                    // Regjistrojmë tentativën e dyshimtë
+                    console.log('Tentativë e dyshimtë: Sulm i mundshëm i sigurisë');
+                    
+                    showSecurityAlert('Është zbuluar një aktivitet i dyshimtë. Kjo përpjekje është regjistruar.');
+                    
+                    // Rrisim numrin e përpjekjeve
+                    loginAttempts++;
+                    showAttemptsWarning();
+                    
+                    return;
+                }
+                
+                // Kontrollo CAPTCHA nëse është e aktivizuar
+                if (captchaContainer.style.display === 'block') {
+                    const captchaInput = document.getElementById('captchaInput').value;
+                    
+                    if (captchaInput !== captchaImage.textContent) {
+                        showSecurityAlert('CAPTCHA e pasaktë. Ju lutem shkruani kodin saktësisht siç tregohet.');
+                        
+                        // Rigjenerojmë CAPTCHA
+                        captchaImage.textContent = generateCaptcha();
+                        document.getElementById('captchaInput').value = '';
+                        return;
+                    }
+                }
+                
+                // Tregojmë indikatorin e ngarkimit
+                loadingIndicator.style.display = 'flex';
+                
+                // Simulojmë procesin e kyçjes me verifikim të sigurisë
+                setTimeout(function() {
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Demo: Verifikojmë kredencialet
+                    // Në një implementim të vërtetë, kjo do të bëhej në server
+                    const demoCredentials = {
+                        'mesues': 'mesues123',
+                        'teacher': 'teacher123',
+                        'admin': 'admin123'
+                    };
+                    
+                    if (demoCredentials[username] === password) {
+                        // Kyçja e suksesshme
+                        
+                        // Ruajmë kohën e kyçjes (për auditim)
+                        localStorage.setItem('lastLoginTeacher', new Date().toISOString());
+                        
+                        // Rivendosim numëruesin e përpjekjeve
+                        loginAttempts = 0;
+                        localStorage.removeItem('accountLockedTeacher');
+                        
+                        // Startojmë kohëmatësin e sesionit
+                        startSessionTimer();
+                        
+                        // Ridrejtojmë te dashboard i mësuesit
+                        window.location.href = 'dashboard_mesues.html';
+                    } else {
+                        // Kyçja dështoi
+                        loginAttempts++;
+                        
+                        // Tregojmë paralajmërimin e përpjekjeve
+                        showAttemptsWarning();
+                        
+                        // Kontrollojmë nëse llogaria duhet bllokuar
+                        if (loginAttempts >= maxLoginAttempts) {
+                            isLocked = true;
+                            
+                            // Vendosim kohën e bllokimit (15 minuta)
+                            const lockExpiry = new Date().getTime() + (15 * 60 * 1000);
+                            localStorage.setItem('accountLockedTeacher', JSON.stringify({
+                                expiry: lockExpiry
+                            }));
+                            
+                            // Tregojmë mesazhin e bllokimit
+                            showAccountLockedMessage(15);
+                        } else {
+                            // Tregojmë mesazhin e gabimit
+                            showSecurityAlert('Kyçja dështoi. Emri i përdoruesit ose fjalëkalimi është i gabuar.');
+                            
+                            // Aktivizojmë CAPTCHA pas dy përpjekjeve të dështuara
+                            if (loginAttempts >= 2) {
+                                captchaContainer.style.display = 'block';
+                            }
+                        }
+                    }
+                }, 1500);
+            });
+            
+            // Funksionet e sigurisë
+            
+            // Kontrollo për tentativa sulmi XSS
+            function checkForXSS(input) {
+                const xssPattern = /<script|<\/script|javascript:|onerror=|onload=|eval\(|<iframe|<img|alert\(|document\.cookie|onclick=/i;
+                return xssPattern.test(input);
+            }
+            
+            // Kontrollo për tentativa sulmi SQL injection
+            function checkForSQLInjection(input) {
+                const sqlPattern = /(\%27)|(\')|(\-\-)|(ALTER TABLE)|(\;)|(DROP TABLE)|(UNION SELECT)|(SELECT \*)/i;
+                return sqlPattern.test(input);
+            }
+            
+            // Funksioni për gjenerimin e CAPTCHA
+            function generateCaptcha() {
+                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return captcha;
+            }
+            
+            // Funksioni për të shfaqur mesazhin e bllokimit të llogarisë
+            function showAccountLockedMessage(minutes) {
+                securityAlert.style.display = 'block';
+                securityAlert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Llogaria është përkohësisht e bllokuar</strong>
+                    <p>Për shkak të shumë përpjekjeve të dështuara, ju lutemi provoni përsëri pas ${minutes} minutash.</p>
+                `;
+                
+                // Bllokojmë fushat e formës
+                usernameInput.disabled = true;
+                passwordInput.disabled = true;
+                document.querySelector('.login-button').disabled = true;
+            }
+            
+            // Funksioni për të treguar paralajmërimin e përpjekjeve
+            function showAttemptsWarning() {
+                const remaining = maxLoginAttempts - loginAttempts;
+                
+                if (loginAttempts > 0) {
+                    attemptsWarning.style.display = 'block';
+                    attemptsWarning.innerHTML = `
+                        <i class="fas fa-exclamation-circle"></i>
+                        Kujdes: Ju keni edhe ${remaining} përpjekje përpara se llogaria të bllokohet përkohësisht.
+                    `;
+                }
+            }
+            
+            // Funksioni për të kontrolluar forcën e fjalëkalimit
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                
+                // Kriteret për forcën e fjalëkalimit
+                if (password.length >= 8) strength += 25;
+                if (password.match(/[A-Z]/)) strength += 25;
+                if (password.match(/[0-9]/)) strength += 25;
+                if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+                
+                // Përditësojmë shiritin e forcës së fjalëkalimit
+                passwordStrength.style.width = `${strength}%`;
+                
+                // Ndryshojmë ngjyrën bazuar në forcën
+                if (strength <= 25) {
+                    passwordStrength.style.backgroundColor = '#f44336'; // E dobët (e kuqe)
+                } else if (strength <= 50) {
+                    passwordStrength.style.backgroundColor = '#ff9800'; // Mesatare (portokalli)
+                } else if (strength <= 75) {
+                    passwordStrength.style.backgroundColor = '#ffc107'; // E mirë (e verdhë)
+                } else {
+                    passwordStrength.style.backgroundColor = '#4caf50'; // E fortë (jeshile)
+                }
+            }
+            
+            // Funksioni për të shfaqur mesazhin e sigurisë
+            function showSecurityAlert(message) {
+                securityAlert.style.display = 'block';
+                securityAlert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Paralajmërim</strong>
+                    <p>${message}</p>
+                `;
+            }
+            
+            // Funksioni për të startuar kohëmatësin e sesionit
+            function startSessionTimer() {
+                let timeLeft = 2 * 60; // 2 minuta në sekonda
+                const timerDisplay = document.getElementById('sessionTimer');
+                const sessionWarning = document.getElementById('sessionExpireWarning');
+                
+                // Pastrojmë çdo timer ekzistues
+                if (window.sessionInterval) clearInterval(window.sessionInterval);
+                
+                // Nisim kohëmatësin e ri
+                window.sessionInterval = setInterval(function() {
+                    const minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+                    
+                    timerDisplay.textContent = `${minutes}:${seconds}`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(window.sessionInterval);
+                        window.location.href = 'index.html'; // Kthim në faqen kryesore pas skadimit
+                    } else if (timeLeft === 30) {
+                        // Tregojmë paralajmërimin kur mbesin 30 sekonda
+                        sessionWarning.style.display = 'block';
+                    }
+                    
+                    timeLeft--;
+                }, 1000);
+            }
+            
+            // Butonët e sesionit
+            document.getElementById('extendSession').addEventListener('click', function() {
+                document.getElementById('sessionExpireWarning').style.display = 'none';
+                startSessionTimer(); // Rifillohet numërimi
+            });
+            
+            document.getElementById('logoutSession').addEventListener('click', function() {
+                window.location.href = 'index.html'; // Kthim në faqen kryesore
+            });
+        });
+    </script>
+</body>
+</html>

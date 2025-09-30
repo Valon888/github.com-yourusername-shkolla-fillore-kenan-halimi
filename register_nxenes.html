@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="description" content="Regjistrim i nxënësve në platformën e Shkollës Fillore 'Kenan Halimi'">
+    <title>Regjistrim i Nxënësve | Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        :root {
+            --primary: #1976d2;
+            --primary-light: #4fc3f7;
+            --primary-dark: #0d47a1;
+            --secondary: #4caf50;
+            --secondary-light: #81c784;
+            --success: #66bb6a;
+            --error: #f44336;
+            --background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            --card-shadow: 0 10px 30px rgba(25, 118, 210, 0.15);
+            --input-shadow: 0 1px 5px rgba(25, 118, 210, 0.05);
+            --border-radius: 12px;
+            --text-dark: #0d47a1;
+            --text-medium: #1976d2;
+            --text-light: #4fc3f7;
+            --transition: all 0.3s ease;
+        }
+        
+        /* Background Elements */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+        
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -250px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-light);
+            bottom: -200px;
+            right: -100px;
+        }
+        
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+        }
+        
+        .shape-4 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary-dark);
+            bottom: 15%;
+            left: 10%;
+        }
+        
+        /* Floating Bubbles Animation */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+        
+        .bubble-1 {
+            width: 30px;
+            height: 30px;
+            left: 10%;
+            top: 40%;
+            animation-delay: 0s;
+        }
+        
+        .bubble-2 {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            top: 30%;
+            animation-delay: 1s;
+        }
+        
+        .bubble-3 {
+            width: 25px;
+            height: 25px;
+            left: 35%;
+            top: 60%;
+            animation-delay: 2s;
+        }
+        
+        .bubble-4 {
+            width: 15px;
+            height: 15px;
+            left: 75%;
+            top: 25%;
+            animation-delay: 3s;
+        }
+        
+        .bubble-5 {
+            width: 20px;
+            height: 20px;
+            left: 85%;
+            top: 70%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
+        body {
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+            padding: 30px 0 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(25, 118, 210, 0.2);
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            z-index: 1;
+        }
+        
+        .logo-header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .school-logo {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .school-logo svg {
+            width: 85%;
+            height: 85%;
+        }
+        
+        .logo-header-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Registration Container */
+        .registration-container {
+            width: 100%;
+            max-width: 850px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s;
+            padding: 0;
+        }
+        
+        .registration-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark));
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            padding: 30px 40px 20px;
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 30px;
+            counter-reset: step;
+        }
+        
+        .progress-bar::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 4px;
+            width: 100%;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #9e9e9e;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .progress-step.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 5px rgba(25, 118, 210, 0.2);
+        }
+        
+        .progress-step.completed {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .progress-step::before {
+            counter-increment: step;
+            content: counter(step);
+        }
+        
+        .progress-step.completed::before {
+            content: "✓";
+        }
+        
+        .progress-label {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            width: max-content;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+            z-index: 1;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        /* Form Container */
+        .form-container {
+            padding: 30px 40px 40px;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .form-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .form-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 0 0 10px;
+        }
+        
+        .form-subtitle {
+            color: var(--text-medium);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+        
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #f9fbfd;
+            box-shadow: var(--input-shadow);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+            background-color: #fff;
+        }
+        
+        .form-icon-field {
+            position: absolute;
+            top: 40px;
+            left: 15px;
+            color: var(--primary);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus + .form-icon-field {
+            color: var(--primary-dark);
+            opacity: 1;
+        }
+        
+        /* Radio and Checkbox styles */
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .radio-item {
+            position: relative;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .radio-item input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            color: var(--text-medium);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .radio-item input:checked + .radio-label {
+            border-color: var(--primary);
+            background: rgba(25, 118, 210, 0.05);
+            color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+        }
+        
+        .radio-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        /* Required field indicator */
+        .required::after {
+            content: "*";
+            color: var(--error);
+            margin-left: 4px;
+        }
+        
+        /* Form Footer */
+        .form-footer {
+            margin-top: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn-prev {
+            background: transparent;
+            color: var(--text-medium);
+            border: 2px solid var(--primary-light);
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: none;
+        }
+        
+        .btn-prev:hover {
+            background-color: rgba(25, 118, 210, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        .btn-next, .btn-submit {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-next:hover, .btn-submit:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+        }
+        
+        .btn-next:active, .btn-submit:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
+        }
+        
+        /* Button ripple effect */
+        .btn-next::after, .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .btn-next:active::after, .btn-submit:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+        
+        /* Login link */
+        .login-link {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+        }
+        
+        .login-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+            color: var(--primary-dark);
+        }
+        
+        /* Helper styles */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        /* Success message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Hide prev button for first step */
+        .btn-prev-hidden {
+            visibility: hidden;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            color: var(--success);
+            margin-bottom: 20px;
+            animation: scaleSuccess 0.5s;
+        }
+        
+        .success-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 0 0 15px;
+        }
+        
+        .success-text {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleSuccess {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        
+        /* Helper text */
+        .helper-text {
+            font-size: 0.85rem;
+            color: #757575;
+            margin-top: 5px;
+        }
+        
+        .error-text {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Password strength indicator */
+        .password-strength {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+        
+        .strength-bar {
+            height: 5px;
+            flex-grow: 1;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        
+        .strength-text {
+            font-size: 0.85rem;
+            margin-top: 5px;
+            color: #757575;
+            transition: var(--transition);
+        }
+        
+        /* File upload styles */
+        .file-upload {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 2px dashed #bbdefb;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            background: #f5f9ff;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary-light);
+            background: #eaf3ff;
+        }
+        
+        .file-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .file-label {
+            font-weight: 600;
+            color: var(--text-medium);
+            margin-bottom: 5px;
+        }
+        
+        .file-sublabel {
+            font-size: 0.9rem;
+            color: #757575;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-preview {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        .preview-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-top: 10px;
+        }
+        
+        .preview-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .preview-info {
+            flex-grow: 1;
+        }
+        
+        .preview-name {
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        
+        .preview-size {
+            font-size: 0.85rem;
+            color: #757575;
+        }
+        
+        .preview-remove {
+            color: #f44336;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+        
+        .preview-remove:hover {
+            color: #d32f2f;
+        }
+        
+        /* Date of birth custom select */
+        .dob-container {
+            display: grid;
+            grid-template-columns: 2fr 2fr 3fr;
+            gap: 10px;
+        }
+        
+        /* Student Info */
+        .student-info {
+            background: #f5f9ff;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #bbdefb;
+        }
+        
+        .student-info h3 {
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            width: 140px;
+            color: var(--text-medium);
+        }
+        
+        .info-value {
+            flex-grow: 1;
+        }
+        
+        /* Account Options */
+        .account-option {
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .account-option.selected {
+            border-color: var(--primary);
+            background: rgba(25, 118, 210, 0.05);
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+        }
+        
+        .account-radio {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+        }
+        
+        .option-description {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        /* Terms and Privacy */
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 25px;
+            padding: 15px;
+            background: #f5f9ff;
+            border-radius: var(--border-radius);
+        }
+        
+        .terms-checkbox {
+            margin-right: 12px;
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        
+        .terms-label {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+        
+        .terms-label a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms-label a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .registration-container {
+                margin: 30px 15px;
+            }
+            
+            .form-container {
+                padding: 25px 25px 35px;
+            }
+            
+            .progress-container {
+                padding: 25px 25px 15px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .logo-header-title {
+                font-size: 2rem;
+            }
+            
+            .school-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .form-title {
+                font-size: 1.6rem;
+            }
+            
+            .dob-container {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .progress-container {
+                padding: 20px 15px 35px;
+            }
+            
+            .progress-step {
+                width: 36px;
+                height: 36px;
+                border-width: 3px;
+            }
+            
+            .progress-label {
+                font-size: 0.8rem;
+            }
+            
+            .form-container {
+                padding: 20px 15px 30px;
+            }
+            
+            .form-title {
+                font-size: 1.5rem;
+            }
+            
+            .form-subtitle {
+                font-size: 1rem;
+            }
+            
+            .form-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-prev, .btn-next, .btn-submit {
+                width: 100%;
+                padding: 12px;
+            }
+            
+            .form-footer button:first-child {
+                order: 2;
+            }
+            
+            .form-footer button:last-child {
+                order: 1;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .info-label {
+                width: auto;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo-header-container">
+            <div class="school-logo">
+                <!-- SVG logo -->
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </div>
+            <h1 class="logo-header-title">Shkolla Fillore "Kenan Halimi"</h1>
+        </div>
+        <p>Plotëso formularin për t'u regjistruar në platformën digjitale</p>
+    </header>
+    
+                <div class="progress-fill" id="progressFill"></div>
+    <div class="registration-container">
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                <div class="progress-step active" id="step1">
+                    <span class="progress-label">Të dhënat personale</span>
+                </div>
+                <div class="progress-step" id="step2">
+                    <span class="progress-label">Të dhënat shkollore</span>
+                </div>
+                <div class="progress-step" id="step3">
+                    <span class="progress-label">Llogaria</span>
+                </div>
+                <div class="progress-step" id="step4">
+                    <span class="progress-label">Konfirmimi</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Registration Form -->
+        <div class="form-container">
+            <form id="registrationForm">
+                <!-- Step 1: Personal Information -->
+                <div class="form-step active" id="formStep1">
+                    <div class="form-header">
+                        <h2 class="form-title">Të dhënat personale</h2>
+                        <p class="form-subtitle">Ju lutemi të plotësoni informacionet personale të nxënësit</p>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label required">Emri</label>
+                            <input type="text" id="firstName" class="form-control" placeholder="Emri" required>
+                            <i class="fas fa-user form-icon-field"></i>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName" class="form-label required">Mbiemri</label>
+                            <input type="text" id="lastName" class="form-control" placeholder="Mbiemri" required>
+                            <i class="fas fa-user form-icon-field"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Gjinia</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="gender" value="male" required>
+                                <span class="radio-label">
+                                    <i class="fas fa-male radio-icon"></i>
+                                    Mashkull
+                                </span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="gender" value="female">
+                                <span class="radio-label">
+                                    <i class="fas fa-female radio-icon"></i>
+                                    Femër
+                                </span>
+                            </label>
+                        </div>
+                            <select id="birthDay" class="form-control" required title="Zgjidh ditën e lindjes">
+                                <option value="" disabled selected>Dita</option>
+                                <!-- Days will be added by JavaScript -->
+                            </select>
+                            
+                            <select id="birthMonth" class="form-control" required title="Zgjidh muajin e lindjes">
+                                <option value="" disabled selected>Muaji</option>
+                                <option value="1">Janar</option>
+                                <option value="2">Shkurt</option>
+                                <option value="3">Mars</option>
+                                <option value="4">Prill</option>
+                                <option value="5">Maj</option>
+                                <option value="6">Qershor</option>
+                                <option value="7">Korrik</option>
+                                <option value="8">Gusht</option>
+                                <option value="9">Shtator</option>
+                                <option value="10">Tetor</option>
+                                <option value="11">Nëntor</option>
+                                <option value="12">Dhjetor</option>
+                            </select>
+                            
+                            <select id="birthYear" class="form-control" required title="Zgjidh vitin e lindjes">
+                                <option value="" disabled selected>Viti</option>
+                                <!-- Years will be added by JavaScript -->
+                            </select>
+                            
+                            <select id="birthYear" class="form-control" required title="Zgjidh vitin e lindjes">
+                                <option value="" disabled selected>Viti</option>
+                                <!-- Years will be added by JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parentEmail" class="form-label required">Email i prindit/kujdestarit</label>
+                        <input type="email" id="parentEmail" class="form-control" placeholder="email@shembull.com" required>
+                        <button type="button" class="btn-prev btn-prev-hidden">Mbrapa</button>
+                        <small class="helper-text">Email-i i prindit do të përdoret për komunikim me shkollën</small>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="button" class="btn-prev" style="visibility: hidden">Mbrapa</button>
+                        <button type="button" class="btn-next" id="next1">Vazhdo <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: School Information -->
+                <div class="form-step" id="formStep2">
+                    <div class="form-header">
+                        <h2 class="form-title">Të dhënat shkollore</h2>
+                        <p class="form-subtitle">Ju lutemi të plotësoni informacionet shkollore të nxënësit</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="grade" class="form-label required">Klasa</label>
+                        <select id="grade" class="form-control" required>
+                            <option value="" disabled selected>Zgjidh klasën</option>
+                            <option value="1">Klasa 1</option>
+                            <option value="2">Klasa 2</option>
+                            <option value="3">Klasa 3</option>
+                            <option value="4">Klasa 4</option>
+                            <option value="5">Klasa 5</option>
+                            <option value="6">Klasa 6</option>
+                            <option value="7">Klasa 7</option>
+                            <option value="8">Klasa 8</option>
+                            <option value="9">Klasa 9</option>
+                        </select>
+                        <i class="fas fa-graduation-cap form-icon-field"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="classroom" class="form-label required">Paralelia</label>
+                        <select id="classroom" class="form-control" required>
+                            <option value="" disabled selected>Zgjidh paralelien</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                        <i class="fas fa-chalkboard form-icon-field"></i>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registrationNumber" class="form-label required">Numri i regjistrimit</label>
+                        <input type="text" id="registrationNumber" class="form-control" placeholder="Numri i regjistrimit (në dëftesë/amzë)" required>
+                        <i class="fas fa-id-card form-icon-field"></i>
+                        <small class="helper-text">Ky numër gjendet në dëftesën ose regjistrin e shkollës</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ngarkoni dokumentet</label>
+                        <div class="file-upload" id="fileUpload">
+                            <i class="fas fa-cloud-upload-alt file-icon"></i>
+                            <div class="file-label">Tërhiq dokumentet këtu ose kliko për t'i ngarkuar</div>
+                            <div class="file-sublabel">Mbështet formate PDF, JPEG ose PNG (Max 5MB)</div>
+                            <input type="file" id="documentUpload" class="file-input" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                        </div>
+                        
+                        <div id="filePreview" class="file-preview"></div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="button" class="btn-prev" id="prev2">
+                            <i class="fas fa-arrow-left"></i> Mbrapa
+                        </button>
+                        <button type="button" class="btn-next" id="next2">
+                            Vazhdo <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Account Setup -->
+                <div class="form-step" id="formStep3">
+                    <div class="form-header">
+                        <h2 class="form-title">Krijimi i llogarisë</h2>
+                        <p class="form-subtitle">Plotëso të dhënat e llogarisë për qasje në platformë</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username" class="form-label required">Emri i përdoruesit</label>
+                        <input type="text" id="username" class="form-control" placeholder="Emri i përdoruesit" required>
+                        <i class="fas fa-user form-icon-field"></i>
+                        <small class="helper-text">Emri i përdoruesit duhet të jetë 5-20 karaktere</small>
+                        <div id="usernameError" class="error-text">Emri i përdoruesit tashmë ekziston. Ju lutem zgjidhni një tjetër.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label required">Fjalëkalimi</label>
+                        <input type="password" id="password" class="form-control" placeholder="Fjalëkalimi" required>
+                        <i class="fas fa-lock form-icon-field"></i>
+                        <button type="button" class="password-toggle" aria-label="Shfaq fjalëkalimin">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        
+                        <div class="password-strength">
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                        </div>
+                        <div class="strength-text">Fjalëkalimi duhet të ketë të paktën 8 karaktere</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label required">Konfirmo fjalëkalimin</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Konfirmo fjalëkalimin" required>
+                        <i class="fas fa-lock form-icon-field"></i>
+                        <button type="button" class="password-toggle" aria-label="Shfaq fjalëkalimin">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div id="passwordError" class="error-text">Fjalëkalimet nuk përputhen</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Lloji i llogarisë</label>
+                        <div class="account-option selected" data-value="standard">
+                            <input type="radio" name="accountType" value="standard" class="account-radio" checked>
+                            <h4 class="option-title"><i class="fas fa-user"></i> Llogari standarde e nxënësit</h4>
+                            <p class="option-description">Qasje në platformën digjitale, notat, detyrat dhe materialet mësimore</p>
+                        </div>
+                        
+                        <div class="account-option" data-value="premium">
+                            <input type="radio" name="accountType" value="premium" class="account-radio">
+                            <h4 class="option-title"><i class="fas fa-star"></i> Llogari premium e nxënësit</h4>
+                            <p class="option-description">Përfshin qasje në kurse plotësuese, materiale shtesë dhe mentorimin e mësuesve</p>
+                        </div>
+                    </div>
+                    
+                    <div class="terms-group">
+                        <input type="checkbox" id="termsAgreement" class="terms-checkbox" required>
+                        <label for="termsAgreement" class="terms-label">
+                            Duke vazhduar, unë pranoj <a href="#">Kushtet e përdorimit</a> dhe <a href="#">Politikën e privatësisë</a> të platformës së shkollës. I kuptoj dhe pranoj që të dhënat e regjistruara do të përdoren për qëllime shkollore.
+                        </label>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="button" class="btn-prev" id="prev3">
+                            <i class="fas fa-arrow-left"></i> Mbrapa
+                        </button>
+                        <button type="button" class="btn-next" id="next3">
+                            Vazhdo <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Review and Submit -->
+                <div class="form-step" id="formStep4">
+                    <div class="form-header">
+                        <h2 class="form-title">Konfirmimi i regjistrimit</h2>
+                        <p class="form-subtitle">Ju lutemi kontrolloni të dhënat e mëposhtme përpara se të konfirmoni</p>
+                    </div>
+                    
+                    <div class="student-info">
+                        <h3>Të dhënat personale</h3>
+                        <div class="info-item">
+                            <div class="info-label">Emri i plotë:</div>
+                            <div class="info-value" id="fullNameReview">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Gjinia:</div>
+                            <div class="info-value" id="genderReview">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Data e lindjes:</div>
+                            <div class="info-value" id="dobReview">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Email i prindit:</div>
+                            <div class="info-value" id="emailReview">-</div>
+                        </div>
+                    </div>
+                    
+                    <div class="student-info">
+                        <h3>Të dhënat shkollore</h3>
+                        <div class="info-item">
+                            <div class="info-label">Klasa:</div>
+                            <div class="info-value" id="gradeReview">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Paralelia:</div>
+                            <div class="info-value" id="classroomReview">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Numri i regjistrimit:</div>
+                            <div class="info-value" id="regNumberReview">-</div>
+                        </div>
+                    </div>
+                    
+                    <div class="student-info">
+                        <h3>Të dhënat e llogarisë</h3>
+                        <div class="info-item">
+                            <div class="info-label">Emri i përdoruesit:</div>
+                            <div class="info-value" id="usernameReview">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Lloji i llogarisë:</div>
+                            <div class="info-value" id="accountTypeReview">-</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="button" class="btn-prev" id="prev4">
+                            <i class="fas fa-arrow-left"></i> Mbrapa
+                        </button>
+                        <button type="submit" class="btn-submit">
+                            Konfirmo regjistrimin <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="success-title">Regjistrimi u krye me sukses!</h2>
+                    <p class="success-text">Faleminderit për regjistrimin. Ju mund të kyçeni tani në platformën tonë.</p>
+                    <a href="login_nxenes.html" class="btn btn-primary">Kyçu në platformë</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Login Link -->
+    <div class="login-link">
+        Keni tashmë një llogari? <a href="login_nxenes.html">Kyçuni këtu</a>
+    </div>
+    
+    <!-- Shtojmë CSS për elementët e sigurisë -->
+    <style>
+        /* Stili për mesazhet e sigurisë */
+        .security-alert {
+            display: none;
+            padding: 12px;
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            margin-bottom: 20px;
+            color: #d32f2f;
+            font-size: 0.95rem;
+            border-radius: 4px;
+        }
+        
+        .security-info {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #757575;
+            padding: 8px 12px;
+            background-color: rgba(25, 118, 210, 0.05);
+            border-radius: 4px;
+        }
+        
+        .password-strength-meter {
+            height: 5px;
+            background-color: #e0e0e0;
+            margin-top: 8px;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .password-strength-value {
+            height: 100%;
+            width: 0;
+            background-color: #f44336;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .captcha-container {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5f9ff;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .captcha-image {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: inline-block;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .attempts-warning {
+            display: none;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #fff8e1;
+            border-left: 4px solid #ffb300;
+            color: #ff8f00;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+        
+        .privacy-notice {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .privacy-icon {
+            font-size: 0.9rem;
+            margin-right: 3px;
+            color: var(--primary);
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 12px;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: #558b2f;
+        }
+        
+        .session-expire-warning {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: rgba(33, 33, 33, 0.9);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .session-expire-timer {
+            font-weight: 700;
+            color: #ff9800;
+        }
+        
+        .session-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .session-button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .extend-session {
+            background-color: #4fc3f7;
+            color: #0d47a1;
+        }
+        
+        .logout-session {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const formSteps = document.querySelectorAll('.form-step');
+            const progressFill = document.getElementById('progressFill');
+            const form = document.getElementById('registrationForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Current step
+            let currentStep = 0;
+            
+            // Variablat e sigurisë
+            let registrationAttempts = 0;
+            const maxRegistrationAttempts = 5;
+            let isBlocked = false;
+            let blockExpiry = 0;
+            
+            // Kontrollo nëse regjistrimi ka qenë i bllokuar më parë
+            if (localStorage.getItem('registrationBlocked')) {
+                const blockData = JSON.parse(localStorage.getItem('registrationBlocked'));
+                const currentTime = new Date().getTime();
+                
+                if (currentTime < blockData.expiry) {
+                    isBlocked = true;
+                    blockExpiry = Math.ceil((blockData.expiry - currentTime) / 60000); // konvertim në minuta
+                    showRegistrationBlockedMessage(blockExpiry);
+                } else {
+                    localStorage.removeItem('registrationBlocked');
+                }
+            }
+            
+            // Shtojmë elementët e sigurisë
+            addSecurityElements();
+            
+            // Next buttons
+            document.getElementById('next1').addEventListener('click', () => goToStep(1));
+            document.getElementById('next2').addEventListener('click', () => goToStep(2));
+            document.getElementById('next3').addEventListener('click', () => goToStep(3));
+            
+            // Previous buttons
+            document.getElementById('prev2').addEventListener('click', () => goToStep(0));
+            document.getElementById('prev3').addEventListener('click', () => goToStep(1));
+            document.getElementById('prev4').addEventListener('click', () => goToStep(2));
+            
+            // Funksioni për të shtuar elementët e sigurisë
+            function addSecurityElements() {
+                // 1. Shtojmë elementë për mesazhet e sigurisë në çdo hap
+                formSteps.forEach((step, index) => {
+                    // Shto elementin e alertit të sigurisë në fillim të formës për çdo hap
+                    const securityAlert = document.createElement('div');
+                    securityAlert.className = 'security-alert';
+                    securityAlert.id = `securityAlert${index + 1}`;
+                    step.insertBefore(securityAlert, step.firstChild);
+                    
+                    // Shto info të sigurisë për privatësinë në fund të hapit
+                    if (index === formSteps.length - 2) { // Hapi para fundit
+                        const privacyNotice = document.createElement('div');
+                        privacyNotice.className = 'privacy-notice';
+                        privacyNotice.innerHTML = '<i class="fas fa-shield-alt privacy-icon"></i> Të dhënat tuaja personale do të enkriptohen dhe mbrohen me standardet më të larta të sigurisë.';
+                        step.querySelector('.form-footer').insertAdjacentElement('beforebegin', privacyNotice);
+                    }
+                });
+                
+                // 2. Shtojmë CAPTCHA para dërgimit të formularit në hapin e fundit
+                const lastStep = formSteps[formSteps.length - 1];
+                const captchaContainer = document.createElement('div');
+                captchaContainer.className = 'captcha-container';
+                captchaContainer.id = 'captchaContainer';
+                captchaContainer.innerHTML = `
+                    <div class="captcha-image" id="captchaImage">
+                        <span style="font-family: 'Courier New', monospace; font-weight: bold; font-size: 1.2rem; letter-spacing: 3px;">
+                            ${generateCaptcha()}
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="captchaInput" placeholder="Shkruani kodin e mësipërm" style="padding-left: 15px;" required>
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: var(--text-medium);">
+                        <i class="fas fa-sync-alt" id="refreshCaptcha" style="cursor: pointer; margin-right: 5px;"></i> 
+                        Nuk lexohet? Klikoni për të rifreskuar kodin
+                    </div>
+                `;
+                lastStep.querySelector('.form-footer').insertAdjacentElement('beforebegin', captchaContainer);
+                
+                // 3. Shtojmë badge e sigurisë në fund të formularit
+                const securityBadge = document.createElement('div');
+                securityBadge.className = 'security-badge';
+                securityBadge.innerHTML = '<i class="fas fa-lock"></i> Të dhënat tuaja transferohen përmes një lidhjeje të sigurt SSL';
+                document.querySelector('.login-link').insertAdjacentElement('beforebegin', securityBadge);
+                
+                // Shtojmë eventlisteners për CAPTCHA
+                document.getElementById('refreshCaptcha').addEventListener('click', function() {
+                    document.querySelector('#captchaImage span').textContent = generateCaptcha();
+                });
+            }
+            
+            // Funksioni për të shfaqur mesazhin e bllokimit të regjistrimit
+            function showRegistrationBlockedMessage(minutes) {
+                const securityAlert = document.getElementById('securityAlert1');
+                securityAlert.style.display = 'block';
+                securityAlert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Regjistrimi është përkohësisht i bllokuar</strong>
+                    <p>Për shkak të shumë përpjekjeve të dyshimta, ju lutemi provoni përsëri pas ${minutes} minutash.</p>
+                `;
+                
+                // Bllokojmë fushat e formës
+                const formInputs = form.querySelectorAll('input, select, button');
+                formInputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+            
+            // Form submission with advanced security checks
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Nëse regjistrimi është i bllokuar, nuk vazhdojmë
+                if (isBlocked) {
+                    return;
+                }
+                
+                // Verify all fields one last time
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+                
+                // Check for any suspicious inputs in all steps
+                const allInputs = form.querySelectorAll('input[type=text], input[type=email], textarea');
+                let hasSuspiciousInput = false;
+                
+                allInputs.forEach(input => {
+                    if (input.value && (checkForXSS(input.value) || checkForSQLInjection(input.value))) {
+                        hasSuspiciousInput = true;
+                    }
+                });
+                
+                if (hasSuspiciousInput) {
+                    registrationAttempts++;
+                    
+                    const securityAlert = document.getElementById(`securityAlert${currentStep + 1}`);
+                    securityAlert.style.display = 'block';
+                    securityAlert.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Paralajmërim sigurie</strong>
+                        <p>Është zbuluar përmbajtje e dyshimtë. Kjo përpjekje është regjistruar. (Përpjekja ${registrationAttempts}/${maxRegistrationAttempts})</p>
+                    `;
+                    
+                    // Nëse kemi arritur numrin maksimal të përpjekjeve, bllokojmë regjistrimin
+                    if (registrationAttempts >= maxRegistrationAttempts) {
+                        isBlocked = true;
+                        
+                        // Vendosim kohën e bllokimit (20 minuta)
+                        const expiry = new Date().getTime() + (20 * 60 * 1000);
+                        localStorage.setItem('registrationBlocked', JSON.stringify({
+                            expiry: expiry
+                        }));
+                        
+                        showRegistrationBlockedMessage(20);
+                    }
+                    
+                    return;
+                }
+                
+                // Verify CAPTCHA before final submission
+                const captchaInput = document.getElementById('captchaInput');
+                const captchaText = document.querySelector('#captchaImage span').textContent;
+                
+                if (captchaInput.value !== captchaText) {
+                    const securityAlert = document.getElementById(`securityAlert${currentStep + 1}`);
+                    securityAlert.style.display = 'block';
+                    securityAlert.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>CAPTCHA e pasaktë</strong>
+                        <p>Ju lutem shkruani kodin CAPTCHA saktësisht siç tregohet.</p>
+                    `;
+                    
+                    // Rigjenerojmë CAPTCHA
+                    document.querySelector('#captchaImage span').textContent = generateCaptcha();
+                    captchaInput.value = '';
+                    return;
+                }
+                
+                // Simulojmë enkriptimin e të dhënave
+                showEncryptionAnimation().then(() => {
+                    // Proceed with form submission if all checks pass
+                    // Hide all form steps
+                    formSteps.forEach(step => {
+                        step.style.display = 'none';
+                    });
+                    
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    
+                    // Rivendosim numrin e përpjekjeve
+                    registrationAttempts = 0;
+                    localStorage.removeItem('registrationBlocked');
+                    
+                    // Krijojmë një token sesioni të sigurt (simulim)
+                    const sessionToken = generateSecureToken();
+                    localStorage.setItem('sessionToken', sessionToken);
+                    localStorage.setItem('registrationTime', new Date().toISOString());
+                    
+                    // Logging për sigurinë (në një implementim të plotë do të dërgohej në server)
+                    console.log('Regjistrimi i sigurt u përfundua me sukses: ' + new Date().toISOString());
+                    console.log('Token sesioni i krijuar: ' + sessionToken);
+                });
+            });
+            
+            // Funksioni për animacionin e enkriptimit
+            function showEncryptionAnimation() {
+                return new Promise((resolve) => {
+                    // Krijojmë elementin e animacionit
+                    const encryptionOverlay = document.createElement('div');
+                    encryptionOverlay.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(255, 255, 255, 0.9);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1000;
+                    `;
+                    
+                    encryptionOverlay.innerHTML = `
+                        <div style="width: 60px; height: 60px; border: 4px solid rgba(25, 118, 210, 0.1); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        <div style="margin-top: 20px; font-weight: 600; color: var(--primary);">Enkriptimi i të dhënave personale...</div>
+                        <div style="margin-top: 10px; max-width: 300px; text-align: center; color: var(--text-medium); font-size: 0.9rem;">
+                            Të gjitha informacionet tuaja po enkriptohen me standardet më të larta të sigurisë para se të dërgohen
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(encryptionOverlay);
+                    
+                    // Pas 2 sekondash, heqim animacionin dhe vazhdojmë
+                    setTimeout(() => {
+                        document.body.removeChild(encryptionOverlay);
+                        resolve();
+                    }, 2000);
+                });
+            }
+            
+            // Funksioni për krijimin e një tokeni të sigurt
+            function generateSecureToken() {
+                const tokenChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let token = '';
+                for (let i = 0; i < 32; i++) {
+                    token += tokenChars.charAt(Math.floor(Math.random() * tokenChars.length));
+                }
+                return token;
+            }
+            
+            // Go to step function
+            function goToStep(stepIndex) {
+                // Fshijmë mesazhet e sigurisë nga hapi i mëparshëm
+                const currentSecurityAlert = document.getElementById(`securityAlert${currentStep + 1}`);
+                if (currentSecurityAlert) {
+                    currentSecurityAlert.style.display = 'none';
+                }
+                
+                // Validate current step before moving
+                if (stepIndex > currentStep) {
+                    if (!validateStep(currentStep)) {
+                        return false;
+                    }
+                }
+                
+                // Update form display
+                formSteps.forEach(step => {
+                    step.classList.remove('active');
+                });
+                formSteps[stepIndex].classList.add('active');
+                
+                // Update progress bar
+                progressSteps.forEach((step, index) => {
+                    if (index < stepIndex) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (index === stepIndex) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                    } else {
+                        step.classList.remove('active');
+                        step.classList.remove('completed');
+                    }
+                });
+                
+                // Update progress fill width
+                const fillWidth = (stepIndex / (progressSteps.length - 1)) * 100;
+                progressFill.style.width = `${fillWidth}%`;
+                
+                // Update current step
+                currentStep = stepIndex;
+                
+                // If we're on the final review step, populate the review data
+                if (currentStep === 3) {
+                    updateReviewStep();
+                }
+                
+                return true;
+            }
+            
+            // Validate step function with advanced security checks
+            function validateStep(step) {
+                let isValid = true;
+                
+                // Get all required fields in current step
+                const currentFormStep = formSteps[step];
+                const requiredFields = currentFormStep.querySelectorAll('[required]');
+                
+                // Reset security alert
+                const securityAlert = document.getElementById(`securityAlert${step + 1}`);
+                securityAlert.style.display = 'none';
+                
+                requiredFields.forEach(field => {
+                    // Check for empty fields
+                    if (!field.value) {
+                        field.style.borderColor = 'var(--error)';
+                        isValid = false;
+                        return;
+                    }
+                    
+                    // Verifikojmë për sulme sigurie në fusha
+                    if (checkForXSS(field.value) || checkForSQLInjection(field.value)) {
+                        field.style.borderColor = 'var(--error)';
+                        
+                        // Rritim numrin e përpjekjeve të dyshimta
+                        registrationAttempts++;
+                        
+                        // Tregojmë mesazhin e sigurisë
+                        securityAlert.style.display = 'block';
+                        securityAlert.innerHTML = `
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Paralajmërim sigurie</strong>
+                            <p>Është zbuluar përmbajtje e palejuar në fushën "${field.placeholder || field.id}". 
+                            Ju lutemi hiqni karakteret speciale dhe skriptet. (Përpjekja ${registrationAttempts}/${maxRegistrationAttempts})</p>
+                        `;
+                        
+                        // Nëse kemi arritur numrin maksimal të përpjekjeve, bllokojmë regjistrimin
+                        if (registrationAttempts >= maxRegistrationAttempts) {
+                            isBlocked = true;
+                            
+                            // Vendosim kohën e bllokimit (20 minuta)
+                            const expiry = new Date().getTime() + (20 * 60 * 1000);
+                            localStorage.setItem('registrationBlocked', JSON.stringify({
+                                expiry: expiry
+                            }));
+                            
+                            showRegistrationBlockedMessage(20);
+                        }
+                        
+                        isValid = false;
+                        return;
+                    }
+                    
+                    // Validime specifike bazuar në tipin e fushës
+                    if (field.type === 'email' && !validateEmail(field.value)) {
+                        field.style.borderColor = 'var(--error)';
+                        securityAlert.style.display = 'block';
+                        securityAlert.innerHTML = `
+                            <i class="fas fa-exclamation-circle"></i>
+                            <strong>Format i pasaktë</strong>
+                            <p>Ju lutemi shkruani një adresë email valide.</p>
+                        `;
+                        isValid = false;
+                        return;
+                    }
+                    
+                    // Fushat kanë kaluar validimin
+                    field.style.borderColor = '';
+                });
+                
+                // Validime shtesë për hapin e tretë (fjalëkalimet)
+                if (step === 2) {
+                    // Validate password match and strength
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    const passwordError = document.getElementById('passwordError');
+                    
+                    // Kontrollo forcën e fjalëkalimit
+                    const passwordStrength = checkPasswordStrength(password);
+                    
+                    if (passwordStrength < 2) {
+                        document.getElementById('password').style.borderColor = 'var(--error)';
+                        passwordError.style.display = 'block';
+                        passwordError.textContent = 'Fjalëkalimi është shumë i dobët. Duhet të përmbajë të paktën 8 karaktere, shkronja të mëdha e të vogla, numra dhe karaktere speciale.';
+                        isValid = false;
+                    } else if (password !== confirmPassword) {
+                        passwordError.style.display = 'block';
+                        passwordError.textContent = 'Fjalëkalimet nuk përputhen';
+                        document.getElementById('confirmPassword').style.borderColor = 'var(--error)';
+                        isValid = false;
+                    } else {
+                        passwordError.style.display = 'none';
+                        document.getElementById('confirmPassword').style.borderColor = '';
+                    }
+                    
+                    // Validate username
+                    const username = document.getElementById('username').value;
+                    if (username.length < 5 || username.length > 20) {
+                        document.getElementById('username').style.borderColor = 'var(--error)';
+                        document.getElementById('usernameError').style.display = 'block';
+                        document.getElementById('usernameError').textContent = 'Emri i përdoruesit duhet të jetë 5-20 karaktere';
+                        isValid = false;
+                    } else {
+                        // Kontrollo nëse përmban karaktere të palejuara
+                        const usernameRegex = /^[a-zA-Z0-9_.-]+$/;
+                        if (!usernameRegex.test(username)) {
+                            document.getElementById('username').style.borderColor = 'var(--error)';
+                            document.getElementById('usernameError').style.display = 'block';
+                            document.getElementById('usernameError').textContent = 'Emri i përdoruesit mund të përmbajë vetëm shkronja, numra, pikë, vizë dhe nënvizë';
+                            isValid = false;
+                        } else {
+                            document.getElementById('usernameError').style.display = 'none';
+                        }
+                    }
+                    
+                    // Validate terms checkbox
+                    const termsCheckbox = document.getElementById('termsAgreement');
+                    if (!termsCheckbox.checked) {
+                        termsCheckbox.parentElement.style.backgroundColor = 'rgba(244, 67, 54, 0.1)';
+                        isValid = false;
+                    } else {
+                        termsCheckbox.parentElement.style.backgroundColor = '';
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            // Funksioni për validimin e email-it
+            function validateEmail(email) {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return emailRegex.test(email);
+            }
+            
+            // Kontrollo për tentativa sulmi XSS
+            function checkForXSS(input) {
+                // Kontrollo për skripte dhe kode malicioze
+                if (typeof input !== 'string') return false;
+                
+                const xssPattern = /<script|<\/script|javascript:|onerror=|onload=|eval\(|<iframe|<img|alert\(|document\.cookie|onclick=|onmouseover=|href\s*=\s*["']?javascript:|data:text\/html|expression\s*\(|setTimeout|setInterval|new\s+Function|fromCharCode/i;
+                return xssPattern.test(input);
+            }
+            
+            // Kontrollo për tentativa sulmi SQL injection
+            function checkForSQLInjection(input) {
+                // Kontrollo për komanda SQL dhe kode malicioze
+                if (typeof input !== 'string') return false;
+                
+                const sqlPattern = /(\%27)|(\')|(--)|(\%23)|(#)|(=\s*\d+\s*(?:--|;|'|"|=|>|<|\%|\s+or\s+))|(\b(select|union|insert|update|delete|drop|alter|create|rename|truncate|exec|declare)\b)/i;
+                return sqlPattern.test(input);
+            }
+            
+            // Funksioni për gjenerimin e CAPTCHA
+            function generateCaptcha() {
+                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return captcha;
+            }
+            
+            // Update review step
+            function updateReviewStep() {
+                // Personal information
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                document.getElementById('fullNameReview').textContent = firstName + ' ' + lastName;
+                
+                // Sigurohemi që të dhënat e shfaqura nuk përmbajnë kode HTML
+                const sanitizedName = document.createTextNode(firstName + ' ' + lastName).textContent;
+                document.getElementById('fullNameReview').textContent = sanitizedName;
+                
+                const gender = document.querySelector('input[name="gender"]:checked')?.value;
+                document.getElementById('genderReview').textContent = gender === 'male' ? 'Mashkull' : 'Femër';
+                
+                const day = document.getElementById('birthDay').value;
+                const month = document.getElementById('birthMonth').value;
+                const year = document.getElementById('birthYear').value;
+                document.getElementById('dobReview').textContent = `${day}/${month}/${year}`;
+                
+                const emailSanitized = document.createTextNode(document.getElementById('parentEmail').value).textContent;
+                document.getElementById('emailReview').textContent = emailSanitized;
+                
+                // School information
+                const grade = document.getElementById('grade');
+                document.getElementById('gradeReview').textContent = `Klasa ${grade.value}`;
+                
+                const classroom = document.getElementById('classroom');
+                document.getElementById('classroomReview').textContent = `Paralelia ${classroom.value}`;
+                
+                const regNumberSanitized = document.createTextNode(document.getElementById('registrationNumber').value).textContent;
+                document.getElementById('regNumberReview').textContent = regNumberSanitized;
+                
+                // Account information
+                const usernameSanitized = document.createTextNode(document.getElementById('username').value).textContent;
+                document.getElementById('usernameReview').textContent = usernameSanitized;
+                
+                const accountType = document.querySelector('input[name="accountType"]:checked')?.value;
+                document.getElementById('accountTypeReview').textContent = accountType === 'standard' ? 'Standarde' : 'Premium';
+            }
+            
+            // Generate days for date of birth select
+            const birthDaySelect = document.getElementById('birthDay');
+            for (let i = 1; i <= 31; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                birthDaySelect.appendChild(option);
+            }
+            
+            // Generate years for date of birth select (going back 18 years)
+            const birthYearSelect = document.getElementById('birthYear');
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear - 5; i >= currentYear - 18; i--) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                birthYearSelect.appendChild(option);
+            }
+            
+            // Password toggle visibility
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const passwordField = this.previousElementSibling.previousElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordField.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Account option selection
+            const accountOptions = document.querySelectorAll('.account-option');
+            accountOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    accountOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const radio = this.querySelector('.account-radio');
+                    radio.checked = true;
+                });
+            });
+            
+            // Password strength meter
+            const passwordInput = document.getElementById('password');
+            const strengthBars = document.querySelectorAll('.strength-bar');
+            const strengthText = document.querySelector('.strength-text');
+            
+            passwordInput.addEventListener('input', function() {
+                const strength = checkPasswordStrength(this.value);
+                
+                strengthBars.forEach((bar, index) => {
+                    if (index < strength) {
+                        bar.style.backgroundColor = getStrengthColor(strength);
+                    } else {
+                        bar.style.backgroundColor = '#e0e0e0';
+                    }
+                });
+                
+                strengthText.textContent = getStrengthText(strength);
+                strengthText.style.color = getStrengthColor(strength);
+            });
+            
+            // Kontrollo forcën e fjalëkalimit
+            function checkPasswordStrength(password) {
+                let score = 0;
+                
+                // Length check
+                if (password.length >= 8) score++;
+                if (password.length >= 12) score++;
+                
+                // Contains uppercase
+                if (password.match(/[A-Z]/)) score++;
+                
+                // Contains lowercase
+                if (password.match(/[a-z]/)) score++;
+                
+                // Contains numbers
+                if (password.match(/[0-9]/)) score++;
+                
+                // Contains special chars
+                if (password.match(/[^A-Za-z0-9]/)) score++;
+                
+                // Contains combination of numbers and letters
+                if (password.match(/[0-9]/) && password.match(/[a-zA-Z]/)) score++;
+                
+                // Contains combination of letters, numbers and special chars
+                if (password.match(/[0-9]/) && password.match(/[a-zA-Z]/) && password.match(/[^A-Za-z0-9]/)) score++;
+                
+                // Length penalty for short passwords
+                if (password.length < 8) score = 0;
+                
+                // Normalize score to 0-4 range
+                return Math.min(4, Math.floor(score / 2));
+            }
+            
+            function getStrengthColor(strength) {
+                switch(strength) {
+                    case 0: return '#e0e0e0';
+                    case 1: return '#f44336'; // e dobët (e kuqe)
+                    case 2: return '#ff9800'; // mesatar (portokalli)
+                    case 3: return '#ffc107'; // i mirë (e verdhë)
+                    case 4: return '#4caf50'; // i fortë (jeshile)
+                }
+            }
+            
+            function getStrengthText(strength) {
+                switch(strength) {
+                    case 0: return 'Fjalëkalimi duhet të ketë të paktën 8 karaktere';
+                    case 1: return 'Fjalëkalim shumë i dobët';
+                    case 2: return 'Fjalëkalim mesatar';
+                    case 3: return 'Fjalëkalim i mirë';
+                    case 4: return 'Fjalëkalim i fortë';
+                }
+            }
+            
+            // File upload functionality with security checks
+            const fileUpload = document.getElementById('fileUpload');
+            const fileInput = document.getElementById('documentUpload');
+            const filePreview = document.getElementById('filePreview');
+            
+            fileUpload.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            fileUpload.addEventListener('dragover', e => {
+                e.preventDefault();
+                fileUpload.style.borderColor = 'var(--primary)';
+                fileUpload.style.backgroundColor = 'rgba(25, 118, 210, 0.05)';
+            });
+            
+            fileUpload.addEventListener('dragleave', () => {
+                fileUpload.style.borderColor = '#bbdefb';
+                fileUpload.style.backgroundColor = '#f5f9ff';
+            });
+            
+            fileUpload.addEventListener('drop', e => {
+                e.preventDefault();
+                fileUpload.style.borderColor = '#bbdefb';
+                fileUpload.style.backgroundColor = '#f5f9ff';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+            
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length) {
+                    handleFiles(fileInput.files);
+                }
+            });
+            
+            function handleFiles(files) {
+                filePreview.style.display = 'block';
+                filePreview.innerHTML = '';
+                
+                // Kontroll sigurie për skedarët
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const fileSize = (file.size / 1024).toFixed(1);
+                    const fileExtension = file.name.split('.').pop().toLowerCase();
+                    
+                    // Kontrollojmë madhësinë e skedarit (max 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        const securityAlert = document.getElementById('securityAlert2');
+                        securityAlert.style.display = 'block';
+                        securityAlert.innerHTML = `
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Paralajmërim</strong>
+                            <p>Skedari "${file.name}" tejkalon madhësinë maksimale të lejuar prej 5MB.</p>
+                        `;
+                        continue;
+                    }
+                    
+                    // Kontrollojmë formatin e skedarit
+                    const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
+                    if (!allowedExtensions.includes(fileExtension)) {
+                        const securityAlert = document.getElementById('securityAlert2');
+                        securityAlert.style.display = 'block';
+                        securityAlert.innerHTML = `
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Format i palejuar</strong>
+                            <p>Skedari "${file.name}" nuk është në format të lejuar. Formatet e lejuara: PDF, JPEG, PNG, DOC, DOCX.</p>
+                        `;
+                        continue;
+                    }
+                    
+                    // Shfaqim previewin e skedarit
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    
+                    let iconClass = 'fa-file';
+                    if (fileExtension === 'pdf') iconClass = 'fa-file-pdf';
+                    else if (['jpg', 'jpeg', 'png'].includes(fileExtension)) iconClass = 'fa-file-image';
+                    else if (['doc', 'docx'].includes(fileExtension)) iconClass = 'fa-file-word';
+                    
+                    const sanitizedName = document.createTextNode(file.name).textContent;
+                    
+                    previewItem.innerHTML = `
+                        <i class="fas ${iconClass} preview-icon"></i>
+                        <div class="preview-info">
+                            <div class="preview-name">${sanitizedName}</div>
+                            <div class="preview-size">${fileSize} KB</div>
+                        </div>
+                        <i class="fas fa-times preview-remove"></i>
+                    `;
+                    
+                    const removeBtn = previewItem.querySelector('.preview-remove');
+                    removeBtn.addEventListener('click', () => {
+                        previewItem.remove();
+                        if (filePreview.children.length === 0) {
+                            filePreview.style.display = 'none';
+                        }
+                    });
+                    
+                    filePreview.appendChild(previewItem);
+                }
+            }
+            
+            // Input field animation
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    const icon = input.nextElementSibling;
+                    if (icon) {
+                        icon.style.transform = 'scale(1.1)';
+                        icon.style.opacity = '1';
+                    }
+                });
+                
+                input.addEventListener('blur', () => {
+                    const icon = input.nextElementSibling;
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                        if (!input.value) {
+                            icon.style.opacity = '0.7';
+                        }
+                    }
+                    
+                    // Anti-automation measure: check for suspiciously fast input
+                    if (input.dataset.lastFocus) {
+                        const timeDiff = Date.now() - parseInt(input.dataset.lastFocus);
+                        const charCount = input.value.length;
+                        
+                        // If typing speed is impossibly fast (bot detection)
+                        if (charCount > 10 && timeDiff < 500) {
+                            registrationAttempts++;
+                            input.value = '';
+                            
+                            const securityAlert = document.getElementById(`securityAlert${currentStep + 1}`);
+                            securityAlert.style.display = 'block';
+                            securityAlert.innerHTML = `
+                                <i class="fas fa-shield-alt"></i>
+                                <strong>Detektuam aktivitet të dyshimtë</strong>
+                                <p>Ju lutemi plotësoni formën manualisht, pa përdorur mjete automatizimi.</p>
+                            `;
+                        }
+                    }
+                });
+                
+                input.addEventListener('focus', function() {
+                    input.dataset.lastFocus = Date.now();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

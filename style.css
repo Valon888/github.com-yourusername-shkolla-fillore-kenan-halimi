@@ -1,0 +1,592 @@
+/* Global styles */
+:root {
+    --primary: #1976d2;
+    --primary-light: #42a5f5;
+    --primary-lighter: #90caf9;
+    --primary-dark: #0d47a1;
+    --secondary: #ffc107;
+    --success: #66bb6a;
+    --error: #f44336;
+    --background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    --card-shadow: 0 8px 20px rgba(25, 118, 210, 0.1);
+    --hover-shadow: 0 12px 28px rgba(25, 118, 210, 0.18);
+    --input-shadow: 0 2px 5px rgba(25, 118, 210, 0.06);
+    --transition-normal: 0.3s ease;
+    --border-radius: 12px;
+    --text-dark: #37474f;
+    --text-medium: #546e7a;
+    --text-light: #78909c;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: var(--background);
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Header styles */
+header {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    color: #fff;
+    padding: 40px 0 28px 0;
+    text-align: center;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2.8rem;
+    margin: 0 0 12px 0;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header p {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 500;
+    opacity: 0.95;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo header container */
+.logo-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    gap: 18px;
+}
+
+/* School logo styles */
+.school-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+    overflow: hidden;
+    transition: var(--transition-normal);
+}
+
+.school-logo:hover {
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 6px 15px rgba(13, 71, 161, 0.25);
+}
+
+.school-logo svg {
+    width: 85%;
+    height: 85%;
+    display: block;
+}
+
+/* Main content layout */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+.main-content-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 20px auto 40px;
+}
+
+.posts-section {
+    flex: 1 1 0;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.role-sidebar {
+    width: 340px;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: stretch;
+}
+
+/* Role cards */
+.role-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin: 60px 0 0 0;
+}
+
+.role-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 38px 32px 28px 32px;
+    flex: 1 1 260px;
+    min-width: 260px;
+    max-width: 320px;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.role-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.role-card .icon {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.role-card h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.6rem;
+    margin: 0 0 15px 0;
+    color: var(--primary);
+}
+
+.role-card button {
+    background: linear-gradient(to right, var(--primary-light), var(--primary));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 18px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.15);
+    width: 100%;
+}
+
+.role-card button:hover {
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(25, 118, 210, 0.2);
+}
+
+/* Navbar styles for platform */
+.navbar-platform {
+    background: linear-gradient(to right, var(--primary-light), var(--primary));
+    padding: 14px 0 12px 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.navbar-platform a {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin: 0 20px;
+    padding: 6px 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navbar-platform a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.navbar-platform a.active::after, 
+.navbar-platform a:focus::after, 
+.navbar-platform a:hover::after {
+    width: 100%;
+}
+
+.navbar-platform a:hover {
+    color: white;
+    opacity: 0.9;
+}
+
+/* Form elements */
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1rem;
+    background: #f9fbfd;
+    color: var(--text-dark);
+    box-shadow: var(--input-shadow);
+    transition: var(--transition-normal);
+    box-sizing: border-box;
+    margin: 8px 0 15px;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-light);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.15);
+}
+
+button {
+    padding: 12px 24px;
+    background: linear-gradient(to right, var(--primary-light), var(--primary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(25, 118, 210, 0.18);
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Section general styles */
+section {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-normal);
+}
+
+section:hover {
+    box-shadow: var(--hover-shadow);
+}
+
+/* Posts section styles */
+.posts-title {
+    font-family: 'Baloo 2', cursive;
+    color: var(--primary);
+    margin-bottom: 28px;
+    font-size: 1.9rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.posts-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-light);
+    border-radius: 2px;
+}
+
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post {
+    background-color: white;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border-left: 5px solid;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.post-blue {
+    border-left-color: var(--primary-light);
+}
+
+.post-yellow {
+    border-left-color: #ffeb3b;
+}
+
+.post-green {
+    border-left-color: #4caf50;
+}
+
+.post-orange {
+    border-left-color: #ff9800;
+}
+
+.post-purple {
+    border-left-color: #9c27b0;
+}
+
+.post-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.3rem;
+}
+
+.post-title-blue {
+    color: var(--primary);
+}
+
+.post-title-green {
+    color: #2e7d32;
+}
+
+.post-title-yellow {
+    color: #f57f17;
+}
+
+.post-title-red {
+    color: #c62828;
+}
+
+.post-title-purple {
+    color: #6a1b9a;
+}
+
+.post p {
+    line-height: 1.6;
+    font-size: 1.05rem;
+    color: var(--text-medium);
+    margin-bottom: 12px;
+}
+
+.post-date {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-align: right;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Media queries */
+@media (max-width: 1000px) {
+    .main-content-flex { 
+        flex-direction: column; 
+        gap: 25px; 
+    }
+    
+    .role-sidebar { 
+        flex-direction: row; 
+        width: 100%; 
+        min-width: 0; 
+        gap: 20px; 
+        justify-content: center; 
+        margin-top: 10px; 
+    }
+    
+    .role-card { 
+        min-width: 180px; 
+        max-width: 100%; 
+        padding: 30px 20px 25px;
+    }
+    
+    .role-card button {
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    header h1 {
+        font-size: 2.4rem;
+    }
+    
+    .school-logo {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+@media (max-width: 700px) {
+    .role-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .role-sidebar {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .posts-section {
+        padding: 25px 20px;
+    }
+    
+    header {
+        padding: 30px 0 25px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+    
+    .posts-title {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .school-logo {
+        width: 45px;
+        height: 45px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    .main-content-flex {
+        margin: 10px auto 30px;
+    }
+    
+    .post {
+        padding: 18px;
+    }
+    
+    .post-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Button variants */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--primary-light), var(--primary));
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(25, 118, 210, 0.18);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--primary);
+    border: 1px solid var(--primary-light);
+}
+
+.btn-secondary:hover {
+    background: #f5f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(25, 118, 210, 0.1);
+}
+
+.btn-accent {
+    background: linear-gradient(to right, #ffd54f, #ffb300);
+    color: #5d4037;
+}
+
+.btn-accent:hover {
+    background: linear-gradient(to right, #ffb300, #ff8f00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 152, 0, 0.25);
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
+}
+
+.btn-light:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 10px 22px;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(25, 118, 210, 0.15);
+}
+
+/* School logo size fix for dashboards */
+@media (max-width: 600px) {
+    .school-logo {
+        width: 40px;
+        height: 40px;
+    }
+}

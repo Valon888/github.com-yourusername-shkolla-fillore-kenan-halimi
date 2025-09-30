@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="description" content="Faqja e kyçjes për nxënësit në platformën e Shkollës Fillore 'Kenan Halimi'">
+    <title>Kyçja e Nxënësve | Shkolla Fillore "Kenan Halimi"</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        :root {
+            --primary: #1976d2;
+            --primary-light: #4fc3f7;
+            --primary-dark: #0d47a1;
+            --secondary: #4caf50;
+            --secondary-light: #81c784;
+            --background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            --card-shadow: 0 10px 30px rgba(25, 118, 210, 0.12);
+            --text-dark: #0d47a1;
+            --text-medium: #1976d2;
+            --text-light: #4fc3f7;
+            --border-radius: 12px;
+            --input-shadow: 0 1px 5px rgba(25, 118, 210, 0.05);
+        }
+        
+        /* Background Elements */
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+        
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -250px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-light);
+            bottom: -200px;
+            right: -100px;
+        }
+        
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+        }
+        
+        .shape-4 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary-dark);
+            bottom: 15%;
+            left: 10%;
+        }
+        
+        /* Floating Bubbles Animation */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+        
+        .bubble-1 {
+            width: 30px;
+            height: 30px;
+            left: 10%;
+            top: 40%;
+            animation-delay: 0s;
+        }
+        
+        .bubble-2 {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            top: 30%;
+            animation-delay: 1s;
+        }
+        
+        .bubble-3 {
+            width: 25px;
+            height: 25px;
+            left: 35%;
+            top: 60%;
+            animation-delay: 2s;
+        }
+        
+        .bubble-4 {
+            width: 15px;
+            height: 15px;
+            left: 75%;
+            top: 25%;
+            animation-delay: 3s;
+        }
+        
+        .bubble-5 {
+            width: 20px;
+            height: 20px;
+            left: 85%;
+            top: 70%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
+        body {
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
+            padding: 30px 0 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(25, 118, 210, 0.2);
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            z-index: 1;
+        }
+        
+        .logo-header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .school-logo {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .school-logo svg {
+            width: 85%;
+            height: 85%;
+        }
+        
+        .logo-header-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Login Container */
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark));
+        }
+        
+        /* Form Header */
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            animation: pulse 1.5s infinite alternate;
+        }
+        
+        .form-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin: 0 0 10px;
+        }
+        
+        .form-subtitle {
+            color: var(--text-medium);
+            font-size: 1rem;
+            margin: 0 0 30px;
+            line-height: 1.5;
+        }
+        
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f9fbfd;
+            box-shadow: var(--input-shadow);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+            background-color: #fff;
+        }
+        
+        .form-icon-field {
+            position: absolute;
+            top: 40px;
+            left: 15px;
+            color: var(--primary);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus + .form-icon-field {
+            color: var(--primary-dark);
+            opacity: 1;
+        }
+        
+        /* Password Toggle */
+        .password-toggle {
+            position: absolute;
+            top: 40px;
+            right: 15px;
+            color: #9e9e9e;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+        
+        /* Remember Me Checkbox */
+        .form-check {
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-check-input {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .form-check-label {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        
+        /* Login Button */
+        .login-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
+        }
+        
+        /* Button ripple effect */
+        .login-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .login-btn:active::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+        
+        /* Form Footer */
+        .form-footer {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .form-footer a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        /* Character Mascot */
+        .character-mascot {
+            position: absolute;
+            right: -70px;
+            bottom: -30px;
+            width: 200px;
+            height: 200px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+        
+        /* QR Login Option */
+        .alternative-login {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .alternative-login-title {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-medium);
+            margin-bottom: 15px;
+        }
+        
+        .qr-code-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .qr-help {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #757575;
+            text-align: center;
+        }
+        
+        /* Loading Indicator */
+        .loading-indicator {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(25, 118, 210, 0.3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        .loading-text {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            to {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 30px 15px;
+                padding: 25px 20px;
+            }
+            
+            .logo-header-title {
+                font-size: 2rem;
+            }
+            
+            .school-logo {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .character-mascot {
+                width: 150px;
+                height: 150px;
+                right: -50px;
+                bottom: -20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 25px 0 35px;
+            }
+            
+            .logo-header-title {
+                font-size: 1.8rem;
+            }
+            
+            .school-logo {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .form-title {
+                font-size: 1.7rem;
+            }
+            
+            .character-mascot {
+                width: 120px;
+                height: 120px;
+                right: -40px;
+                opacity: 0.08;
+            }
+            
+            .form-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo-header-container">
+            <div class="school-logo">
+                <!-- SVG logo -->
+                <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" fill="#fff" stroke="#4fc3f7" stroke-width="3"/>
+                    <rect x="18" y="28" width="24" height="12" rx="4" fill="#4fc3f7"/>
+                    <rect x="24" y="18" width="12" height="14" rx="3" fill="#1976d2"/>
+                    <circle cx="30" cy="25" r="3" fill="#fffde7"/>
+                </svg>
+            </div>
+            <h1 class="logo-header-title">Shkolla Fillore "Kenan Halimi"</h1>
+        </div>
+        <p>Portali për nxënësit - Kyçu për të aksesuar platformën digjitale</p>
+    </header>
+    
+    <!-- Login Container -->
+    <div class="login-container">
+        <!-- Form Header -->
+        <div class="form-header">
+            <div class="form-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h2 class="form-title">Kyçja e Nxënësit</h2>
+            <p class="form-subtitle">Ju lutemi shkruani të dhënat për të aksesuar platformën</p>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Emri i përdoruesit</label>
+                <input type="text" id="username" class="form-control" placeholder="Shkruaj emrin e përdoruesit" required>
+                <i class="fas fa-user form-icon-field"></i>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Fjalëkalimi</label>
+                <input type="password" id="password" class="form-control" placeholder="Shkruaj fjalëkalimin" required>
+                <i class="fas fa-lock form-icon-field"></i>
+                <button type="button" class="password-toggle" aria-label="Shfaq fjalëkalimin">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Më mbaj mend</label>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Kyçu
+            </button>
+        </form>
+        
+        <!-- Form Footer -->
+        <div class="form-footer">
+            <a href="#" id="forgotPassword">Harruat fjalëkalimin?</a>
+            <a href="register_nxenes.html">Nuk keni llogari? Regjistrohuni</a>
+        </div>
+        
+        <!-- Alternative Login -->
+        <div class="alternative-login">
+            <p class="alternative-login-title">Ose kyçuni me QR kod</p>
+            <div class="qr-code-container">
+                <div class="qr-code" style="position: relative; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f5f9ff, #e3f2fd); padding: 15px; border: none;">
+                    <!-- QR Code me stil të përmirësuar -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+                        <!-- Background -->
+                        <rect width="100" height="100" fill="#ffffff" rx="10" ry="10"/>
+                        
+                        <!-- QR Code Matrix -->
+                        <g fill="#1976d2">
+                            <!-- Pattern top-left -->
+                            <rect x="10" y="10" width="30" height="30" rx="5" ry="5"/>
+                            <rect x="15" y="15" width="20" height="20" fill="#ffffff" rx="3" ry="3"/>
+                            <rect x="20" y="20" width="10" height="10" rx="2" ry="2"/>
+                            
+                            <!-- Pattern top-right -->
+                            <rect x="60" y="10" width="30" height="30" rx="5" ry="5"/>
+                            <rect x="65" y="15" width="20" height="20" fill="#ffffff" rx="3" ry="3"/>
+                            <rect x="70" y="20" width="10" height="10" rx="2" ry="2"/>
+                            
+                            <!-- Pattern bottom-left -->
+                            <rect x="10" y="60" width="30" height="30" rx="5" ry="5"/>
+                            <rect x="15" y="65" width="20" height="20" fill="#ffffff" rx="3" ry="3"/>
+                            <rect x="20" y="70" width="10" height="10" rx="2" ry="2"/>
+                            
+                            <!-- QR data elements -->
+                            <rect x="45" y="10" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="50" y="15" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="45" y="25" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="45" y="45" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="25" y="45" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="55" y="45" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="60" y="50" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="65" y="55" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="45" y="55" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="30" y="50" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="35" y="55" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="65" y="65" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="70" y="60" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="75" y="75" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="85" y="65" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="85" y="85" width="5" height="5" rx="1" ry="1"/>
+                            <rect x="75" y="85" width="5" height="5" rx="1" ry="1"/>
+                        </g>
+                        
+                        <!-- Logo në qendër -->
+                        <circle cx="50" cy="50" r="10" fill="#ffffff" stroke="#1976d2" stroke-width="2"/>
+                        <path d="M50 44 L50 56 M44 50 L56 50" stroke="#1976d2" stroke-width="2"/>
+                    </svg>
+                    
+                    <!-- Shine effect -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0)); border-radius: 10px 10px 0 0; pointer-events: none;"></div>
+                </div>
+                <p class="qr-help">Skanoni kodin me aplikacionin e shkollës për kyçje të shpejtë</p>
+            </div>
+        </div>
+        
+        <!-- Character Mascot -->
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBmaWxsPSIjMTk3NkQyIiBkPSJNMTAwLDIwYzQ0LjEsMCw4MCwzNS45LDgwLDgwcy0zNS45LDgwLTgwLDgwcy04MC0zNS45LTgwLTgwUzU1LjksMjAsMTAwLDIweiBNMTAwLDQwYy0xMS4wLDAtMjAsOS0yMCwyMHM5LDIwLDIwLDIwczIwLTksMjAtMjBTMTExLDQwLDEwMCw0MHogTTEzMCw5MGMtMTYuNiwwLTMwLDEzLjQtMzAsMzBzMTMuNCwzMCwzMCwzMHMzMC0xMy40LDMwLTMwUzE0Ni42LDkwLDEzMCw5MHogTTcwLDkwYy0xNi42LDAtMzAsMTMuNC0zMCwzMHMxMy40LDMwLDMwLDMwczMwLTEzLjQsMzAtMzBTODYuNiw5MCw3MCw5MHoiLz48L3N2Zz4=" 
+        alt="" class="character-mascot">
+        
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="spinner"></div>
+            <div class="loading-text">Duke u kyçur...</div>
+        </div>
+    </div>
+    
+    <!-- Shtojmë CSS për elementët e sigurisë -->
+    <style>
+        /* Stili për mesazhet e sigurisë */
+        .security-alert {
+            display: none;
+            padding: 12px;
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            margin-bottom: 20px;
+            color: #d32f2f;
+            font-size: 0.95rem;
+            border-radius: 4px;
+        }
+        
+        .security-info {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #757575;
+            padding: 8px 12px;
+            background-color: rgba(25, 118, 210, 0.05);
+            border-radius: 4px;
+        }
+        
+        .password-strength-meter {
+            height: 5px;
+            background-color: #e0e0e0;
+            margin-top: 8px;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .password-strength-value {
+            height: 100%;
+            width: 0;
+            background-color: #f44336;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .captcha-container {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5f9ff;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .captcha-image {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: inline-block;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .attempts-warning {
+            display: none;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #fff8e1;
+            border-left: 4px solid #ffb300;
+            color: #ff8f00;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+        
+        .privacy-notice {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .privacy-icon {
+            font-size: 0.9rem;
+            margin-right: 3px;
+            color: var(--primary);
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 12px;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: #558b2f;
+        }
+        
+        .session-expire-warning {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: rgba(33, 33, 33, 0.9);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .session-expire-timer {
+            font-weight: 700;
+            color: #ff9800;
+        }
+        
+        .session-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .session-button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .extend-session {
+            background-color: #4fc3f7;
+            color: #0d47a1;
+        }
+        
+        .logout-session {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementët e formës
+            const loginForm = document.getElementById('loginForm');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const passwordInput = document.getElementById('password');
+            const usernameInput = document.getElementById('username');
+            const passwordToggle = document.querySelector('.password-toggle');
+            const forgotPassword = document.getElementById('forgotPassword');
+            
+            // Variablat e sigurisë
+            let loginAttempts = 0;
+            const maxLoginAttempts = 5;
+            let isLocked = false;
+            let lockTime = 0;
+            
+            // Kontrollo nëse llogaria ka qenë e bllokuar më parë
+            if (localStorage.getItem('accountLocked')) {
+                const lockData = JSON.parse(localStorage.getItem('accountLocked'));
+                const currentTime = new Date().getTime();
+                
+                if (currentTime < lockData.expiry) {
+                    isLocked = true;
+                    lockTime = Math.ceil((lockData.expiry - currentTime) / 60000); // konvertim në minuta
+                    showAccountLockedMessage(lockTime);
+                } else {
+                    localStorage.removeItem('accountLocked');
+                }
+            }
+            
+            // Shtojmë elementë sigurie në DOM
+            addSecurityElements();
+            
+            // Funksionet e sigurisë
+            function addSecurityElements() {
+                // 1. Shtojmë elementin për mesazhet e sigurisë
+                const securityAlert = document.createElement('div');
+                securityAlert.className = 'security-alert';
+                securityAlert.id = 'securityAlert';
+                
+                // 2. Shtojmë elementin për forcën e fjalëkalimit
+                const passwordGroup = document.querySelector('.form-group:nth-child(2)');
+                const passwordStrengthMeter = document.createElement('div');
+                passwordStrengthMeter.className = 'password-strength-meter';
+                passwordStrengthMeter.innerHTML = '<div class="password-strength-value" id="passwordStrength"></div>';
+                
+                // 3. Shtojmë info për privatësinë
+                const privacyNotice = document.createElement('div');
+                privacyNotice.className = 'privacy-notice';
+                privacyNotice.innerHTML = '<i class="fas fa-shield-alt privacy-icon"></i> Të dhënat tuaja mbrohen me enkriptim të avancuar dhe nuk ndahen me palë të treta.';
+                
+                // 4. Shtojmë elementin për CAPTCHA
+                const captchaContainer = document.createElement('div');
+                captchaContainer.className = 'captcha-container';
+                captchaContainer.id = 'captchaContainer';
+                captchaContainer.innerHTML = `
+                    <div class="captcha-image" id="captchaImage">
+                        <span style="font-family: 'Courier New', monospace; font-weight: bold; font-size: 1.2rem; letter-spacing: 3px;">
+                            ${generateCaptcha()}
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" id="captchaInput" placeholder="Shkruani kodin e mësipërm" style="padding-left: 15px;" required>
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: var(--text-medium);">
+                        <i class="fas fa-sync-alt" id="refreshCaptcha" style="cursor: pointer; margin-right: 5px;"></i> 
+                        Nuk lexohet? Klikoni për të rifreskuar kodin
+                    </div>
+                `;
+                
+                // 5. Shtojmë elementin për paralajmërimin e përpjekjeve
+                const attemptsWarning = document.createElement('div');
+                attemptsWarning.className = 'attempts-warning';
+                attemptsWarning.id = 'attemptsWarning';
+                
+                // 6. Shtojmë elementin për skadimin e sesionit
+                const sessionExpireWarning = document.createElement('div');
+                sessionExpireWarning.className = 'session-expire-warning';
+                sessionExpireWarning.id = 'sessionExpireWarning';
+                sessionExpireWarning.innerHTML = `
+                    <div><strong>Sesioni juaj do të skadojë së shpejti</strong></div>
+                    <div>Koha e mbetur: <span class="session-expire-timer" id="sessionTimer">2:00</span></div>
+                    <div class="session-buttons">
+                        <button class="session-button extend-session" id="extendSession">Vazhdo sesionin</button>
+                        <button class="session-button logout-session" id="logoutSession">Dilni</button>
+                    </div>
+                `;
+                
+                // Shtojmë elementët në DOM
+                loginForm.insertBefore(securityAlert, loginForm.firstChild);
+                passwordGroup.appendChild(passwordStrengthMeter);
+                loginForm.appendChild(attemptsWarning);
+                loginForm.appendChild(captchaContainer);
+                document.body.appendChild(sessionExpireWarning);
+                document.querySelector('.form-footer').insertAdjacentElement('beforebegin', privacyNotice);
+                
+                // Shtojmë badge-in e sigurisë
+                const securityBadge = document.createElement('div');
+                securityBadge.className = 'security-badge';
+                securityBadge.innerHTML = '<i class="fas fa-lock"></i> Lidhje e sigurt me enkriptim SSL';
+                document.querySelector('.form-footer').appendChild(securityBadge);
+                
+                // Eventlisteners për elementët e sigurisë
+                document.getElementById('refreshCaptcha').addEventListener('click', function() {
+                    document.querySelector('#captchaImage span').textContent = generateCaptcha();
+                });
+                
+                document.getElementById('extendSession').addEventListener('click', function() {
+                    hideSessionExpireWarning();
+                    startSessionTimer(); // Rifillohet numërimi
+                });
+                
+                document.getElementById('logoutSession').addEventListener('click', function() {
+                    window.location.href = 'index.html'; // Kthim në faqen kryesore
+                });
+            }
+            
+            // Funksioni për gjenerimin e CAPTCHA
+            function generateCaptcha() {
+                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return captcha;
+            }
+            
+            // Funksioni për të shfaqur mesazhin e bllokimit të llogarisë
+            function showAccountLockedMessage(minutes) {
+                const securityAlert = document.getElementById('securityAlert');
+                securityAlert.style.display = 'block';
+                securityAlert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Llogaria është përkohësisht e bllokuar</strong>
+                    <p>Për shkak të shumë përpjekjeve të dështuara, ju lutemi provoni përsëri pas ${minutes} minutash.</p>
+                `;
+                
+                // Bllokojmë fushat e formës
+                usernameInput.disabled = true;
+                passwordInput.disabled = true;
+                document.querySelector('.login-btn').disabled = true;
+            }
+            
+            // Funksioni për të treguar paralajmërimin e përpjekjeve
+            function showAttemptsWarning(attempts) {
+                const attemptsWarning = document.getElementById('attemptsWarning');
+                const remaining = maxLoginAttempts - attempts;
+                
+                if (attempts > 0) {
+                    attemptsWarning.style.display = 'block';
+                    attemptsWarning.innerHTML = `
+                        <i class="fas fa-exclamation-circle"></i>
+                        Kujdes: Ju keni edhe ${remaining} përpjekje përpara se llogaria të bllokohet përkohësisht.
+                    `;
+                }
+                
+                if (attempts >= 2) {
+                    // Aktivizojmë CAPTCHA pas dy përpjekjeve të dështuara
+                    document.getElementById('captchaContainer').style.display = 'block';
+                }
+            }
+            
+            // Funksioni për të kontrolluar forcën e fjalëkalimit
+            function checkPasswordStrength(password) {
+                const passwordStrength = document.getElementById('passwordStrength');
+                let strength = 0;
+                
+                // Kriteret për forcën e fjalëkalimit
+                if (password.length >= 8) strength += 25;
+                if (password.match(/[A-Z]/)) strength += 25;
+                if (password.match(/[0-9]/)) strength += 25;
+                if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+                
+                // Përditësojmë shiritin e forcës së fjalëkalimit
+                passwordStrength.style.width = `${strength}%`;
+                
+                // Ndryshojmë ngjyrën bazuar në forcën
+                if (strength <= 25) {
+                    passwordStrength.style.backgroundColor = '#f44336'; // E dobët (e kuqe)
+                } else if (strength <= 50) {
+                    passwordStrength.style.backgroundColor = '#ff9800'; // Mesatare (portokalli)
+                } else if (strength <= 75) {
+                    passwordStrength.style.backgroundColor = '#ffc107'; // E mirë (e verdhë)
+                } else {
+                    passwordStrength.style.backgroundColor = '#4caf50'; // E fortë (jeshile)
+                }
+            }
+            
+            // Funksioni për të kontrolluar për tentativa sulmi XSS
+            function checkForXSS(input) {
+                const xssPattern = /<script|<\/script|javascript:|onerror=|onload=|eval\(|<iframe|<img|alert\(|document\.cookie|onclick=/i;
+                return xssPattern.test(input);
+            }
+            
+            // Funksioni për të kontrolluar për tentativa sulmi SQL injection
+            function checkForSQLInjection(input) {
+                const sqlPattern = /(\%27)|(\')|(\-\-)|(ALTER TABLE)|(\;)|(DROP TABLE)|(UNION SELECT)|(SELECT \*)/i;
+                return sqlPattern.test(input);
+            }
+            
+            // Funksioni për të startuar kohëmatësin e sesionit
+            function startSessionTimer() {
+                let timeLeft = 2 * 60; // 2 minuta në sekonda
+                const timerDisplay = document.getElementById('sessionTimer');
+                const sessionWarning = document.getElementById('sessionExpireWarning');
+                
+                // Pastrojmë çdo timer ekzistues
+                if (window.sessionInterval) clearInterval(window.sessionInterval);
+                
+                // Nisim kohëmatësin e ri
+                window.sessionInterval = setInterval(function() {
+                    const minutes = Math.floor(timeLeft / 60);
+                    let seconds = timeLeft % 60;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+                    
+                    timerDisplay.textContent = `${minutes}:${seconds}`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(window.sessionInterval);
+                        window.location.href = 'index.html'; // Kthim në faqen kryesore pas skadimit
+                    } else if (timeLeft === 30) {
+                        // Tregojmë paralajmërimin kur mbesin 30 sekonda
+                        sessionWarning.style.display = 'block';
+                    }
+                    
+                    timeLeft--;
+                }, 1000);
+            }
+            
+            // Funksioni për të fshehur paralajmërimin e skadimit të sesionit
+            function hideSessionExpireWarning() {
+                document.getElementById('sessionExpireWarning').style.display = 'none';
+            }
+            
+            // Password visibility toggle
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                const icon = this.querySelector('i');
+                if (type === 'password') {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                } else {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+            });
+            
+            // Monitorojmë ndryshimet në fushën e fjalëkalimit
+            passwordInput.addEventListener('input', function() {
+                checkPasswordStrength(this.value);
+            });
+            
+            // Form submission with advanced security checks
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (isLocked) {
+                    return; // Nëse llogaria është e bllokuar, nuk lejojmë kyçje
+                }
+                
+                // Marrim vlerat e formës
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const captchaContainer = document.getElementById('captchaContainer');
+                
+                // Kontrollo për sulme të mundshme
+                if (checkForXSS(username) || checkForXSS(password) || 
+                    checkForSQLInjection(username) || checkForSQLInjection(password)) {
+                    
+                    // Regjistrojmë tentativën e dyshimtë
+                    console.log('Tentativë e dyshimtë: Sulm i mundshëm i sigurisë');
+                    
+                    // Tregojmë mesazhin e sigurisë
+                    const securityAlert = document.getElementById('securityAlert');
+                    securityAlert.style.display = 'block';
+                    securityAlert.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Paralajmërim sigurie</strong>
+                        <p>Është zbuluar një aktivitet i dyshimtë. Kjo përpjekje është regjistruar.</p>
+                    `;
+                    
+                    // Rrisim numrin e përpjekjeve
+                    loginAttempts++;
+                    showAttemptsWarning(loginAttempts);
+                    
+                    return;
+                }
+                
+                // Kontrollo CAPTCHA nëse është e aktivizuar
+                if (captchaContainer.style.display === 'block') {
+                    const captchaInput = document.getElementById('captchaInput').value;
+                    const captchaText = document.querySelector('#captchaImage span').textContent;
+                    
+                    if (captchaInput !== captchaText) {
+                        const securityAlert = document.getElementById('securityAlert');
+                        securityAlert.style.display = 'block';
+                        securityAlert.innerHTML = `
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>CAPTCHA e pasaktë</strong>
+                            <p>Ju lutem shkruani kodin CAPTCHA saktësisht siç tregohet.</p>
+                        `;
+                        
+                        // Rigjenerojmë CAPTCHA
+                        document.querySelector('#captchaImage span').textContent = generateCaptcha();
+                        return;
+                    }
+                }
+                
+                // Show loading indicator
+                loadingIndicator.style.display = 'flex';
+                
+                // Simulate login process with security validation
+                setTimeout(function() {
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Demo: Verifikojmë kredencialet
+                    // Në një implementim të vërtetë, kjo do të bëhej në server
+                    const demoCredentials = {
+                        user1: 'password1',
+                        nxenesi: 'test123',
+                        admin: 'admin123'
+                    };
+                    
+                    if (demoCredentials[username] === password) {
+                        // Kyçja e suksesshme
+                        
+                        // Ruajmë kohën e kyçjes (për auditim)
+                        localStorage.setItem('lastLogin', new Date().toISOString());
+                        
+                        // Rivendosim numëruesin e përpjekjeve
+                        loginAttempts = 0;
+                        localStorage.removeItem('accountLocked');
+                        
+                        // Startojmë kohëmatësin e sesionit
+                        startSessionTimer();
+                        
+                        // Për qëllime demo, ridrejtojmë te dashboard
+                        window.location.href = 'dashboard_nxenes.html';
+                    } else {
+                        // Kyçja dështoi
+                        loginAttempts++;
+                        
+                        // Tregojmë paralajmërimin e përpjekjeve
+                        showAttemptsWarning(loginAttempts);
+                        
+                        // Kontrollojmë nëse llogaria duhet bllokuar
+                        if (loginAttempts >= maxLoginAttempts) {
+                            isLocked = true;
+                            
+                            // Vendosim kohën e bllokimit (15 minuta)
+                            const lockExpiry = new Date().getTime() + (15 * 60 * 1000);
+                            localStorage.setItem('accountLocked', JSON.stringify({
+                                expiry: lockExpiry
+                            }));
+                            
+                            // Tregojmë mesazhin e bllokimit
+                            showAccountLockedMessage(15);
+                        } else {
+                            // Tregojmë mesazhin e gabimit
+                            const securityAlert = document.getElementById('securityAlert');
+                            securityAlert.style.display = 'block';
+                            securityAlert.innerHTML = `
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <strong>Kyçja dështoi</strong>
+                                <p>Emri i përdoruesit ose fjalëkalimi është i gabuar. Ju lutem provoni përsëri.</p>
+                            `;
+                            
+                            // Rigjenerojmë CAPTCHA nëse është e aktivizuar
+                            if (captchaContainer.style.display === 'block') {
+                                document.querySelector('#captchaImage span').textContent = generateCaptcha();
+                                document.getElementById('captchaInput').value = '';
+                            }
+                        }
+                    }
+                }, 1500);
+            });
+            
+            // Forgot password click handler
+            forgotPassword.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Formë më e sigurt për rivendosjen e fjalëkalimit
+                const username = prompt('Ju lutemi shkruani emrin e përdoruesit për të rivendosur fjalëkalimin:');
+                
+                if (username) {
+                    alert(`Nëse llogaria "${username}" ekziston, një email për rivendosjen e fjalëkalimit do të dërgohet në adresën e emailit të regjistruar. Për pyetje shtesë, ju lutemi kontaktoni shkollën.`);
+                }
+            });
+            
+            // Add ripple effect to login button
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.addEventListener('click', function(e) {
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.top = y + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.width = '0';
+                ripple.style.height = '0';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transition = 'all 0.6s ease';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.style.width = '300px';
+                    ripple.style.height = '300px';
+                    ripple.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+            
+            // Animation for form controls
+            const formControls = document.querySelectorAll('.form-control');
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    const icon = this.nextElementSibling;
+                    icon.style.transform = 'scale(1.1)';
+                    icon.style.opacity = '1';
+                });
+                
+                control.addEventListener('blur', function() {
+                    const icon = this.nextElementSibling;
+                    icon.style.transform = 'scale(1)';
+                    if (!this.value) {
+                        icon.style.opacity = '0.7';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
